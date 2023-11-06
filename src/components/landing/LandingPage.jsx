@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import CompanyImpact from './CompanyImpact';
 
 function LandingPage() {
   return (
@@ -7,12 +8,14 @@ function LandingPage() {
       <Box sx={{ my: 4 }}>
         {/* Imagen de Encabezado o Carrousel */}
         <Box sx={{ mb: 4 }}>
-          <img 
-            src="https://horizonteadigital.com/wp-content/uploads/2013/12/Go-green-HD-wallpaper.jpg" 
-            alt="Descripción de la imagen" 
-            style={{ width: '100%', borderRadius: '8px' }} 
+          <img
+            src="https://horizonteadigital.com/wp-content/uploads/2013/12/Go-green-HD-wallpaper.jpg"
+            alt="Descripción de la imagen"
+            style={{ width: '100%', borderRadius: '8px' }}
           />
         </Box>
+
+        <CompanyImpact />
 
         {/* Tarjetas de Información */}
         <Grid container spacing={3}>
