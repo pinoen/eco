@@ -18,6 +18,9 @@ const buttonStyle = {
   fontWeight: '700',
   lineHeight: '20px',
   textTransform: 'capitalize',
+  '&:hover': {
+    backgroundColor: '#6100EA',
+  },
 }
 
 const boxStyle = {
