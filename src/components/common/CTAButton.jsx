@@ -1,5 +1,6 @@
 import { Box, Button } from '@mui/material'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const buttonStyle = {
   width: '152px',
@@ -34,7 +35,7 @@ const boxStyle = {
 const CTAButton = ({ children }) => {
   return (
     <Box sx={boxStyle}>
-      <Button sx={buttonStyle}>{children}</Button>
+      <Link to="/register"><Button sx={buttonStyle}>{children}</Button></Link>
     </Box>
   )
 }
