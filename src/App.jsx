@@ -20,7 +20,10 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/publicaciones" element={<Publicaciones />} />
             <Route path="/layout" element={<Layout_ex />} />
-            <Route path="/login" element={<Login />} />
+            {/* vista para inicia sesion */}
+            <Route path="/ingresa" element={<Login user={true} />} />
+            {/* vista para registrate */}
+            <Route path="/registrate" element={<Login />} />
             {/* Agregar rutas necesarias */}
           </Routes>
           <Footer />

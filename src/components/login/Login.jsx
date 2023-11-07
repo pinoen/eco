@@ -12,12 +12,9 @@ import google from "../../assets/login/google.png";
 const Logo = styled("img")({
   height: 75,
   width: 80,
-  marginBottom: 15,
 });
 
-const user = false; // variable para saber si el usuario esta registrado o no
-
-function LoginCard() {
+function LoginCard({ user }) {
   return (
     <Box
       sx={{
@@ -32,6 +29,7 @@ function LoginCard() {
           backgroundImage:
             "url(https://s3-alpha-sig.figma.com/img/4369/010e/e2ffa5e4c8bf751bceb287ec6e3df4fb?Expires=1700438400&Signature=aId3lKOSnfIToCTQJvZR2awbqhtt7elN9O-PWxUl51abK8-phnBYMBkHXAaMRlN6Ims2CEGQCSTWVRIGI9P7ME9qc88HZ2-kup9adICPWFzVZXHRGn-EAUhoX-NOH80mWW7azvSjXs0CNUOkLxeQuB2AMsbhPD-UXXCATGog8Y90fmxRWvEQBWvsjR85Kuk8OiCFPNCCzsvn81~nSXuSu7SVKI0z7jjRT~6z~9GPK2bUlepZElp6AEEEk5gTi2jfAiqsYT2nILVFEnPrj9h0z1J2H7bmAd9RIGWsbkzjk5JWVMqVrRfRz4~6PRnpzJGpzgEP-ZJlR3ypeNwLN-j6og__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)", // replace {backgroundImageUrl} with your image url
           backgroundSize: "cover",
+          backgroundPosition: "center",
           opacity: 0.5,
           zIndex: -1,
         },
@@ -46,8 +44,8 @@ function LoginCard() {
           position: "relative",
           top: 168,
           margin: "auto",
-          maxWidth: 320,
-          minHeight: 328,
+          maxWidth: 328,
+          minHeight: 320,
           paddingBottom: 4,
           background: "#FAFAFA",
           borderRadius: 2,
@@ -73,9 +71,10 @@ function LoginCard() {
                   fontWeight: 700,
                   lineHeight: "30px",
                   letterSpacing: 0,
+                  fontFamily: "Nunito",
                 }}
               >
-                {user ? "Iniciar Sesion" : "Registrate"}
+                {user ? "Inicia sesión" : "Registrate"}
               </Typography>
               <Typography
                 sx={{
@@ -84,9 +83,12 @@ function LoginCard() {
                   fontWeight: 600,
                   lineHeight: "30px",
                   letterSpacing: 0,
+                  fontFamily: "Nunito",
                 }}
               >
-                {user ? "Loremipsu" : "Sumate a ECOSistema"}
+                {user
+                  ? "Seguí disfrutando de ECOSistema"
+                  : "Sumate a ECOSistema"}
               </Typography>
             </Box>
             <Logo src={logo} alt="App Logo" />
@@ -105,9 +107,12 @@ function LoginCard() {
                 fontWeight: 500,
                 lineHeight: "30px",
                 letterSpacing: 0,
+                fontFamily: "Nunito",
               }}
             >
-              {user ? "Iniciar Sesion" : "Registrate con tu cuenta de Gmail"}
+              {user
+                ? "Ingresá con tu cuenta de Gmail"
+                : "Registrate con tu cuenta de Gmail"}
             </Typography>
             <Button
               sx={{
@@ -119,6 +124,7 @@ function LoginCard() {
                 alignItems: "center",
                 gap: "4px",
                 textTransform: "none",
+                fontFamily: "Nunito",
               }}
             >
               <img
