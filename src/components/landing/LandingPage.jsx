@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import CompanyImpact from './CompanyImpact';
+import CTA from './CTA';
+import CTAButton from '../common/CTAButton';
 
 function LandingPage() {
   return (
@@ -16,6 +18,8 @@ function LandingPage() {
         </Box>
 
         <CompanyImpact />
+        <CTA />
+        <CTAButton>Registrate</CTAButton>
 
         {/* Tarjetas de Información */}
         <Grid container spacing={3}>
