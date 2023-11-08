@@ -21,6 +21,9 @@ const theme = createTheme({
     violetas: {
       medium: "#4E169D",
     },
+    grey: {
+      main: "#EAEAEA",
+    },
   },
   typography: {
     titulos: {
