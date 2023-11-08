@@ -16,7 +16,7 @@ function Navbar() {
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Nombre sitio
         </Typography>
-        <Button color="inherit" href="/">
+        {/* <Button color="inherit" href="/">
           Inicio
         </Button>
         <Button color="inherit" href="/dashboard">
@@ -30,7 +30,7 @@ function Navbar() {
         </Button>
         <Button color="inherit" href="/proveedores">
           Proveedores
-        </Button>
+        </Button> */}
       </Toolbar>
     </AppBar>
   );
