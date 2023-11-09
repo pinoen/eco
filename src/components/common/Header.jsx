@@ -12,6 +12,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import CssBaseline from "@mui/material/CssBaseline";
+import CloseIcon from '@mui/icons-material/Close';
+import './Header.css'
 
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
@@ -36,38 +38,27 @@ function Navbar(props) {
         <Link to='/'>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemText
-                primary={"Proveedores"}
-                sx={{ color: "whitesmoke" }}
-              />
+              <p className="navbarItems">Proveedores</p>
             </ListItemButton>
           </ListItem>
         </Link>
 
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemText
-              primary={"Publicaciones"}
-              sx={{ color: "whitesmoke" }}
-            />
+            <p className="navbarItems">Publicaciones</p>
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemText
-              primary={"Iniciá sesión"}
-              sx={{ color: "whitesmoke" }}
-            />
+            <p className="navbarItems">Iniciá sesión</p>
           </ListItemButton>
         </ListItem>
 
+        <p className="registerTextNavbar"> ¿Querés formar parte de la Red de impacto ECO como Proveedor? </p>
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemText
-              primary={"Registrate"}
-              sx={{ color: "whitesmoke" }}
-            />
+            <p className="navbarItems">Registrate</p>            
           </ListItemButton>
         </ListItem>
       </List>
@@ -93,14 +84,12 @@ function Navbar(props) {
         <Toolbar
           sx={{ gap: "20px", display: "flex", justifyContent: "space-around" }}
         >
-          <IconButton
-            color="black"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-          >
-            <MenuIcon color="black" />
-          </IconButton>
+          {
+          !mobileOpen ?
+          <MenuIcon color="black" onClick={handleDrawerToggle}/>:
+          <CloseIcon onClick={()=>handleDrawerToggle()}/>
+        }
+        
           <Link to="/" style={{ color: "whitesmoke" }}>
             <img src={logo} alt="" />
           </Link>
