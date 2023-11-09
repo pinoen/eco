@@ -81,7 +81,7 @@ function Navbar(props) {
         color="white"
         sx={{
           width: "100%",
-          height: "10vh",
+          height: "auto", //aca
           zIndex: "10",
         }}
       >
@@ -96,19 +96,24 @@ function Navbar(props) {
           >
             <MenuIcon color="black" />
           </IconButton>
-          <Link to="/" style={{ color: "whitesmoke" }}>
+          <Link to="/" style={{ color: "whitesmoke", height: "56px" }}>
+            {/* //aca el height ==> */}
             <img src={logo} alt="" />
           </Link>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <AccountCircleOutlinedIcon color="black" />
-            <div>Ingresá</div>
-          </Box>
+          {/* agregue link para que redireccione al login y agregue color a box porque link lo cambiaba */}
+          <Link to="/ingresa">
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                height: "40px", //aca
+              }}
+            >
+              <AccountCircleOutlinedIcon color="black" />
+              <Box sx={{ height: "16px", color: "#000" }}>Ingresá</Box>
+            </Box>
+          </Link>
         </Toolbar>
       </AppBar>
       <Box component="nav" aria-label="mailbox folders">

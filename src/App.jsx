@@ -26,7 +26,7 @@ function App() {
             <Route path="/registrate" element={<Login />} />
             {/* Agregar rutas necesarias */}
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
         </Router>
       </ThemeProvider>
     </>

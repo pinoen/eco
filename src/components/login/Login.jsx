@@ -19,22 +19,20 @@ function LoginCard({ user }) {
     <Box
       sx={{
         height: "calc(100vh - 56px)", // 56px height que deberia tener el nav
-        "::after": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage:
-            "url(https://s3-alpha-sig.figma.com/img/4369/010e/e2ffa5e4c8bf751bceb287ec6e3df4fb?Expires=1700438400&Signature=aId3lKOSnfIToCTQJvZR2awbqhtt7elN9O-PWxUl51abK8-phnBYMBkHXAaMRlN6Ims2CEGQCSTWVRIGI9P7ME9qc88HZ2-kup9adICPWFzVZXHRGn-EAUhoX-NOH80mWW7azvSjXs0CNUOkLxeQuB2AMsbhPD-UXXCATGog8Y90fmxRWvEQBWvsjR85Kuk8OiCFPNCCzsvn81~nSXuSu7SVKI0z7jjRT~6z~9GPK2bUlepZElp6AEEEk5gTi2jfAiqsYT2nILVFEnPrj9h0z1J2H7bmAd9RIGWsbkzjk5JWVMqVrRfRz4~6PRnpzJGpzgEP-ZJlR3ypeNwLN-j6og__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)", // replace {backgroundImageUrl} with your image url
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.5,
-          zIndex: -1,
-        },
       }}
     >
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          backgroundImage:
+            "linear-gradient(0deg, rgba(34, 34, 34, 0.50) 0%, rgba(34, 34, 34, 0.50) 100%), url(https://s3-alpha-sig.figma.com/img/4369/010e/e2ffa5e4c8bf751bceb287ec6e3df4fb?Expires=1700438400&Signature=aId3lKOSnfIToCTQJvZR2awbqhtt7elN9O-PWxUl51abK8-phnBYMBkHXAaMRlN6Ims2CEGQCSTWVRIGI9P7ME9qc88HZ2-kup9adICPWFzVZXHRGn-EAUhoX-NOH80mWW7azvSjXs0CNUOkLxeQuB2AMsbhPD-UXXCATGog8Y90fmxRWvEQBWvsjR85Kuk8OiCFPNCCzsvn81~nSXuSu7SVKI0z7jjRT~6z~9GPK2bUlepZElp6AEEEk5gTi2jfAiqsYT2nILVFEnPrj9h0z1J2H7bmAd9RIGWsbkzjk5JWVMqVrRfRz4~6PRnpzJGpzgEP-ZJlR3ypeNwLN-j6og__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          position: "absolute",
+        }}
+      ></Box>
       <Card //card registro
         sx={{
           display: "flex",
@@ -42,13 +40,14 @@ function LoginCard({ user }) {
           alignItems: "center",
           textAlign: "center",
           position: "relative",
-          top: 168,
+          top: 224,
           margin: "auto",
           maxWidth: 328,
           minHeight: 320,
           paddingBottom: 4,
           background: "#FAFAFA",
           borderRadius: 2,
+          zIndex: 10,
         }}
       >
         <Box>
