@@ -78,15 +78,14 @@ function Navbar(props) {
           width: "100%",
           height: '10vh',
           zIndex: '10',
-          
         }}
       >
         <Toolbar
           sx={{ gap: "20px", display: "flex", justifyContent: "space-around" }}
         >
-          {
+        {
           !mobileOpen ?
-          <MenuIcon color="black" onClick={handleDrawerToggle}/>:
+          <MenuIcon onClick={handleDrawerToggle}/>:
           <CloseIcon onClick={()=>handleDrawerToggle()}/>
         }
         
