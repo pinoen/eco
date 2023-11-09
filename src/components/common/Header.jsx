@@ -31,7 +31,6 @@ function Navbar(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
 
       <List>
 
@@ -128,13 +127,10 @@ function Navbar(props) {
           flexGrow: 1,
           py: 4,
           width: "100%",
-          minHeight: "100vh",
+          minHeight: "20vh",
           px: 2,
         }}
       >
-        <Toolbar />
-
-        <Outlet />
       </Box>
     </Box>
   );
