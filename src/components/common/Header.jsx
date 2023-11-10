@@ -29,7 +29,6 @@ function Navbar(props) {
 
   const drawer = (
     <div>
-
       <List>
         <Link to="/">
           <ListItem disablePadding>
@@ -137,7 +136,7 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box
+      {/* <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -147,7 +146,7 @@ function Navbar(props) {
           px: 2,
         }}
       >
-      </Box>
+      </Box> */}
     </Box>
   );
 }
