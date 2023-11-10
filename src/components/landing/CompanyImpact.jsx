@@ -10,8 +10,6 @@ const h3Style = {
   lineHeight: '25px',
   padding: '8px 32px',
 }
-
-
 const pStyle = {
   color: '#222',
   fontSize: '16px',
