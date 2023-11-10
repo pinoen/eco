@@ -3,6 +3,7 @@ import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '
 import CompanyImpact from './CompanyImpact';
 import CTA from './CTA';
 import CTAButton from '../common/CTAButton';
+import Impact from './Impact';
 
 function LandingPage() {
   return (
@@ -17,6 +18,7 @@ function LandingPage() {
           />
         </Box>
 
+        <Impact />
         <CompanyImpact />
         <CTA />
         <CTAButton>Registrate</CTAButton>
