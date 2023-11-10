@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import allHands from '../../assets/images/allHands.png'
+import SearchBar from '../common/SearchBar'
 
-// background: linear - gradient(0deg, rgba(34, 34, 34, 0.70) 0 %, rgba(34, 34, 34, 0.70) 100 %), url(<path-to-image>), lightgray 50% / cover no-repeat;
 const boxStyle = {
   background: `linear-gradient(0deg, rgba(34, 34, 34, 0.70) 0%, rgba(34, 34, 34, 0.70) 100%), url(${allHands})`,
   backgroundSize: 'cover',
@@ -40,6 +40,7 @@ const pStyle = {
 const Impact = () => {
   return (
     <Box sx={boxStyle}>
+      <SearchBar />
       <Typography variant='h3' sx={h3Style}>RED DE IMPACTO</Typography>
       <Typography variant='p' sx={pStyle}>Conectamos proveedores y personas comprometidas con el impacto y el consumo consciente</Typography>
 
