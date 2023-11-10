@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material'
+import theme from '../../theme/theme'
 
 const h3Style = {
-  color: '#4E169D',
+  color: 'primary.main',
   fontSize: '22px',
   fontFamily: 'Nunito',
   textAlign: 'center',
@@ -11,7 +12,7 @@ const h3Style = {
   padding: '8px 32px',
 }
 const pStyle = {
-  color: '#222',
+  color: 'black.main',
   fontSize: '16px',
   fontFamily: 'Nunito',
   textAlign: 'center',
@@ -21,15 +22,15 @@ const pStyle = {
 }
 
 const boxStyle = {
-  backgroundColor: '#fafafa',
+  backgroundColor: 'white.main',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   padding: '40px 16px',
   gap: '8px',
-  borderTop: '1px solid #4E169D',
-  borderBottom: '1px solid #4E169D',
+  borderTop: `1px solid ${theme.palette.primary.main}`,
+  borderBottom: `1px solid ${theme.palette.primary.main}`,
   width: '327px',
   height: '192px',
 }

@@ -10,8 +10,8 @@ const buttonStyle = {
   alignItems: 'center',
   gap: '10px',
   borderRadius: '100px',
-  backgroundColor: '#4E169D',
-  color: '#fafafa',
+  backgroundColor: 'primary.main',
+  color: 'white.main',
   fontFamily: 'Nunito',
   fontSize: '16px',
   fontStyle: 'normal',
@@ -24,7 +24,7 @@ const buttonStyle = {
 }
 
 const boxStyle = {
-  backgroundColor: '#fafafa',
+  backgroundColor: 'white.main',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
