@@ -138,7 +138,7 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box
+      {/* <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -151,7 +151,7 @@ function Navbar(props) {
         <Toolbar />
 
         <Outlet />
-      </Box>
+      </Box> */}
     </Box>
   );
 }
