@@ -12,6 +12,7 @@ const h2Style = {
   width: '327px',
   height: '80px',
   padding: '45px 16px 16px 16px',
+  marginBottom: '48px',
 }
 
 const CTA = () => {

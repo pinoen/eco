@@ -13,6 +13,7 @@ const boxStyle = {
   justifyContent: 'center',
   alignItems: 'left',
   paddingLeft: '16px',
+  marginBottom: '40px',
 }
 
 
