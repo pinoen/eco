@@ -7,7 +7,7 @@ import Impact from './Impact';
 function LandingPage() {
   return (
     <Container>
-      <Box sx={{ my: 4 }}>
+      <Box sx={{ my: 4, backgroundColor: 'white.main' }}>
         <Impact />
         <CompanyImpact />
         <CTA />
