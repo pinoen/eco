@@ -15,7 +15,7 @@ const SearchBar = () => {
           fontStyle: 'normal',
           fontWeight: '400',
           lineHeight: '24px',
-          width: '328px',
+          width: '312px',
           height: '56px',
           alignItems: 'center',
           borderRadius: '100px',
