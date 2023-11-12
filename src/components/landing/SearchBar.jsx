@@ -4,7 +4,7 @@ import { Box, InputAdornment, TextField } from "@mui/material"
 
 export const SearchBar = () => {
   return (
-    <Box sx={{mt:5,mb:5, width:"90%"}}>
+    <Box sx={{mt:5,mb:5, width:328,height:56,color:"#222"}}>
       <TextField
       
       id="Buscador"
