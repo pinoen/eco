@@ -38,7 +38,7 @@ const boxStyle = {
 const CTAButton = ({ children }) => {
   return (
     <Box sx={boxStyle}>
-      <Link to="/register"><Button sx={buttonStyle}>{children}</Button></Link>
+      <Link to="/ingresa"><Button sx={buttonStyle}>{children}</Button></Link>
     </Box>
   )
 }
