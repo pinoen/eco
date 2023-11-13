@@ -20,7 +20,9 @@ function LandingPage() {
         <Hero />
         <CompanyImpact />
         <CTA />
-        <CTAButton>Registrate</CTAButton>
+        <Container>
+          <CTAButton>Registrate</CTAButton>
+        </Container>
 
         {/* Tarjetas de Información */}
         <Grid container spacing={3}>
