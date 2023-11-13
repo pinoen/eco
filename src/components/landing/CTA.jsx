@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 
 const h2Style = {
+  marginBottom:"48px",
   color: 'black.main',
   textAlign: 'center',
   fontFamily: 'Nunito',

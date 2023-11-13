@@ -11,8 +11,6 @@ const h3Style = {
   lineHeight: '25px',
   padding: '8px 32px',
 }
-
-
 const pStyle = {
   color: 'black.main',
   fontSize: '16px',
