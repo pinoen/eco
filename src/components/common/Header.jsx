@@ -12,6 +12,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CssBaseline from "@mui/material/CssBaseline";
+import CloseIcon from "@mui/icons-material/Close";
+import "./Header.css";
 
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
@@ -33,37 +35,44 @@ function Navbar(props) {
         <Link to="/">
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemText
-                primary={"Proveedores"}
-                sx={{ color: "whitesmoke" }}
-              />
+              <p className="navbarItems">Inicio</p>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+
+        <Link to="/">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <p className="navbarItems">Proveedores</p>
             </ListItemButton>
           </ListItem>
         </Link>
 
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemText
-              primary={"Publicaciones"}
-              sx={{ color: "whitesmoke" }}
-            />
+            <p className="navbarItems">Publicaciones</p>
           </ListItemButton>
         </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText
-              primary={"Iniciá sesión"}
-              sx={{ color: "whitesmoke" }}
-            />
-          </ListItemButton>
-        </ListItem>
+        <Link to="/ingresa">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <p className="navbarItems">Iniciá sesión</p>
+            </ListItemButton>
+          </ListItem>
+        </Link>
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText primary={"Registrate"} sx={{ color: "whitesmoke" }} />
-          </ListItemButton>
-        </ListItem>
+        <p className="registerTextNavbar">
+          {" "}
+          ¿Querés formar parte de la Red de impacto ECO como Proveedor?{" "}
+        </p>
+        <Link to="/registrate">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <p className="navbarItems">Registrate</p>
+            </ListItemButton>
+          </ListItem>
+        </Link>
       </List>
     </div>
   );
@@ -79,26 +88,22 @@ function Navbar(props) {
         color="white"
         sx={{
           width: "100%",
-          height: "auto", //aca
+          height: "auto",
           zIndex: "10",
         }}
       >
         <Toolbar
           sx={{ gap: "20px", display: "flex", justifyContent: "space-around" }}
         >
-          <IconButton
-            color="black"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-          >
-            <MenuIcon color="black" />
-          </IconButton>
+          {!mobileOpen ? (
+            <MenuIcon onClick={handleDrawerToggle} />
+          ) : (
+            <CloseIcon onClick={() => handleDrawerToggle()} />
+          )}
+
           <Link to="/" style={{ color: "whitesmoke", height: "56px" }}>
-            {/* //aca el height ==> */}
             <img src={logo} alt="" />
           </Link>
-          {/* agregue link para que redireccione al login y agregue color a box porque link lo cambiaba */}
           <Link to="/ingresa">
             <Box
               sx={{
@@ -126,8 +131,8 @@ function Navbar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              height: "90vh",
-              top: "10vh",
+              height: "calc(100vh - 56px)",
+              top: "56px",
               backgroundColor: "#4E169D",
               zIndex: "1",
             },
@@ -145,8 +150,7 @@ function Navbar(props) {
           minHeight: "20vh",
           px: 2,
         }}
-      >
-      </Box> */}
+      ></Box> */}
     </Box>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { apiUrl, googleClientID } from "../../constants";
 import axios from "axios";
 
 import Button from "@mui/material/Button";
@@ -11,7 +12,6 @@ import { Box } from "@mui/material";
 
 import logo from "../../assets/login/logoLogin.png";
 import google from "../../assets/login/google.png";
-import { apiUrl, googleClientID } from "../../constants";
 
 const Logo = styled("img")({
   height: 75,
@@ -141,10 +141,15 @@ function LoginCard({ user }) {
             </Typography>
             <GoogleOAuthProvider clientId={googleClientID}>
               <GoogleLogin
+                className="buttonLogin"
                 onSuccess={handleGoogleSuccess}
                 onError={() => {
                   console.log("Login Failed");
                 }}
+                theme="filled_black"
+                size="medium"
+                shape="circle"
+                context={user ? "signin" : "signup"}
                 useOneTap
               >
                 <Button
