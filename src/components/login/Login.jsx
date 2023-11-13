@@ -1,5 +1,8 @@
 import React from "react";
 
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -8,6 +11,7 @@ import { Box } from "@mui/material";
 
 import logo from "../../assets/login/logoLogin.png";
 import google from "../../assets/login/google.png";
+import { apiUrl } from "../../constants";
 
 const Logo = styled("img")({
   height: 75,
@@ -15,6 +19,28 @@ const Logo = styled("img")({
 });
 
 function LoginCard({ user }) {
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log(credentialResponse);
+
+    // Verificar si existe la propiedad "credential"
+    if (credentialResponse && credentialResponse.credential) {
+      axios
+        .post(`${apiUrl}/auth/login`, {
+          tokenId: credentialResponse.credential,
+        })
+        .then((res) => {
+          // Guarda el token JWT u otra respuesta del backend
+          console.log("RES", res);
+          localStorage.setItem("authToken", res.data.token);
+        })
+        .catch((error) => {
+          console.error("Error al autenticar con Google en el backend:", error);
+        });
+    } else {
+      console.error("Fallo en la autenticación de Google:", credentialResponse);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -113,30 +139,43 @@ function LoginCard({ user }) {
                 ? "Ingresá con tu cuenta de Gmail"
                 : "Registrate con tu cuenta de Gmail"}
             </Typography>
-            <Button
-              sx={{
-                background: "#4E169D",
-                color: "#FAFAFA",
-                borderRadius: "100px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "4px",
-                textTransform: "none",
-                fontFamily: "Nunito",
-              }}
+            <GoogleOAuthProvider
+              clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
             >
-              <img
-                src={google}
-                alt="logo google"
-                style={{
-                  background: "#FAFAFA",
-                  borderRadius: "100px",
-                  padding: "3px",
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => {
+                  console.log("Login Failed");
                 }}
-              />
-              Continuá con Google
-            </Button>
+                useOneTap
+              >
+                <Button
+                  // onClick={handleGoogleLogin}
+                  sx={{
+                    background: "#4E169D",
+                    color: "#FAFAFA",
+                    borderRadius: "100px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "4px",
+                    textTransform: "none",
+                    fontFamily: "Nunito",
+                  }}
+                >
+                  <img
+                    src={google}
+                    alt="logo google"
+                    style={{
+                      background: "#FAFAFA",
+                      borderRadius: "100px",
+                      padding: "3px",
+                    }}
+                  />
+                  Continuá con Google
+                </Button>
+              </GoogleLogin>
+            </GoogleOAuthProvider>
           </Box>
         </Box>
       </Card>
