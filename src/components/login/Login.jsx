@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 
 import logo from "../../assets/login/logoLogin.png";
 import google from "../../assets/login/google.png";
-import { apiUrl } from "../../constants";
+import { apiUrl, googleClientID } from "../../constants";
 
 const Logo = styled("img")({
   height: 75,
@@ -23,22 +23,22 @@ function LoginCard({ user }) {
     console.log(credentialResponse);
 
     // Verificar si existe la propiedad "credential"
-    if (credentialResponse && credentialResponse.credential) {
-      axios
-        .post(`${apiUrl}/auth/login`, {
-          tokenId: credentialResponse.credential,
-        })
-        .then((res) => {
-          // Guarda el token JWT u otra respuesta del backend
-          console.log("RES", res);
-          localStorage.setItem("authToken", res.data.token);
-        })
-        .catch((error) => {
-          console.error("Error al autenticar con Google en el backend:", error);
-        });
-    } else {
-      console.error("Fallo en la autenticación de Google:", credentialResponse);
-    }
+    // if (credentialResponse && credentialResponse.credential) {
+    //   axios
+    //     .post(`${apiUrl}/auth/login`, {
+    //       tokenId: credentialResponse.credential,
+    //     })
+    //     .then((res) => {
+    //       // Guarda el token JWT u otra respuesta del backend
+    //       console.log("RES", res);
+    //       localStorage.setItem("authToken", res.data.token);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error al autenticar con Google en el backend:", error);
+    //     });
+    // } else {
+    //   console.error("Fallo en la autenticación de Google:", credentialResponse);
+    // }
   };
 
   return (
@@ -139,9 +139,7 @@ function LoginCard({ user }) {
                 ? "Ingresá con tu cuenta de Gmail"
                 : "Registrate con tu cuenta de Gmail"}
             </Typography>
-            <GoogleOAuthProvider
-              clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-            >
+            <GoogleOAuthProvider clientId={googleClientID}>
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
                 onError={() => {
@@ -150,7 +148,6 @@ function LoginCard({ user }) {
                 useOneTap
               >
                 <Button
-                  // onClick={handleGoogleLogin}
                   sx={{
                     background: "#4E169D",
                     color: "#FAFAFA",

@@ -1,20 +1,23 @@
-
-import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
-import CompanyImpact from './CompanyImpact';
-import CTA from './CTA';
-import CTAButton from '../common/CTAButton';
-import { Hero } from './Hero';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
+import CompanyImpact from "./CompanyImpact";
+import CTA from "./CTA";
+import CTAButton from "../common/CTAButton";
+import { Hero } from "./Hero";
 //import { SearchBar } from './SearchBar';
-
-
 
 function LandingPage() {
   return (
-    <Container>
-      <Box sx={{ my: 4 }}>
-        
-        <Hero></Hero>
-        
+    <Box>
+      <Box sx={{ marginTop: "56px" }}>
+        <Hero />
         <CompanyImpact />
         <CTA />
         <CTAButton>Registrate</CTAButton>
@@ -35,7 +38,8 @@ function LandingPage() {
                     Título {item}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Descripción detallada del contenido de esta tarjeta. Puede variar según el propósito de la tarjeta.
+                    Descripción detallada del contenido de esta tarjeta. Puede
+                    variar según el propósito de la tarjeta.
                   </Typography>
                 </CardContent>
               </Card>
@@ -43,7 +47,7 @@ function LandingPage() {
           ))}
         </Grid>
       </Box>
-    </Container>
+    </Box>
   );
 }
 
