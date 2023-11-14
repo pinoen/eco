@@ -1,4 +1,4 @@
-import { Box, Typography, Container } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import theme from "../../theme/theme";
 
 const h3Style = {
@@ -11,6 +11,7 @@ const h3Style = {
   lineHeight: "25px",
   padding: "8px 32px",
 };
+
 const pStyle = {
   color: "black.main",
   fontSize: "16px",
@@ -36,7 +37,7 @@ const boxStyle = {
 };
 const CompanyImpact = () => {
   return (
-    <Container sx={boxStyle}>
+    <Box sx={boxStyle}>
       <Typography variant="h3" sx={h3Style}>
         ¿Qué son las empresas de impacto?
       </Typography>
@@ -45,7 +46,7 @@ const CompanyImpact = () => {
         impacto positivo en la sociedad y el medio ambiente como parte integral
         de su modelo de negocio.
       </Typography>
-    </Container>
+    </Box>
   );
 };
 
