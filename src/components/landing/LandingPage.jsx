@@ -18,9 +18,8 @@ function LandingPage() {
         <Impact />
         <CompanyImpact />
         <CTA />
-        <Container>
-          <CTAButton>Registrate</CTAButton>
-        </Container>
+        <CTAButton>Registrate</CTAButton>
+
 
         {/* Tarjetas de Información */}
         <Grid container spacing={3}>
@@ -47,7 +46,7 @@ function LandingPage() {
           ))}
         </Grid>
       </Box>
-    </Box>
+    </Container>
   );
 }
 
