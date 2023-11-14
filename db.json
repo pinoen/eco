@@ -1,0 +1,167 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John",
+      "surname": "Doe",
+      "email": "johndoe@email.com",
+      "password": "1234",
+      "deleted": false,
+      "role": "admin",
+      "phone": "2994184677",
+      "suppliers": ["supplier1", "supplier2", "supplier3"]
+    },
+    {
+      "id": 2,
+      "name": "Jane",
+      "surname": "Doe",
+      "email": "janedoe@email.com",
+      "password": "1234",
+      "deleted": false,
+      "role": "admin",
+      "phone": "2994184677",
+      "suppliers": ["supplier1", "supplier2", "supplier3"]
+    },
+    {
+      "id": 3,
+      "name": "Peter",
+      "surname": "Doe",
+      "email": "peterdoe@email.com",
+      "password": "1234",
+      "deleted": false,
+      "role": "admin",
+      "phone": "2994184677",
+      "suppliers": ["supplier1", "supplier2", "supplier3"]
+    }
+  ],
+  "suppliers": [
+    {
+      "id": 1,
+      "name": "supplier1",
+      "description": "performing  tasks for supplier1",
+      "phone": "2994184677",
+      "email": "supplier1@email.com",
+      "facebook": "facebook.com/supplier1",
+      "instagram": "instagram.com/supplier1",
+      "country": 1,
+      "state": 1,
+      "city": "Medellin",
+      "images": [],
+      "category": 1,
+      "active": true,
+      "deleted": false,
+      "feedback": []
+    },
+    {
+      "id": 2,
+      "name": "supplier2",
+      "description": "performing  tasks for supplier2",
+      "phone": "2994184677",
+      "email": "supplier2@email.com",
+      "facebook": "facebook.com/supplier2",
+      "instagram": "instagram.com/supplier2",
+      "country": 1,
+      "state": 1,
+      "city": "Medellin",
+      "images": [],
+      "category": 1,
+      "active": true,
+      "deleted": false,
+      "feedback": []
+    },
+    {
+      "id": 3,
+      "name": "supplier3",
+      "description": "performing  tasks for supplier3",
+      "phone": "2994184677",
+      "email": "supplier3@email.com",
+      "facebook": "facebook.com/supplier3",
+      "instagram": "instagram.com/supplier3",
+      "country": 1,
+      "state": 1,
+      "city": "Medellin",
+      "images": [],
+      "category": 2,
+      "active": true,
+      "deleted": false,
+      "feedback": []
+    }
+  ],
+  "publications": [
+    {
+      "id": 1,
+      "title": "title1",
+      "description": "description for post1",
+      "deleted": false,
+      "created": "2022-01-01",
+      "images": [],
+      "visualizations": 0,
+      "user": 1
+    },
+    {
+      "id": 2,
+      "title": "title2",
+      "description": "description for post2",
+      "deleted": false,
+      "created": "2022-01-01",
+      "images": [],
+      "visualizations": 0,
+      "user": 1
+    },
+    {
+      "id": 3,
+      "title": "title3",
+      "description": "description for post3",
+      "deleted": false,
+      "created": "2022-01-01",
+      "images": [],
+      "visualizations": 0,
+      "user": 1
+    }
+  ],
+  "countries": [
+    {
+      "id": 1,
+      "name": "Colombia"
+    },
+    {
+      "id": 2,
+      "name": "Peru"
+    },
+    {
+      "id": 3,
+      "name": "Chile"
+    }
+  ],
+  "states": [
+    {
+      "id": 1,
+      "name": "Antioquia",
+      "countryID": 1
+    },
+    {
+      "id": 2,
+      "name": "Cundinamarca",
+      "countryID": 1
+    },
+    {
+      "id": 3,
+      "name": "Santander",
+      "countryID": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Verduras"
+    },
+    {
+      "id": 2,
+      "name": "Jardineria"
+    },
+    {
+      "id": 3,
+      "name": "Construccion"
+    }
+  ]
+}
