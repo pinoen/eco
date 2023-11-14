@@ -11,7 +11,7 @@ import { Hero } from './Hero';
 function LandingPage() {
   return (
     <Container>
-      <Box sx={{ my: 4 }}>
+      <Box sx={{ my: 4, display:"flex",flexDirection:"column",alignItems:"center" }}>
         
         <Hero></Hero>
         
