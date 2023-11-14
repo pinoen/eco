@@ -6,7 +6,7 @@ const boxStyle = {
   background: `linear-gradient(0deg, rgba(34, 34, 34, 0.70) 0%, rgba(34, 34, 34, 0.70) 100%), url(${allHands})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  width: '344px',
+  width: '360px',
   height: '488px',
   display: 'flex',
   flexDirection: 'column',
@@ -16,7 +16,6 @@ const boxStyle = {
   marginBottom: '40px',
 }
 
-
 const h3Style = {
   color: 'white.main',
   fontFamily: 'Nunito',
@@ -25,7 +24,6 @@ const h3Style = {
   fontWeight: '700',
   lineHeight: '24px',
 }
-
 
 const pStyle = {
   color: 'white.main',
@@ -44,8 +42,6 @@ const Impact = () => {
       <SearchBar />
       <Typography variant='h3' sx={h3Style}>RED DE IMPACTO</Typography>
       <Typography variant='p' sx={pStyle}>Conectamos proveedores y personas comprometidas con el impacto y el consumo consciente</Typography>
-
-
     </Box>
   )
 }
