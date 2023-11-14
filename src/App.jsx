@@ -8,27 +8,31 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Publicaciones from "./components/publicaciones/Publicaciones";
 import Layout_ex from "./components/layouts/Layout_ex";
 import Login from "./components/login/Login";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { googleClientID } from "./constants";
 
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/publicaciones" element={<Publicaciones />} />
-            <Route path="/layout" element={<Layout_ex />} />
-            {/* vista para inicia sesion */}
-            <Route path="/ingresa" element={<Login user={true} />} />
-            {/* vista para registrate */}
-            <Route path="/registrate" element={<Login />} />
-            {/* Agregar rutas necesarias */}
-          </Routes>
-          {/* <Footer /> */}
-        </Router>
-      </ThemeProvider>
+      <GoogleOAuthProvider clientId={googleClientID}>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/publicaciones" element={<Publicaciones />} />
+              <Route path="/layout" element={<Layout_ex />} />
+              {/* vista para inicia sesion */}
+              <Route path="/ingresa" element={<Login user={true} />} />
+              {/* vista para registrate */}
+              <Route path="/registrate" element={<Login />} />
+              {/* Agregar rutas necesarias */}
+            </Routes>
+            {/* <Footer /> */}
+          </Router>
+        </ThemeProvider>
+      </GoogleOAuthProvider>
     </>
   );
 }

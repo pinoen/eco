@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { apiUrl, googleClientID } from "../../constants";
 import axios from "axios";
 
@@ -19,6 +19,19 @@ const Logo = styled("img")({
 });
 
 function LoginCard({ user }) {
+  const googleLogin = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (codeResponse) => {
+      console.log(codeResponse);
+      const tokens = await axios.post("http://localhost:3001/auth/google", {
+        code: codeResponse.code,
+      });
+
+      console.log(tokens);
+    },
+    onError: (errorResponse) => console.log(errorResponse),
+  });
+
   const handleGoogleSuccess = (credentialResponse) => {
     console.log(credentialResponse);
 
@@ -139,45 +152,31 @@ function LoginCard({ user }) {
                 ? "Ingresá con tu cuenta de Gmail"
                 : "Registrate con tu cuenta de Gmail"}
             </Typography>
-            <GoogleOAuthProvider clientId={googleClientID}>
-              <GoogleLogin
-                className="buttonLogin"
-                onSuccess={handleGoogleSuccess}
-                onError={() => {
-                  console.log("Login Failed");
+            <Button
+              onClick={googleLogin}
+              sx={{
+                background: "#4E169D",
+                color: "#FAFAFA",
+                borderRadius: "100px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "4px",
+                textTransform: "none",
+                fontFamily: "Nunito",
+              }}
+            >
+              <img
+                src={google}
+                alt="logo google"
+                style={{
+                  background: "#FAFAFA",
+                  borderRadius: "100px",
+                  padding: "3px",
                 }}
-                theme="filled_black"
-                size="medium"
-                shape="circle"
-                context={user ? "signin" : "signup"}
-                useOneTap
-              >
-                <Button
-                  sx={{
-                    background: "#4E169D",
-                    color: "#FAFAFA",
-                    borderRadius: "100px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "4px",
-                    textTransform: "none",
-                    fontFamily: "Nunito",
-                  }}
-                >
-                  <img
-                    src={google}
-                    alt="logo google"
-                    style={{
-                      background: "#FAFAFA",
-                      borderRadius: "100px",
-                      padding: "3px",
-                    }}
-                  />
-                  Continuá con Google
-                </Button>
-              </GoogleLogin>
-            </GoogleOAuthProvider>
+              />
+              Continuá con Google
+            </Button>
           </Box>
         </Box>
       </Card>

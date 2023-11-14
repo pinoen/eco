@@ -35,7 +35,7 @@ function Navbar(props) {
         <Link to="/">
           <ListItem disablePadding>
             <ListItemButton>
-              <p className="navbarItems">Inicio</p>
+              <Typography className="navbarItems">Inicio</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
@@ -43,33 +43,33 @@ function Navbar(props) {
         <Link to="/">
           <ListItem disablePadding>
             <ListItemButton>
-              <p className="navbarItems">Proveedores</p>
+              <Typography className="navbarItems">Proveedores</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
 
         <ListItem disablePadding>
           <ListItemButton>
-            <p className="navbarItems">Publicaciones</p>
+            <Typography className="navbarItems">Publicaciones</Typography>
           </ListItemButton>
         </ListItem>
 
         <Link to="/ingresa">
           <ListItem disablePadding>
             <ListItemButton>
-              <p className="navbarItems">Iniciá sesión</p>
+              <Typography className="navbarItems">Iniciá sesión</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
 
-        <p className="registerTextNavbar">
+        <Typography className="registerTextNavbar">
           {" "}
           ¿Querés formar parte de la Red de impacto ECO como Proveedor?{" "}
-        </p>
+        </Typography>
         <Link to="/registrate">
           <ListItem disablePadding>
             <ListItemButton>
-              <p className="navbarItems">Registrate</p>
+              <Typography className="navbarItems">Registrate</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
@@ -101,7 +101,7 @@ function Navbar(props) {
             <CloseIcon onClick={() => handleDrawerToggle()} />
           )}
 
-          <Link to="/" style={{ color: "whitesmoke", height: "56px" }}>
+          <Link to="/" style={{ height: "56px" }}>
             <img src={logo} alt="" />
           </Link>
           <Link to="/ingresa">
@@ -110,7 +110,7 @@ function Navbar(props) {
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
-                height: "40px", //aca
+                height: "40px",
               }}
             >
               <AccountCircleOutlinedIcon color="black" />
