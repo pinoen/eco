@@ -4,10 +4,17 @@ import CTA from './CTA';
 import CTAButton from '../common/CTAButton';
 import Impact from './Impact';
 
+const boxStyle = {
+  backgroundColor: 'white.main',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
+
 function LandingPage() {
   return (
     <Container>
-      <Box sx={{ my: 4, backgroundColor: 'white.main' }}>
+      <Box sx={boxStyle}>
         <Impact />
         <CompanyImpact />
         <CTA />
