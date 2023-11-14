@@ -11,18 +11,23 @@ import CompanyImpact from "./CompanyImpact";
 import CTA from "./CTA";
 import CTAButton from "../common/CTAButton";
 import { Hero } from "./Hero";
-//import { SearchBar } from './SearchBar';
+
+const boxStyle = {
+  py: 5,
+  backgroundColor: 'white.main',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
 
 function LandingPage() {
   return (
-    <Box>
-      <Box sx={{ marginTop: "56px" }}>
+    <Container>
+      <Box sx={boxStyle}>
         <Hero />
         <CompanyImpact />
         <CTA />
-        <Container>
-          <CTAButton>Registrate</CTAButton>
-        </Container>
+        <CTAButton>Registrate</CTAButton>
 
         {/* Tarjetas de Información */}
         <Grid container spacing={3}>
@@ -49,7 +54,7 @@ function LandingPage() {
           ))}
         </Grid>
       </Box>
-    </Box>
+    </Container>
   );
 }
 
