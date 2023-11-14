@@ -1,19 +1,19 @@
 import { Container, Typography } from "@mui/material";
 
 const h2Style = {
-  marginBottom: "48px",
-  color: "black.main",
-  textAlign: "center",
-  fontFamily: "Nunito",
-  fontSize: "24px",
-  fontStyle: "normal",
-  fontWeight: "400",
-  lineHeight: "27px",
-  backgroundColor: "white.main",
-  width: "327px",
-  height: "80px",
-  padding: "45px 16px 16px 16px",
-};
+  color: 'black.main',
+  textAlign: 'center',
+  fontFamily: 'Nunito',
+  fontSize: '24px',
+  fontStyle: 'normal',
+  fontWeight: '400',
+  lineHeight: '27px',
+  backgroundColor: 'white.main',
+  width: '327px',
+  height: '80px',
+  padding: '45px 16px 16px 16px',
+  marginBottom: '48px',
+}
 
 const CTA = () => {
   return (

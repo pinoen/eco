@@ -1,23 +1,21 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
-import CompanyImpact from "./CompanyImpact";
-import CTA from "./CTA";
-import CTAButton from "../common/CTAButton";
-import { Hero } from "./Hero";
-//import { SearchBar } from './SearchBar';
+import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import CompanyImpact from './CompanyImpact';
+import CTA from './CTA';
+import CTAButton from '../common/CTAButton';
+import Impact from './Impact';
+
+const boxStyle = {
+  backgroundColor: 'white.main',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
 
 function LandingPage() {
   return (
-    <Box>
-      <Box sx={{ marginTop: "56px" }}>
-        <Hero />
+    <Container>
+      <Box sx={boxStyle}>
+        <Impact />
         <CompanyImpact />
         <CTA />
         <Container>
