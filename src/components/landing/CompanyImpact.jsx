@@ -31,7 +31,7 @@ const boxStyle = {
   gap: '8px',
   borderTop: `1px solid ${theme.palette.primary.main}`,
   borderBottom: `1px solid ${theme.palette.primary.main}`,
-  width: '327px',
+  width: '328px',
   height: '192px',
 }
 const CompanyImpact = () => {
