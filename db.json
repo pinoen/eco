@@ -7,7 +7,7 @@
       "email": "johndoe@email.com",
       "password": "1234",
       "deleted": false,
-      "role": "admin",
+      "role": "supplier",
       "phone": "2994184677",
       "suppliers": ["supplier1", "supplier2", "supplier3"]
     },
@@ -18,7 +18,7 @@
       "email": "janedoe@email.com",
       "password": "1234",
       "deleted": false,
-      "role": "admin",
+      "role": "supplier",
       "phone": "2994184677",
       "suppliers": ["supplier1", "supplier2", "supplier3"]
     },
@@ -29,7 +29,7 @@
       "email": "peterdoe@email.com",
       "password": "1234",
       "deleted": false,
-      "role": "admin",
+      "role": "supplier",
       "phone": "2994184677",
       "suppliers": ["supplier1", "supplier2", "supplier3"]
     }
@@ -37,51 +37,68 @@
   "suppliers": [
     {
       "id": 1,
-      "name": "supplier1",
-      "description": "performing  tasks for supplier1",
+      "name": "Lavanda",
+      "description": "Cosmética Natural ",
       "phone": "2994184677",
       "email": "supplier1@email.com",
       "facebook": "facebook.com/supplier1",
       "instagram": "instagram.com/supplier1",
-      "country": 1,
-      "state": 1,
-      "city": "Medellin",
-      "images": [],
-      "category": 1,
+      "country": "Argentina",
+      "state": "Mendoza",
+      "city": "Godoy Cruz",
+      "image": "https://s3-alpha-sig.figma.com/img/1d2e/ea59/1c27a72869b176f8ac7bc5f75f460594?Expires=1701043200&Signature=ZswcoBL7U7QT7RD5TFtj7cV3tPSHGu4MLljpCUuIndW12731pgp39qs1OdwdD3DodtESytUiWs5Lcoyi8QjVXRw6MbR7c9x9fu26beb2vMSonYKTzwGM6SHzqbwAGp~1mrtiknVsmyRDgfK0GgpM5H3zhzTRP0RgE7Kz0HvcdbWw9xyxB3TkRimq~yn-s4Q5YRfClIZ4CMOgiPn~KEZdgN88hJhhYnaP34u6F3TNX7VGD1~H~q2AalyGc-0OlSgCfPt~XGPRY~seChF2EG7FtcJWawmDUmTPTSrxXPoMr2h~1~xGhxFTQGMTwwp-~Rzpl4MqJvu4CGSFmpZM386Dyw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      "category": "Bienestar",
       "active": true,
       "deleted": false,
       "feedback": []
     },
     {
       "id": 2,
-      "name": "supplier2",
-      "description": "performing  tasks for supplier2",
+      "name": "Avocado",
+      "description": "Cocina Natural",
       "phone": "2994184677",
       "email": "supplier2@email.com",
       "facebook": "facebook.com/supplier2",
       "instagram": "instagram.com/supplier2",
-      "country": 1,
-      "state": 1,
-      "city": "Medellin",
-      "images": [],
-      "category": 1,
+      "country": "Argentina",
+      "state": "Mendoza",
+      "city": "Godoy Cruz",
+      "image": "https://s3-alpha-sig.figma.com/img/8b7a/2575/ee63770fb5b2446d50fbc74296318fd8?Expires=1701043200&Signature=VZQUtCHgihon3hhEyg-mUJo6XvosoJ5kZAhtk27Na45oyxjPqATZVxzndOSw~m2Sia504dWnpWKAkl~JxbKYRgvOJC1AwpN0DAksNo7d9B5EjIcS-1FQMQ8ATTKRDD~aTh2oT-SbJTX6cCsiGBSxr6811ySdoIqKmv8ru~R9lC1~8OPJZza~0Ofe0r5pxO1NgSJg8jQDkzWTsLo3lKxiIt1fvMD0YMIQb5CH1ryLw1Y7xsJLdg9WX~o7IH1wIuP5HGYS5oFcpzCOOYRsclx23ibcDdAkHZ2iPJnHrRx2CibZSw1UiBjcTfmf5k-wyNaX2ebGwDTgzpBrcoerb9Zxcw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      "category": "Gastronomia",
       "active": true,
       "deleted": false,
       "feedback": []
     },
     {
       "id": 3,
-      "name": "supplier3",
-      "description": "performing  tasks for supplier3",
+      "name": "Tomate",
+      "description": "Huertas y compost",
       "phone": "2994184677",
       "email": "supplier3@email.com",
       "facebook": "facebook.com/supplier3",
       "instagram": "instagram.com/supplier3",
-      "country": 1,
-      "state": 1,
-      "city": "Medellin",
-      "images": [],
-      "category": 2,
+      "country": "Argentina",
+      "state": "Mendoza",
+      "city": "Godoy Cruz",
+      "image": "https://s3-alpha-sig.figma.com/img/4258/8eaf/742f12aa521e9c0f78063933ce74e857?Expires=1701043200&Signature=geaKhSFL9gWKSFrEuKWA4QlsTCK3eE9mkma5Yo7ZpoDfMDSw-uNZad8hwi4CkK~JYyNnfz1O6jlCR27tSZhmNpWk9eZ~2uSfMpv5pZBKUXmnEdghfmCbMx7DUM9jPOya1cj~lPI0wNP9noJ6SFUkl69YIiJqy5P~4jg-5TsG9brpmMeBUDf-DTnUKIiEqQSPJ6uFoGcYNF~9mT2gognf3Uzgl4DJDRE-kHODm65nSTKhyZxl0bcnuWVoTw2yhzIPm~DAzwOp~k91HMTKXj4-jybHm0gIQyHxJPDsDRmaos0Knx2ZcE-NftbwGnoevkVKNzXmfHmHMpp6FtasQX45hg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      "category": "Cultivos",
+      "active": true,
+      "deleted": false,
+      "feedback": []
+    },
+    {
+      "id": 4,
+      "name": "Velka",
+      "description": "Upcycling",
+      "phone": "2994184677",
+      "email": "supplier4@email.com",
+      "facebook": "facebook.com/supplier4",
+      "instagram": "instagram.com/supplier4",
+      "country": "Argentina",
+      "state": "Mendoza",
+      "city": "Godoy Cruz",
+      "image": "https://s3-alpha-sig.figma.com/img/b599/85dd/a746a17192e0535d11875babd592eb28?Expires=1701043200&Signature=X46bxsvpDTUZIJhq8tc4DLvKcdPUI~aIRRta8G7cXo3~eUg0j-D5gk1-X6R0ItL~OG1PzubYv9qxQrcx7s1~8nNp5EHZAQRHp5KQTawIiAkixTQYXky6gMNQg520T0cV3lwzX6jbfPdLQG4nD1aV2J6nLvHalC2yNkiPqO-WV4lQRH7rUZUq1y9cYin-vM5bnVAwLIot0BvDAkHUhF4VNozNo6r-CAs1QabeI~nChx8MTL3M59mTR~ZKDDtvn3yeFsCwME67yuvI8v-SOy84eThlM0KjB1vicu972~giy2lBAp6VNNytG21yl-meRUbnUa8RwwItgTShNhmFxj73TA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+      "category": "Indumentaria",
       "active": true,
       "deleted": false,
       "feedback": []
@@ -117,51 +134,6 @@
       "images": [],
       "visualizations": 0,
       "user": 1
-    }
-  ],
-  "countries": [
-    {
-      "id": 1,
-      "name": "Colombia"
-    },
-    {
-      "id": 2,
-      "name": "Peru"
-    },
-    {
-      "id": 3,
-      "name": "Chile"
-    }
-  ],
-  "states": [
-    {
-      "id": 1,
-      "name": "Antioquia",
-      "countryID": 1
-    },
-    {
-      "id": 2,
-      "name": "Cundinamarca",
-      "countryID": 1
-    },
-    {
-      "id": 3,
-      "name": "Santander",
-      "countryID": 1
-    }
-  ],
-  "categories": [
-    {
-      "id": 1,
-      "name": "Verduras"
-    },
-    {
-      "id": 2,
-      "name": "Jardineria"
-    },
-    {
-      "id": 3,
-      "name": "Construccion"
     }
   ]
 }
