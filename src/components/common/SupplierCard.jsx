@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import { Box, CardActionArea } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import theme from '../../theme/theme';
+import SupplierDetailModal from './SupplierDetailModal';
+import { useState } from 'react';
 
 const productNameStyle = {
   color: 'black.main',
@@ -59,38 +61,45 @@ const categoryStyle = {
 
 
 const SupplierCard = ({ item }) => {
-  return (
-    <Card sx={{ maxWidth: 152 }}>
-      <CardActionArea>
-        <Typography sx={categoryStyle}>
-          {item.category}
-        </Typography>
-        <CardMedia
-          component="img"
-          alt={item.name}
-          height="136"
-          image={item.image}
-          sx={{
-            borderRadius: '12px',
-            padding: '8px 8px 4px 8px',
-          }}
-        />
-        <CardContent>
-          <Box sx={boxStyle}>
-            <Typography variant="h5" component="div" sx={productNameStyle}>
-              {item.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={descriptionAndLocationStyle}>
-              {item.description}
-            </Typography>
-          </Box>
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-          <Typography variant="body2" sx={descriptionAndLocationStyle} style={{ display: 'flex', alignItems: 'center' }}>
-            <LocationOnIcon color='primary' />{item.city}
+  return (
+    <>
+      <Card sx={{ maxWidth: 152 }}>
+        <CardActionArea onClick={handleOpen}>
+          <Typography sx={categoryStyle}>
+            {item.category}
           </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          <CardMedia
+            component="img"
+            alt={item.name}
+            height="136"
+            image={item.image}
+            sx={{
+              borderRadius: '12px',
+              padding: '8px 8px 4px 8px',
+            }}
+          />
+          <CardContent>
+            <Box sx={boxStyle}>
+              <Typography variant="h5" component="div" sx={productNameStyle}>
+                {item.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={descriptionAndLocationStyle}>
+                {item.description}
+              </Typography>
+            </Box>
+
+            <Typography variant="body2" sx={descriptionAndLocationStyle} style={{ display: 'flex', alignItems: 'center' }}>
+              <LocationOnIcon color='primary' />{item.city}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <SupplierDetailModal item={item} open={open} handleClose={handleClose} />
+    </>
   )
 }
 
