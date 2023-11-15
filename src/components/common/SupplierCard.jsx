@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, CardActionArea } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import theme from '../../theme/theme';
 
 const productNameStyle = {
   color: 'black.main',
@@ -36,11 +37,34 @@ const boxStyle = {
   marginBottom: '16px',
 }
 
+const categoryStyle = {
+  borderRadius: '4px',
+  border: `1px solid ${theme.palette.secondary.main}`,
+  backgroundColor: 'white.main',
+  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+  width: '96px',
+  height: '24px',
+  padding: '4px 8px',
+  color: theme.palette.primary.main,
+  fontFamily: 'Nunito',
+  fontSize: '13px',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: '18px',
+  textAlign: 'center',
+  position: 'absolute',
+  top: 0,
+  right: 0,
+}
+
 
 const SupplierCard = ({ item }) => {
   return (
     <Card sx={{ maxWidth: 152 }}>
       <CardActionArea>
+        <Typography sx={categoryStyle}>
+          {item.category}
+        </Typography>
         <CardMedia
           component="img"
           alt={item.name}
