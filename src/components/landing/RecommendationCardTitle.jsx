@@ -22,9 +22,10 @@ const boxStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  alignItems: "flex-start",
+  alignItems: { xs: "start", sm: "center" },
   paddingLeft: "16px",
   width: "100%",
+  marginBottom: "24px",
 }
 const RecommendationCardTitle = () => {
   return (
