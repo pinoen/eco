@@ -76,8 +76,8 @@ function Navbar(props) {
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
             "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
+              width: 40,
+              height: 40,
               ml: -0.5,
               mr: 1,
             },
@@ -92,6 +92,9 @@ function Navbar(props) {
               bgcolor: "background.paper",
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
+            },
+            "& .MuiList-root": {
+              paddingBottom: 0,
             },
           },
         }}
@@ -274,7 +277,7 @@ function Navbar(props) {
         }}
       >
         <Toolbar
-          sx={{ gap: "20px", display: "flex", justifyContent: "space-around" }}
+          sx={{ gap: "20px", display: "flex", justifyContent: "space-between" }}
         >
           {!mobileOpen ? (
             <MenuIcon onClick={handleDrawerToggle} />
