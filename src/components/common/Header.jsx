@@ -1,56 +1,207 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
-import AppBar from "@mui/material/AppBar";
-import { Typography } from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  CssBaseline,
+  Tooltip,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import CssBaseline from "@mui/material/CssBaseline";
-import CloseIcon from "@mui/icons-material/Close";
+import { AccountCircleOutlined, Close } from "@mui/icons-material";
 
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logoEco.png";
 
-const drawerWidth = 258;
-
 function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
 
+  // codigo para mostrar "ingresa" en el nav o no dependiendo la ruta
+  const location = useLocation();
   const isLoginPage = location.pathname === "/ingresa";
   const isRegisterPage = location.pathname === "/registrate";
   const showAccountIcon = !isLoginPage && !isRegisterPage;
 
+  // codigo para desplegar el menu de la imagen de usuario
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // codigo del menu de imagen de usuario
+  const userMenu = (
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title="Account settings">
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ ml: 2 }}
+          aria-controls={open ? "account-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+        >
+          <Avatar
+            sx={{ width: 40, height: 40 }}
+            alt="imagen de usuario"
+            src="https://lh3.googleusercontent.com/a/ACg8ocJrrNgxEMgdl0ZCZzEecRutcRFiBlrs49-a_JQPwim9dKw=s288-c-no"
+          />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            padding: "8px 16px 0px 16px",
+            minWidth: "240px",
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem
+          onClick={handleClose}
+          sx={{ display: "flex", gap: "6px", padding: "0px 0px 8px 0px" }}
+        >
+          <AccountCircleOutlined
+            sx={{ width: "32px", height: "32px", alignSelf: "start" }}
+          />{" "}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "start",
+            }}
+          >
+            <Typography
+              sx={{
+                color: "#222",
+                textAlign: "center",
+                fontFamily: "Nunito",
+                fontSize: "16px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                lineHeight: "25px",
+              }}
+            >
+              {/* {user.name} */}
+              Julieta Perez
+            </Typography>
+            <Typography
+              sx={{
+                color: "#222",
+                textAlign: "center",
+                fontFamily: "Nunito",
+                fontSize: "14px",
+                fontStyle: "normal",
+                fontWeight: "400",
+                lineHeight: "25px",
+              }}
+            >
+              {/* {user.email} */}
+              julietaperez@gmail.com
+            </Typography>
+          </Box>
+        </MenuItem>
+        <MenuItem sx={{ paddingLeft: "40px" }}>
+          <Typography
+            sx={{
+              color: "#4E169D",
+              textAlign: "center",
+              fontFamily: "Nunito",
+              fontSize: "16px",
+              fontStyle: "normal",
+              fontWeight: "700",
+              lineHeight: "25px",
+            }}
+          >
+            Mi perfil
+          </Typography>
+        </MenuItem>
+
+        <Typography
+          sx={{
+            color: "#222",
+            textAlign: "center",
+            fontFamily: "Nunito",
+            fontSize: "14px",
+            fontStyle: "normal",
+            fontWeight: "500",
+            lineHeight: "25px",
+            textAlign: "left",
+            marginTop: "4px",
+          }}
+        >
+          Cerrar sesión
+        </Typography>
+      </Menu>
+    </Box>
+  );
+
+  // codigo para cerrar el menu desplegable
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  // estilos de los links del menu desplegable
+  const menuLink = {
+    fontFamily: "Nunito",
+    color: "#FAFAFA",
+    fontSize: "18px",
+    fontStyle: "normal",
+    fontWeight: "700",
+    lineHeight: "20px",
+    margin: "2% 0",
+  };
+
+  // codigo del menu desplegable
   const drawer = (
     <Box>
       <List>
         <Link to="/" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
-              <Typography
-                sx={{
-                  fontFamily: "Nunito",
-                  color: "#FAFAFA",
-                  fontSize: "18px",
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  lineHeight: "20px",
-                  margin: "2% 0",
-                }}
-              >
-                Inicio
-              </Typography>
+              <Typography sx={menuLink}>Inicio</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
@@ -58,38 +209,14 @@ function Navbar(props) {
         <Link to="/" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
-              <Typography
-                sx={{
-                  fontFamily: "Nunito",
-                  color: "#FAFAFA",
-                  fontSize: "18px",
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  lineHeight: "20px",
-                  margin: "2% 0",
-                }}
-              >
-                Proveedores
-              </Typography>
+              <Typography sx={menuLink}>Proveedores</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
         <Link to="/" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
-              <Typography
-                sx={{
-                  fontFamily: "Nunito",
-                  color: "#FAFAFA",
-                  fontSize: "18px",
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  lineHeight: "20px",
-                  margin: "2% 0",
-                }}
-              >
-                Publicaciones
-              </Typography>
+              <Typography sx={menuLink}>Publicaciones</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
@@ -97,19 +224,7 @@ function Navbar(props) {
         <Link to="/ingresa" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
-              <Typography
-                sx={{
-                  fontFamily: "Nunito",
-                  color: "#FAFAFA",
-                  fontSize: "18px",
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  lineHeight: "20px",
-                  margin: "2% 0",
-                }}
-              >
-                Iniciá sesión
-              </Typography>
+              <Typography sx={menuLink}>Iniciá sesión</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
@@ -132,19 +247,7 @@ function Navbar(props) {
         <Link to="/registrate" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
-              <Typography
-                sx={{
-                  fontFamily: "Nunito",
-                  color: "#FAFAFA",
-                  fontSize: "18px",
-                  fontStyle: "normal",
-                  fontWeight: 700,
-                  lineHeight: "20px",
-                  margin: "2% 0",
-                }}
-              >
-                Registrate
-              </Typography>
+              <Typography sx={menuLink}>Registrate</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
@@ -154,6 +257,9 @@ function Navbar(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  // constante user de prueba
+  const user = true;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -173,27 +279,34 @@ function Navbar(props) {
           {!mobileOpen ? (
             <MenuIcon onClick={handleDrawerToggle} />
           ) : (
-            <CloseIcon onClick={() => handleDrawerToggle()} />
+            <Close onClick={() => handleDrawerToggle()} />
           )}
 
           <Link to="/" style={{ height: "56px" }}>
             <img src={logo} alt="" />
           </Link>
-          {showAccountIcon ? (
-            <Link to="/ingresa">
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  height: "40px",
-                }}
-              >
-                <AccountCircleOutlinedIcon color="black" />
-                <Box sx={{ height: "16px", color: "#000" }}>Ingresá</Box>
-              </Box>
-            </Link>
+
+          {showAccountIcon ? ( // verifica si tenemos que mostrar el icono de "ingresa"
+            user ? ( // si hay que mostrarlo, vemos si existe user para mostrar su imagen o el "ingresa"
+              userMenu
+            ) : (
+              // si user no existe, mostramos el "ingresa"
+              <Link to="/ingresa">
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    height: "40px",
+                  }}
+                >
+                  <AccountCircleOutlined color="black" />
+                  <Box sx={{ height: "16px", color: "#000" }}>Ingresá</Box>
+                </Box>
+              </Link>
+            )
           ) : (
+            // si estamos en la pagina "registrate" o "ingresa", para no ver el "registrate" y mantener los estilos del nav, usamos una box vacia
             <Box sx={{ width: "54px" }}></Box>
           )}
         </Toolbar>
@@ -209,7 +322,7 @@ function Navbar(props) {
             display: { xs: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: 258,
               height: "calc(100vh - 56px)",
               top: "56px",
               backgroundColor: "#4E169D",
