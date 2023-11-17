@@ -1,57 +1,47 @@
 import React from "react";
-
-import { useGoogleLogin } from "@react-oauth/google";
-import { apiUrl, googleClientID } from "../../constants";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { apiUrl, googleClientID } from "../../constants";
+import useAlert from "../../utilities/alert";
+
+import { Card, Snackbar, Alert, Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import { Box } from "@mui/material";
-
 import logo from "../../assets/login/logoLogin.png";
-import google from "../../assets/login/google.png";
-
-const Logo = styled("img")({
-  height: 75,
-  width: 80,
-});
 
 function LoginCard({ user }) {
-  const googleLogin = useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
-      const tokens = await axios.post("http://localhost:3001/auth/google", {
-        code: codeResponse.code,
-      });
+  const navigate = useNavigate(); // para redireccionar cuando se haga el login
 
-      console.log(tokens);
-    },
-    onError: (errorResponse) => console.log(errorResponse),
-  });
+  const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); // manejo de alertas
 
+  // manejo del token con el back
   const handleGoogleSuccess = (credentialResponse) => {
-    console.log(credentialResponse);
+    if (credentialResponse && credentialResponse.credential) {
+      axios
+        .post(
+          `${apiUrl}/auth/googleAuth?tokenId=${credentialResponse.credential}`
+        )
+        .then((res) => {
+          // guardamos el token en local storage
+          localStorage.setItem("authToken", res.data.token);
 
-    // Verificar si existe la propiedad "credential"
-    // if (credentialResponse && credentialResponse.credential) {
-    //   axios
-    //     .post(`${apiUrl}/auth/login`, {
-    //       tokenId: credentialResponse.credential,
-    //     })
-    //     .then((res) => {
-    //       // Guarda el token JWT u otra respuesta del backend
-    //       console.log("RES", res);
-    //       localStorage.setItem("authToken", res.data.token);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error al autenticar con Google en el backend:", error);
-    //     });
-    // } else {
-    //   console.error("Fallo en la autenticación de Google:", credentialResponse);
-    // }
+          // Muestra la alerta de éxito
+          showAlert("Autenticacion exitosa!", "success");
+
+          setTimeout(() => {
+            // Redirige a "/" desp de 1.5s
+            navigate("/");
+          }, 1500);
+        })
+        .catch((error) => {
+          showAlert("Error en la autenticacion", "error");
+          console.error("Error al autenticar con Google en el backend:", error);
+        });
+    } else {
+      showAlert("Fallo en la autenticación de Google", "error");
+      console.error("Fallo en la autenticación de Google:", credentialResponse);
+    }
   };
 
   return (
@@ -129,7 +119,7 @@ function LoginCard({ user }) {
                   : "Sumate a ECOSistema"}
               </Typography>
             </Box>
-            <Logo src={logo} alt="App Logo" />
+            <img height={75} width={80} src={logo} alt="App Logo" />
           </Box>
 
           <Box //frame 111
@@ -152,31 +142,23 @@ function LoginCard({ user }) {
                 ? "Ingresá con tu cuenta de Gmail"
                 : "Registrate con tu cuenta de Gmail"}
             </Typography>
-            <Button
-              onClick={googleLogin}
-              sx={{
-                background: "#4E169D",
-                color: "#FAFAFA",
-                borderRadius: "100px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "4px",
-                textTransform: "none",
-                fontFamily: "Nunito",
-              }}
-            >
-              <img
-                src={google}
-                alt="logo google"
-                style={{
-                  background: "#FAFAFA",
-                  borderRadius: "100px",
-                  padding: "3px",
-                }}
+            <GoogleOAuthProvider clientId={googleClientID}>
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                theme="filled_black"
+                shape="circle"
               />
-              Continuá con Google
-            </Button>
+            </GoogleOAuthProvider>
+            <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>
+              <Alert
+                variant="filled"
+                onClose={hideAlert}
+                severity={alertColor}
+                sx={{ width: "100%" }}
+              >
+                {alertMessage}
+              </Alert>
+            </Snackbar>
           </Box>
         </Box>
       </Card>

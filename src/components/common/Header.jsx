@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   AppBar,
@@ -15,16 +16,27 @@ import {
   Menu,
   MenuItem,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircleOutlined, Close } from "@mui/icons-material";
-
-import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logoEco.png";
 
+import useAlert from "../../utilities/alert";
+import useAuth from "../../utilities/user";
+
 function Navbar(props) {
-  const { window } = props;
+  const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); // manejo de alertas
+  const { user, handleLogout } = useAuth(); // data user y logout function
+
+  const { window } = props; // identificar path
   const [mobileOpen, setMobileOpen] = useState(false);
+  // codigo logout y alert
+  const logout = () => {
+    handleLogout();
+    showAlert("Cerraste sesion exitosamente!");
+  };
 
   // codigo para mostrar "ingresa" en el nav o no dependiendo la ruta
   const location = useLocation();
@@ -34,7 +46,7 @@ function Navbar(props) {
 
   // codigo para desplegar el menu de la imagen de usuario
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,21 +62,21 @@ function Navbar(props) {
           onClick={handleClick}
           size="small"
           sx={{ ml: 2 }}
-          aria-controls={open ? "account-menu" : undefined}
+          aria-controls={openMenu ? "account-menu" : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
+          aria-expanded={openMenu ? "true" : undefined}
         >
           <Avatar
             sx={{ width: 40, height: 40 }}
             alt="imagen de usuario"
-            src="https://lh3.googleusercontent.com/a/ACg8ocJrrNgxEMgdl0ZCZzEecRutcRFiBlrs49-a_JQPwim9dKw=s288-c-no"
+            src={user.picture}
           />
         </IconButton>
       </Tooltip>
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
-        open={open}
+        open={openMenu}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
@@ -127,8 +139,7 @@ function Navbar(props) {
                 lineHeight: "25px",
               }}
             >
-              {/* {user.name} */}
-              Julieta Perez
+              {user.name}
             </Typography>
             <Typography
               sx={{
@@ -141,8 +152,7 @@ function Navbar(props) {
                 lineHeight: "25px",
               }}
             >
-              {/* {user.email} */}
-              julietaperez@gmail.com
+              {user.sub}
             </Typography>
           </Box>
         </MenuItem>
@@ -163,6 +173,7 @@ function Navbar(props) {
         </MenuItem>
 
         <Typography
+          onClick={logout}
           sx={{
             color: "#222",
             textAlign: "center",
@@ -173,6 +184,7 @@ function Navbar(props) {
             lineHeight: "25px",
             textAlign: "left",
             marginTop: "4px",
+            cursor: "pointer",
           }}
         >
           Cerrar sesión
@@ -261,9 +273,6 @@ function Navbar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  // constante user de prueba
-  const user = true;
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -336,6 +345,16 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
+      <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>
+        <Alert
+          variant="filled"
+          onClose={hideAlert}
+          severity={alertColor}
+          sx={{ width: "100%" }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
