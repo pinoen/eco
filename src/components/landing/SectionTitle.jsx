@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Typography } from '@mui/material'
 
 const subTitleStyle = {
@@ -27,17 +28,17 @@ const boxStyle = {
   width: "100%",
   marginBottom: "24px",
 }
-const RecommendationCardTitle = () => {
+const SectionTitle = ({ title, subtitle }) => {
   return (
     <Box sx={boxStyle}>
       <Typography variant="h5" sx={subTitleStyle}>
-        Recomendaciones locales para vos
+        {title}
       </Typography>
       <Typography variant="h3" sx={titleStyle}>
-        Proveedores cerca tuyo
+        {subtitle}
       </Typography>
     </Box>
   )
 }
 
-export default RecommendationCardTitle
+export default SectionTitle
