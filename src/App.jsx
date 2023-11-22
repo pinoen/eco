@@ -23,6 +23,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/publicaciones" element={<Publicaciones />} />
+              <Route path="/proveedores/" element={<Proveedores />} />
               <Route path="/proveedores/:nombre" element={<Proveedores />} />
               <Route path="/layout" element={<Layout_ex />} />
               {/* vista para inicia sesion */}
