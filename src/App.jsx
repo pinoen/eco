@@ -10,6 +10,7 @@ import Layout_ex from "./components/layouts/Layout_ex";
 import Login from "./components/login/Login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { googleClientID } from "./constants";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/ingresa" element={<Login user={true} />} />
               {/* vista para registrate */}
               <Route path="/registrate" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
               {/* Agregar rutas necesarias */}
             </Routes>
             {/* <Footer /> */}

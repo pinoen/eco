@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import {
@@ -157,19 +157,21 @@ function Navbar(props) {
           </Box>
         </MenuItem>
         <MenuItem sx={{ paddingLeft: "40px" }}>
-          <Typography
-            sx={{
-              color: "#4E169D",
-              textAlign: "center",
-              fontFamily: "Nunito",
-              fontSize: "16px",
-              fontStyle: "normal",
-              fontWeight: "700",
-              lineHeight: "25px",
-            }}
-          >
-            Mi perfil
-          </Typography>
+          <Link to="/profile">
+            <Typography
+              sx={{
+                color: "#4E169D",
+                textAlign: "center",
+                fontFamily: "Nunito",
+                fontSize: "16px",
+                fontStyle: "normal",
+                fontWeight: "700",
+                lineHeight: "25px",
+              }}
+            >
+              Mi perfil
+            </Typography>
+          </Link>
         </MenuItem>
 
         <Typography
@@ -210,7 +212,7 @@ function Navbar(props) {
   };
 
   // codigo del menu desplegable
-  const drawer = (
+  const drawerUser = (
     <Box>
       <List>
         <Link to="/" onClick={handleDrawerToggle}>
@@ -269,7 +271,40 @@ function Navbar(props) {
       </List>
     </Box>
   );
+  const drawerAdmin = (
+    <Box>
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <Typography sx={menuLink}>Administrador</Typography>
+          </ListItemButton>
+        </ListItem>
 
+        <Link to="/" onClick={handleDrawerToggle}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <Typography sx={menuLink}>Dashboard Administrador</Typography>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+
+        <Link to="/" onClick={handleDrawerToggle}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <Typography sx={menuLink}>Proveedores</Typography>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/" onClick={handleDrawerToggle}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <Typography sx={menuLink}>Publicaciones</Typography>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+    </Box>
+  );
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -342,7 +377,9 @@ function Navbar(props) {
             },
           }}
         >
-          {drawer}
+          {user.role === undefined || user.role === "USUARIO_REGULAR"
+            ? drawerUser
+            : drawerAdmin}
         </Drawer>
       </Box>
       <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>

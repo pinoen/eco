@@ -7,7 +7,6 @@ import { apiUrl, googleClientID } from "../../constants";
 import useAlert from "../../utilities/alert";
 
 import { Card, Snackbar, Alert, Box, Typography } from "@mui/material";
-import { styled } from "@mui/system";
 import logo from "../../assets/login/logoLogin.png";
 
 function LoginCard({ user }) {
