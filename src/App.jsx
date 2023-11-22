@@ -2,7 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import theme from "./theme/theme";
 import Header from "./components/common/Header";
-import Footer from "./components/common/Footer";
+// import Footer from "./components/common/Footer";
 import LandingPage from "./components/landing/LandingPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import Publicaciones from "./components/publicaciones/Publicaciones";
@@ -10,6 +10,7 @@ import Layout_ex from "./components/layouts/Layout_ex";
 import Login from "./components/login/Login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { googleClientID } from "./constants";
+import Proveedores from "./components/proveedores/Proveedores";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/publicaciones" element={<Publicaciones />} />
+              <Route path="/proveedores/:nombre" element={<Proveedores />} />
               <Route path="/layout" element={<Layout_ex />} />
               {/* vista para inicia sesion */}
               <Route path="/ingresa" element={<Login user={true} />} />
