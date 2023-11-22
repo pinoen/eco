@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import {
   AppBar,
@@ -29,6 +29,7 @@ import useAuth from "../../utilities/user";
 function Navbar(props) {
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); // manejo de alertas
   const { user, handleLogout } = useAuth(); // data user y logout function
+  const navigate = useNavigate();
 
   const { window } = props; // identificar path
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -182,7 +183,7 @@ function Navbar(props) {
             fontStyle: "normal",
             fontWeight: "500",
             lineHeight: "25px",
-            textAlign: "left",
+            // textAlign: "left",
             marginTop: "4px",
             cursor: "pointer",
           }}
@@ -221,7 +222,7 @@ function Navbar(props) {
           </ListItem>
         </Link>
 
-        <Link to="/" onClick={handleDrawerToggle}>
+        <Link to="/proveedores" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Proveedores</Typography>
