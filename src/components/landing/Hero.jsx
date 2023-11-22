@@ -13,6 +13,17 @@ const tipografiaH2 = {
   lineHeight: "24px",
 };
 
+const tipografiaH1 = {
+  color: "#FAFAFA",
+  fontFamily: "Nunito",
+  fontSize: "28px",
+  fontStyle: "normal",
+  fontWeight: 700,
+  lineHeight: "24px",
+  paddingTop: "8px",
+  paddingBottom: "16px",
+};
+
 const tipografiaP = {
   width: "240px",
   fontSize: "28px",
@@ -23,7 +34,7 @@ const tipografiaP = {
   lineHeight: "30px",
 };
 
-export const Hero = ({ bg }) => {
+export const Hero = ({ bg, section, title, text }) => {
   return (
     <Box
       sx={{
@@ -41,10 +52,10 @@ export const Hero = ({ bg }) => {
       }}
     >
       <SearchBar />
-      <Typography sx={tipografiaH2}>RED DE IMPACTO</Typography>
+      <Typography sx={tipografiaH2}>{section}</Typography>
+      <Typography sx={tipografiaH1}>{title}</Typography>
       <Typography sx={tipografiaP}>
-        Conectamos proveedores y personas comprometidas con el impacto y el
-        consumo consciente
+        {text}
       </Typography>
     </Box>
   );
