@@ -45,7 +45,7 @@ function LandingPage() {
   return (
     <Container>
       <Box sx={boxStyle}>
-        <Hero />
+        <Hero bg='landing' />
         <CompanyImpact />
         <CTA />
         <CTAButton>Registrate</CTAButton>
