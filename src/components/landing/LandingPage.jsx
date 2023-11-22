@@ -45,7 +45,7 @@ function LandingPage() {
   return (
     <Container>
       <Box sx={boxStyle}>
-        <Hero bg='landing' />
+        <Hero bg='landing' title='RED DE IMPACTO' text='Conectamos proveedores y personas comprometidas con el impacto y el consumo consciente' />
         <CompanyImpact />
         <CTA />
         <CTAButton>Registrate</CTAButton>
