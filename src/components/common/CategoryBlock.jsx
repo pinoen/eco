@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Box, CardMedia, Typography } from "@mui/material"
+import { useNavigate } from "react-router-dom";
 
 const CategoryBlockStyle = {
   display: "flex",
   width: "152px",
   height: "64px",
-  // flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   gap: "10px",
   borderRadius: "16px",
   backgroundColor: "grey.main",
   padding: "8px",
+  '&:hover': {
+    cursor: "pointer",
+  }
 }
 
 const TypographyStyle = {
@@ -28,8 +31,10 @@ const TypographyStyle = {
 }
 
 const CategoryBlock = ({ categoryName, icon }) => {
+  const navigate = useNavigate();
+
   return (
-    <Box sx={CategoryBlockStyle}>
+    <Box sx={CategoryBlockStyle} onClick={() => navigate(`/proveedores/${categoryName}`)}>
       <CardMedia
         component="img"
         alt={categoryName}
@@ -42,7 +47,7 @@ const CategoryBlock = ({ categoryName, icon }) => {
         }}
       />
       <Typography sx={TypographyStyle}>{categoryName}</Typography>
-    </Box>
+    </Box >
   )
 }
 
