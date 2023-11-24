@@ -16,7 +16,7 @@ const CardsGrid = ({ suppliers, page }) => {
     <Grid container spacing={3} sx={gridCardsStyle}>
       {suppliers.slice(0, 4).map((item) => (
         <Grid item xs={page === 'landing' ? 6 : 12} sm={3} key={item.id}>
-          <SupplierCard item={item} />
+          <SupplierCard item={item} page={page} />
         </Grid>
       ))}
     </Grid>
