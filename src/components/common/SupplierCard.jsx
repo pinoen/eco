@@ -66,7 +66,7 @@ const SupplierCard = ({ item }) => {
 
   return (
     <>
-      <Card sx={{ maxWidth: 152 }}>
+      <Card sx={{ maxWidth: 328 }}>
         <CardActionArea onClick={handleOpen}>
           <Typography sx={categoryStyle}>{item.category}</Typography>
           <CardMedia
