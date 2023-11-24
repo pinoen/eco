@@ -10,7 +10,7 @@ export const getUsers = async () => {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 // fn to get suppliers data from API
 export const getSuppliers = async () => {
@@ -20,4 +20,4 @@ export const getSuppliers = async () => {
   } catch (error) {
     console.error(error);
   }
-}
+};

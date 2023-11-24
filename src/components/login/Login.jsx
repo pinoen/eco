@@ -29,9 +29,9 @@ function LoginCard({ user }) {
           showAlert("Autenticacion exitosa!", "success");
 
           setTimeout(() => {
-            // Redirige a "/" desp de 1.5s
+            // Redirige a "/" desp de 1s
             navigate("/");
-          }, 1500);
+          }, 1000);
         })
         .catch((error) => {
           showAlert("Error en la autenticacion", "error");

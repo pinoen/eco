@@ -1,13 +1,12 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import CompanyImpact from "./CompanyImpact";
 import CTA from "./CTA";
 import CTAButton from "../common/CTAButton";
 import { Hero } from "./Hero";
-import { useEffect, useState } from "react";
-import { getSuppliers } from "../../services/api";
-import SupplierCard from "../common/SupplierCard";
-import vector from "../../assets/img/Vector1.png";
-import RecommendationCardTitle from "./RecommendationCardTitle";
+import SectionTitle from "./SectionTitle";
+import CategoryGrid from "../common/CategoryGrid";
+import CardsGrid from "../common/CardsGrid";
+import useSuppliers from "../../utilities/suppliers";
 
 const boxStyle = {
   py: 5,
@@ -17,39 +16,31 @@ const boxStyle = {
   alignItems: "center",
 };
 
-const gridStyle = {
-  background: `url(${vector})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  padding: "24px 17px 8px 17px",
-};
-
 function LandingPage() {
-  const [suppliers, setSuppliers] = useState([]);
-
-  useEffect(() => {
-    getSuppliers().then((data) => {
-      setSuppliers(data);
-    });
-  }, []);
+  const suppliers = useSuppliers();
 
   return (
     <Container>
       <Box sx={boxStyle}>
-        <Hero />
+        <Hero
+          bg="landing"
+          title="RED DE IMPACTO"
+          text="Conectamos proveedores y personas comprometidas con el impacto y el consumo consciente"
+        />
         <CompanyImpact />
         <CTA />
         <CTAButton>Registrate</CTAButton>
 
         {/* Tarjetas de Información */}
-        <RecommendationCardTitle />
-        <Grid container spacing={3} sx={gridStyle}>
-          {suppliers.map((item) => (
-            <Grid item xs={6} sm={3} key={item.id}>
-              <SupplierCard item={item} />
-            </Grid>
-          ))}
-        </Grid>
+        <SectionTitle
+          title="Recomendaciones locales para vos"
+          subtitle="Proveedores cerca tuyo"
+        />
+        <CardsGrid suppliers={suppliers} />
+
+        <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
+        {/* Categorías */}
+        <CategoryGrid suppliers={suppliers} page="landing" />
       </Box>
     </Container>
   );

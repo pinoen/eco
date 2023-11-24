@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import {
   AppBar,
@@ -223,14 +223,14 @@ function Navbar(props) {
           </ListItem>
         </Link>
 
-        <Link to="/" onClick={handleDrawerToggle}>
+        <Link to="/proveedores" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Proveedores</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/" onClick={handleDrawerToggle}>
+        <Link to="/publicaciones" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Publicaciones</Typography>
@@ -288,14 +288,14 @@ function Navbar(props) {
           </ListItem>
         </Link>
 
-        <Link to="/" onClick={handleDrawerToggle}>
+        <Link to="/proveedores" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Proveedores</Typography>
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/" onClick={handleDrawerToggle}>
+        <Link to="/publicaciones" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Publicaciones</Typography>

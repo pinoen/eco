@@ -4,12 +4,12 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import useAuth from "../../utilities/user";
 import SupplierCard from "../common/SupplierCard";
-
-import { getSuppliers } from "../../services/api";
+import useSuppliers from "../../utilities/suppliers";
 
 const Profile = () => {
   const { user } = useAuth();
-
+  const suppliers = useSuppliers();
+  console.log(suppliers[0]);
   return (
     <Container
       sx={{
