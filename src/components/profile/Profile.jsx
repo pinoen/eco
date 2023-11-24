@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Card, CardContent, Typography, Box, Container } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -9,14 +9,6 @@ import { getSuppliers } from "../../services/api";
 
 const Profile = () => {
   const { user } = useAuth();
-  const [suppliers, setSuppliers] = useState([]);
-
-  useEffect(() => {
-    getSuppliers().then((data) => {
-      setSuppliers(data);
-    });
-    console.log(suppliers);
-  }, []);
 
   return (
     <Container
@@ -204,6 +196,7 @@ const Profile = () => {
         sx={{
           marginTop: "40px",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -217,11 +210,33 @@ const Profile = () => {
             fontStyle: "normal",
             fontWeight: "400",
             lineHeight: "25px",
+            marginBottom: "16px",
           }}
         >
           Asi se vería tu Producto/Servicio en el Directorio
         </Typography>
-        {/* <SupplierCard item={} /> */}
+        <SupplierCard
+          item={{
+            id: 1,
+            name: "Lavanda",
+            description: "Cosmética Natural",
+            fullDescription:
+              "Lavanda es un proyecto familiar. Perseguimos una cosmética efectiva, magistral y con personalidad. Nuestro objetivo es hacer productos que enamoren, que cuiden al planeta, con principios activos que dejen el pelo sano y la piel bella.",
+            phone: "2994184677",
+            email: "supplier1@email.com",
+            facebook: "facebook.com/supplier1",
+            instagram: "instagram.com/supplier1",
+            country: "Argentina",
+            state: "Mendoza",
+            city: "Godoy Cruz",
+            image:
+              "https://s3-alpha-sig.figma.com/img/1d2e/ea59/1c27a72869b176f8ac7bc5f75f460594?Expires=1701043200&Signature=ZswcoBL7U7QT7RD5TFtj7cV3tPSHGu4MLljpCUuIndW12731pgp39qs1OdwdD3DodtESytUiWs5Lcoyi8QjVXRw6MbR7c9x9fu26beb2vMSonYKTzwGM6SHzqbwAGp~1mrtiknVsmyRDgfK0GgpM5H3zhzTRP0RgE7Kz0HvcdbWw9xyxB3TkRimq~yn-s4Q5YRfClIZ4CMOgiPn~KEZdgN88hJhhYnaP34u6F3TNX7VGD1~H~q2AalyGc-0OlSgCfPt~XGPRY~seChF2EG7FtcJWawmDUmTPTSrxXPoMr2h~1~xGhxFTQGMTwwp-~Rzpl4MqJvu4CGSFmpZM386Dyw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            category: "Bienestar",
+            active: true,
+            deleted: false,
+            feedback: [],
+          }}
+        />
       </Box>
     </Container>
   );

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { getToken, cleanToken } from "./securityService";
 import { googleLogout } from "@react-oauth/google";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const useAuth = () => {
   const [user, setUser] = useState(false);
   const token = getToken();
