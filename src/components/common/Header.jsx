@@ -29,7 +29,6 @@ import useAuth from "../../utilities/user";
 function Navbar(props) {
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); // manejo de alertas
   const { user, handleLogout } = useAuth(); // data user y logout function
-  const navigate = useNavigate();
 
   const { window } = props; // identificar path
   const [mobileOpen, setMobileOpen] = useState(false);
