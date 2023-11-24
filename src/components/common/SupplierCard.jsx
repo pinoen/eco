@@ -8,6 +8,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import theme from "../../theme/theme";
 import SupplierDetailModal from "./SupplierDetailModal";
 import { useState } from "react";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const productNameStyle = {
   color: "black.main",
@@ -59,7 +60,7 @@ const categoryStyle = {
   right: 0,
 };
 
-const SupplierCard = ({ item }) => {
+const SupplierCard = ({ item, page }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -101,6 +102,7 @@ const SupplierCard = ({ item }) => {
               <LocationOnIcon color="primary" />
               {item.city}
             </Typography>
+            {page !== "landing" && <ExpandMoreIcon color="primary" fontSize="large" sx={{ position: "block", marginLeft: "132px" }} />}
           </CardContent>
         </CardActionArea>
       </Card>
