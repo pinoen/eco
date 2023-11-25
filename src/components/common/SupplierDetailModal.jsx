@@ -151,7 +151,7 @@ const SupplierDetailModal = ({ item, open, handleClose }) => {
           component="img"
           alt={item.name}
           height="128"
-          image={item.image}
+          image={item.images[0]}
           sx={{
             borderRadius: '16px',
             padding: '24px 8px 8px 8px',
