@@ -84,14 +84,15 @@ const categoryStyle = {
   lineHeight: '18px',
   textAlign: 'center',
   position: 'absolute',
-  top: -20,
-  right: 16,
+  top: -10,
+  right: 30,
 }
 
 const closeIconStyle = {
   position: 'absolute',
-  top: 6,
-  right: 12,
+  top: -5,
+  right: -5,
+  zIndex: 1,
 }
 
 const fullDescriptionStyle = {
