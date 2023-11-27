@@ -36,7 +36,7 @@ function LandingPage() {
           title="Recomendaciones locales para vos"
           subtitle="Proveedores cerca tuyo"
         />
-        <CardsGrid suppliers={suppliers} />
+        <CardsGrid suppliers={suppliers} page="landing" />
 
         <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
         {/* Categorías */}

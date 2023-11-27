@@ -12,6 +12,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { googleClientID } from "./constants";
 import Profile from "./components/profile/Profile";
 import Proveedores from "./components/proveedores/Proveedores";
+import Proveedor from "./components/proveedores/Proveedor";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/publicaciones" element={<Publicaciones />} />
               <Route path="/proveedores/" element={<Proveedores />} />
-              <Route path="/proveedores/:nombre" element={<Proveedores />} />
+              <Route path="/proveedores/:nombre" element={<Proveedor />} />
               <Route path="/layout" element={<Layout_ex />} />
               {/* vista para inicia sesion */}
               <Route path="/ingresa" element={<Login user={true} />} />

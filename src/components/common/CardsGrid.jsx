@@ -11,12 +11,12 @@ const gridCardsStyle = {
   marginBottom: '40px'
 };
 
-const CardsGrid = ({ suppliers }) => {
+const CardsGrid = ({ suppliers, page }) => {
   return (
     <Grid container spacing={3} sx={gridCardsStyle}>
       {suppliers.slice(0, 4).map((item) => (
-        <Grid item xs={6} sm={3} key={item.id}>
-          <SupplierCard item={item} />
+        <Grid item xs={page === 'landing' ? 6 : 12} sm={3} key={item.id}>
+          <SupplierCard item={item} page={page} />
         </Grid>
       ))}
     </Grid>
