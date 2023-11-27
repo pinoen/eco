@@ -13,6 +13,7 @@ import { googleClientID } from "./constants";
 import Profile from "./components/profile/Profile";
 import Proveedores from "./components/proveedores/Proveedores";
 import Proveedor from "./components/proveedores/Proveedor";
+import SearchResult from "./components/search/SearchResult";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/publicaciones" element={<Publicaciones />} />
               <Route path="/proveedores/" element={<Proveedores />} />
               <Route path="/proveedores/:nombre" element={<Proveedor />} />
+              <Route path="/search/:nombre" element={<SearchResult />} />
               <Route path="/layout" element={<Layout_ex />} />
               {/* vista para inicia sesion */}
               <Route path="/ingresa" element={<Login user={true} />} />
