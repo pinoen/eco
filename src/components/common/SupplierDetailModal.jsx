@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { CardContent, CardMedia, IconButton } from '@mui/material';
+import { CardContent, IconButton } from '@mui/material';
 import theme from '../../theme/theme';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,6 +10,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import EmailIcon from '@mui/icons-material/Email';
+import ReactImageGallery from 'react-image-gallery';
 
 const boxStyle = {
   position: 'absolute',
@@ -83,7 +84,7 @@ const categoryStyle = {
   lineHeight: '18px',
   textAlign: 'center',
   position: 'absolute',
-  top: 47,
+  top: -20,
   right: 16,
 }
 
@@ -147,16 +148,14 @@ const SupplierDetailModal = ({ item, open, handleClose }) => {
         <Typography sx={categoryStyle}>
           {item.category}
         </Typography>
-        <CardMedia
-          component="img"
-          alt={item.name}
-          height="128"
-          image={item.images[0]}
-          sx={{
-            borderRadius: '16px',
-            padding: '24px 8px 8px 8px',
-          }}
-        />
+
+        <div className="imagesContainerGallery">
+          <ReactImageGallery class items={item.images}
+            showIndex={true}
+            showFullscreenButton={true}
+          />
+        </div>
+
         <CardContent>
           <Box sx={cardBoxStyle}>
             <Typography variant="h5" component="div" sx={productNameStyle}>
