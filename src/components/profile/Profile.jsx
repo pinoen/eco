@@ -1,15 +1,14 @@
-import React from "react";
 import { Card, CardContent, Typography, Box, Container } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import useAuth from "../../utilities/user";
 import SupplierCard from "../common/SupplierCard";
-import useSuppliers from "../../utilities/suppliers";
+// import useSuppliers from "../../utilities/suppliers";
 
 const Profile = () => {
   const { user } = useAuth();
-  const suppliers = useSuppliers();
-  console.log(suppliers[0]);
+  // const suppliers = useSuppliers();
+
   return (
     <Container
       sx={{
@@ -31,7 +30,6 @@ const Profile = () => {
           sx={{
             textAlign: "center",
             color: "#222",
-            textAlign: "center",
             fontFamily: "Nunito",
             fontSize: "28px",
             fontStyle: "normal",
@@ -229,8 +227,18 @@ const Profile = () => {
             country: "Argentina",
             state: "Mendoza",
             city: "Godoy Cruz",
-            image:
-              "https://s3-alpha-sig.figma.com/img/1d2e/ea59/1c27a72869b176f8ac7bc5f75f460594?Expires=1701043200&Signature=ZswcoBL7U7QT7RD5TFtj7cV3tPSHGu4MLljpCUuIndW12731pgp39qs1OdwdD3DodtESytUiWs5Lcoyi8QjVXRw6MbR7c9x9fu26beb2vMSonYKTzwGM6SHzqbwAGp~1mrtiknVsmyRDgfK0GgpM5H3zhzTRP0RgE7Kz0HvcdbWw9xyxB3TkRimq~yn-s4Q5YRfClIZ4CMOgiPn~KEZdgN88hJhhYnaP34u6F3TNX7VGD1~H~q2AalyGc-0OlSgCfPt~XGPRY~seChF2EG7FtcJWawmDUmTPTSrxXPoMr2h~1~xGhxFTQGMTwwp-~Rzpl4MqJvu4CGSFmpZM386Dyw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+            images:
+              [
+                {
+                  "original": "https://s3-alpha-sig.figma.com/img/1d2e/ea59/1c27a72869b176f8ac7bc5f75f460594?Expires=1702252800&Signature=CbikcnJtiL2vgQtnksqJkfJ-JMlWyMN6NGlbp05mWJYyDncerJIjTi-5XwgZvGzngqqbumintRGULuk9vqjhJ3YuATfyh5BdmEvzv3hS0iC90JsU8rnAgOq2hGmcP3QCDBPwZJyH77ejbspc7PI7KI9RYYuZzNqLg3T0Jao~kW66Wbr7NmuvJ3yvsevdHBI3KKE3zO8Y7Y-wLfhvFxpc4L7i8URcQVxaPsNhfC0AgGIaYGIbWobU4bQpgPhZuE2M6GqW9u9Tp4Gxp5kQFDt1cFDVecveSPC~nwWssHg8cajdwfnDJMLpDXdkyXUzj4BoiSfOsRzTaV85drjfkekCHA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                },
+                {
+                  "original": "https://s3-alpha-sig.figma.com/img/76c6/5ee9/4989818dea0524d2fb0186ddb4f48bb3?Expires=1701648000&Signature=TzKeqAXjiWNMMEGzA-BO9TE99v6-JJ8Sl5Mt7uIwfoUyCJ8CMUWA-IdH1nT6M89FSM9c3~J-D-n4Edquzj~CY8bAQ8kETSa9dJxmVx~-a97Ld-Qpu2P1OsQP-iQm3TQ~7vgUpZdhppWeMZTeo11EDxtwuKMqUc2DPz~0qOAl5RYj76MmL~Gy3nR3lXEDOkAzZ9qWcJIfGxu3yaAddXdLov64nNpMx2i3Tx7rjI1yCi0B4wOKX-tfmdcjr4IRh~wcZOJVK6oDgraLL-ziJAfQnQaWQNws1znq5cnRGktk4l~6CMZniTWRTojfes28m69GCmF0RXYD68HPnJDiGowiQA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                },
+                {
+                  "original": "https://s3-alpha-sig.figma.com/img/3d63/16ca/e3bd50330ffa28bcb22ef67ef6231dd2?Expires=1701648000&Signature=JAuntl70XIcKGAhh9lYYzUNEMdm~fFr5qQGZG9V75Hk7ao2W-hB3A9GcMyNVQ0Om3w-2v2TTdAfv37wHSCXaelKQpQe4N2URd6hOB4ZAcWuGBBAO-lto1KW2bxuVmWaUbTfogA8xLAGo-2zgtaJvYufVBTWumRVdMhZcnvfiYUO9Lv~tOG0JBymK-sjGICDP0qRU4K4f5HWo-ProqEmEv8DVJ5wP3HZ~b7QYXxEDqTtkoKVdSywOSc3PGuoq-aMQ1Ai3zNwILSiMWOfymyj0KEd8yqwGLXVypNMjLMlVdaYP9SRyxjr0TYOGQlFK38FVIUcYjSqWX3MjO2rTTsly7w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                }
+              ],
             category: "Bienestar",
             active: true,
             deleted: false,
