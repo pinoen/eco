@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Typography } from "@mui/material";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "../common/SearchBar";
 import allhands from "../../assets/img/EcoSistemas-hero.png";
 import hero from "../../assets/img/Imagen-Hero.png";
 
