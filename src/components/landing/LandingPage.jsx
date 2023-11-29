@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import CompanyImpact from "./CompanyImpact";
 import CTA from "./CTA";
 import CTAButton from "../common/CTAButton";
@@ -7,6 +7,7 @@ import SectionTitle from "./SectionTitle";
 import CategoryGrid from "../common/CategoryGrid";
 import CardsGrid from "../common/CardsGrid";
 import useSuppliers from "../../utilities/suppliers";
+import PublicationsSection from "./PublicationsSection";
 
 const boxStyle = {
   py: 5,
@@ -41,6 +42,7 @@ function LandingPage() {
         <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
         {/* Categorías */}
         <CategoryGrid suppliers={suppliers} page="landing" />
+        <PublicationsSection />
       </Box>
     </Container>
   );
