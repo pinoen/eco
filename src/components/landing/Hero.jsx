@@ -39,9 +39,12 @@ export const Hero = ({ bg, section, title, text }) => {
     <Box
       sx={{
         marginBottom: "40px",
-        width: 360,
+        width: "100vw",
         height: 488,
-        backgroundImage: bg === "landing" ? `linear-gradient(0deg, rgba(34, 34, 34, 0.70) 0%, rgba(34, 34, 34, 0.70) 100%), url(${allhands})` : `url(${hero})`,
+        backgroundImage:
+          bg === "landing"
+            ? `linear-gradient(0deg, rgba(34, 34, 34, 0.70) 0%, rgba(34, 34, 34, 0.70) 100%), url(${allhands})`
+            : `url(${hero})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -54,9 +57,7 @@ export const Hero = ({ bg, section, title, text }) => {
       <SearchBar />
       <Typography sx={tipografiaH2}>{section}</Typography>
       <Typography sx={tipografiaH1}>{title}</Typography>
-      <Typography sx={tipografiaP}>
-        {text}
-      </Typography>
+      <Typography sx={tipografiaP}>{text}</Typography>
     </Box>
   );
 };

@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Box } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const ProductState = () => {
-  const estado = "postulado";
+  const estado = "aprobado";
   // Objeto con los textos correspondientes a cada estado
   const estadosText = {
     postulado: {

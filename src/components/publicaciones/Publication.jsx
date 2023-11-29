@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { SearchBar } from "../common/SearchBar";
 import plant from "../../assets/img/plant.png";
 import CardPublication from "./CardPublication";
-
+import verde from "../../assets/verde1.png";
 const boxStyle = {
   py: 5,
   backgroundColor: "white.main",
@@ -16,7 +16,7 @@ const Publicaciones = () => {
     <Box sx={boxStyle}>
       <Box
         sx={{
-          width: 360,
+          width: "100vw",
           height: 488,
           backgroundImage: `linear-gradient(0deg, rgba(34, 34, 34, 0.70) 0%, rgba(34, 34, 34, 0.70) 100%), url(${plant})`,
           backgroundSize: "cover",
@@ -72,19 +72,15 @@ const Publicaciones = () => {
           dando forma a un mundo más verde
         </Typography>
       </Box>
-      <Box sx={{ position: "absolute", zIndex: 0, top: "544px" }}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="360"
-          height="620"
-          viewBox="0 0 361 620"
-          fill="none"
-        >
-          <path
-            d="M361 183C189.669 191.629 104.632 167.382 0 0V550C0 550 361 706 361 550V183Z"
-            fill="#00A364"
-          />
-        </svg>
+      <Box
+        sx={{
+          position: "absolute",
+          zIndex: 0,
+          top: "544px",
+          width: "100vw",
+        }}
+      >
+        <img width="100%" src={verde} />
       </Box>
       <Box sx={{ position: "relative", zIndex: 1 }}>
         <CardPublication />
