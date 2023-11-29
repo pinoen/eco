@@ -241,7 +241,9 @@
       "description": "description for post1",
       "deleted": false,
       "created": "2022-01-01",
-      "images": [],
+      "images": [
+        "https://s3-alpha-sig.figma.com/img/ed37/a382/c1498999f8addebf3e800720a2445865?Expires=1702252800&Signature=kCA33qmbnQlCHoS70ILY5Yip-a6CdsvlGP2RG-qU7--ysEoPtRHHrb2~NZ1i-Xwd8ExULJTrH-DafRS4xPd21l4GUoKhuv7kXe7ATTA-K0mDrVE6dKQwe8QpyOoKkBI-JZB3zEJvtiQMRJHU4Tx-SX1KmT3h~sNPfx6MezYIaTgwIhKO1IHSJ3h6-OcOfUaJRzT~dF8Kuf4dUlvvGU5jmvNnq0mfeORcYoRb5FBWlw98SEOGCCshSRBYZgr84RlQuUWkdrTiW4NP2NZA0vWaMWjcbbwzmZE4qOOSZaozYuYtGI7PPaiom39ph0o2yvlN4RuF1fh0QBaZbVLMbf9Kqw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+      ],
       "visualizations": 0,
       "user": 1
     },

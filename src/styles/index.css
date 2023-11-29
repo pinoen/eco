@@ -58,16 +58,48 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.imagesContainerGallery{
+.imagesContainerGallery {
   width: 100%;
   height: 100%;
   padding-top: 50px;
 }
-.imagesContainerGallery img{
+.imagesContainerGallery img {
   height: 180px;
   border-radius: 12px;
 }
 
+.image-gallery-bullet {
+  box-shadow: none !important;
+  background-color: #fafafa !important;
+}
+.image-gallery-bullets {
+  bottom: -15px !important;
+}
+.image-gallery-bullets .image-gallery-bullet.active {
+  background: black !important;
+}
+
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
+  color: #4e169d;
+  width: 24px;
+  height: 24px;
+}
+.image-gallery-left-nav,
+.image-gallery-right-nav {
+  padding: 0;
+}
+.image-gallery-icon {
+  filter: none;
+}
+
+@media (max-width: 500px) {
+  .image-gallery-slide .image-gallery-image {
+    object-fit: cover !important;
+    height: 128px;
+    border-radius: 16px;
+  }
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
