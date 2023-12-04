@@ -14,6 +14,7 @@ import Profile from "./components/profile/Profile";
 import Proveedores from "./components/proveedores/Proveedores";
 import Proveedor from "./components/proveedores/Proveedor";
 import SearchResult from "./components/search/SearchResult";
+import AddProduct from "./components/profile/AddProduct";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               {/* vista para registrate */}
               <Route path="/registrate" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/add-product" element={<AddProduct />} />
               {/* Agregar rutas necesarias */}
             </Routes>
             {/* <Footer /> */}
