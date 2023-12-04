@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import CompanyImpact from "./CompanyImpact";
 import CTA from "./CTA";
 import CTAButton from "../common/CTAButton";
@@ -30,7 +30,7 @@ function LandingPage() {
         />
         <CompanyImpact />
         <CTA />
-        <CTAButton>Registrate</CTAButton>
+        <CTAButton route="/ingresa">Registrate</CTAButton>
 
         {/* Tarjetas de Información */}
         <SectionTitle
@@ -42,6 +42,7 @@ function LandingPage() {
         <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
         {/* Categorías */}
         <CategoryGrid suppliers={suppliers} page="landing" />
+        <CTAButton route="/proveedores">Ver mas Categorías</CTAButton>
         <PublicationsSection />
       </Box>
     </Container>
