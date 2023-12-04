@@ -1,12 +1,13 @@
-import React from "react";
 import { Typography, Box, Container } from "@mui/material";
 
 import useAuth from "../../utilities/user";
 import SupplierCard from "../common/SupplierCard";
 import ProductState from "./ProductState";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Container
@@ -39,7 +40,7 @@ const Profile = () => {
         >
           {user.name}
         </Typography>
-        <button
+        <button onClick={() => navigate("/profile/add-product")}
           style={{
             backgroundColor: "#4E169D",
             width: "328px",
