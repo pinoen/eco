@@ -36,10 +36,10 @@ const boxStyle = {
   width: 'auto',
 }
 
-const CTAButton = ({ route, children }) => {
+const CTAButton = ({ route, children, icon }) => {
   return (
     <Box sx={boxStyle}>
-      <Link to={route}><Button sx={buttonStyle}>{children}</Button></Link>
+      <Link to={route}><Button startIcon={icon} sx={buttonStyle}>{children}</Button></Link>
     </Box>
   )
 }
