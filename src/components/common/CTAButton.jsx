@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Box, Button } from '@mui/material'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 const buttonStyle = {
-  width: '152px',
+  width: 'auto',
   height: '40px',
   padding: '10px 24px',
   justifyContent: 'center',
@@ -32,13 +33,13 @@ const boxStyle = {
   padding: '16px',
   paddingBottom: '48px',
   gap: '8px',
-  width: '327px',
+  width: 'auto',
 }
 
-const CTAButton = ({ children }) => {
+const CTAButton = ({ route, children }) => {
   return (
     <Box sx={boxStyle}>
-      <Link to="/ingresa"><Button sx={buttonStyle}>{children}</Button></Link>
+      <Link to={route}><Button sx={buttonStyle}>{children}</Button></Link>
     </Box>
   )
 }
