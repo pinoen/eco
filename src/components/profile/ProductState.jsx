@@ -3,7 +3,11 @@ import { Card, CardContent, Typography, Box } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const ProductState = () => {
+  // const estado = "postulado";
   const estado = "aprobado";
+  // const estado = "en_revision";
+  // const estado = "denegado";
+
   // Objeto con los textos correspondientes a cada estado
   const estadosText = {
     postulado: {
@@ -24,13 +28,15 @@ const ProductState = () => {
     en_revision: {
       title: "En revisión",
       content: "Devolución de la administración:",
-      moreInfo: "Lorem ipsum",
+      moreInfo:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
       color: "#B86B11",
     },
     denegado: {
       title: "Denegado",
       content: "Devolución de la administración:",
-      moreInfo: "Lorem ipsum",
+      moreInfo:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
       color: "#BC1111",
     },
   };

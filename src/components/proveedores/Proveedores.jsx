@@ -34,7 +34,11 @@ const Proveedores = () => {
         text="Descubrí a quienes comparten tu pasión por el impacto positivo y la sostenibilidad"
       />
       <Typography sx={categoryStyle}>Categorías</Typography>
-      <CategoryGrid suppliers={suppliers} page="proveedores" />
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CategoryGrid suppliers={suppliers} page="proveedores" />
+      </Box>
     </Box>
   );
 };
