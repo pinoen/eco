@@ -1,8 +1,8 @@
 import { Box, Button, MenuItem, TextField, Typography } from "@mui/material"
 import useSuppliers from "../../utilities/suppliers"
-import CTAButton from "../common/CTAButton"
 import UploadIcon from '@mui/icons-material/Upload';
 import { useFormik } from "formik";
+import { useState } from "react";
 
 const formStyle = {
   display: 'flex',
@@ -36,6 +36,7 @@ const subTitleStyle = {
 }
 
 const AddProduct = () => {
+  const [selectedImages, setSelectedImages] = useState([]);
   const suppliers = useSuppliers()
   const categories = suppliers.map((item) => item.category)
   const countries = ["Argentina", "Chile", "Colombia", "Uruguay"]
@@ -43,7 +44,7 @@ const AddProduct = () => {
 
   const initialValues = {
     name: "",
-    briefDescription: "",
+    description: "",
     category: "",
     email: "",
     phone: "",
@@ -53,7 +54,7 @@ const AddProduct = () => {
     province: "",
     city: "",
     fullDescription: "",
-    images: [],
+    images: selectedImages,
   }
 
   const { handleSubmit, handleChange, values } = useFormik({
@@ -81,9 +82,9 @@ const AddProduct = () => {
         type="text"
         label="Breve descripción del Producto/Servicio*"
         helperText="Se visualizará en el subtítulo de la publicación 0/50"
-        name="briefDescription"
+        name="description"
         onChange={handleChange}
-        value={values.briefDescription}
+        value={values.description}
         fullWidth />
 
       <TextField
@@ -185,12 +186,32 @@ const AddProduct = () => {
         fullWidth />
 
       <Box sx={{ alignSelf: 'flex-end' }}>
-        <CTAButton icon={<UploadIcon />}>Subir imagén</CTAButton>
-        <Typography sx={{ fontSize: '12px' }}>*Requerida al menos una imagen</Typography>
-        <Typography sx={{ fontSize: '12px' }}>Hasta 3 imágenes.</Typography>
-        <Typography sx={{ fontSize: '12px' }}>Máximo 3Mb cada una</Typography>
+        {selectedImages && selectedImages.length <= 0 &&
+          <>
+            <Button startIcon={<UploadIcon />} variant="contained" component="label" sx={{ borderRadius: '100px' }}>
+              Subir imagén
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => e.target.files && setSelectedImages(Array.from(e.target.files))}
+                name="images"
+                value={values.images}
+                hidden />
+            </Button>
+
+            <Typography sx={{ fontSize: '12px' }}>*Requerida al menos una imagen</Typography>
+            <Typography sx={{ fontSize: '12px' }}>Hasta 3 imágenes.</Typography>
+            <Typography sx={{ fontSize: '12px' }}>Máximo 3Mb cada una</Typography>
+          </>
+        }
       </Box>
 
+      <Box>
+        {selectedImages && selectedImages.map((image, index) => (
+          <img key={index} src={URL.createObjectURL(image)} alt="preview" style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }} />
+        ))}
+      </Box>
       <Button variant="contained" type="submit" sx={{ borderRadius: '100px' }}>Cargar Producto/Servicio</Button>
     </form>
   )
