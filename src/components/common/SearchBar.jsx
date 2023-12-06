@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { SearchRounded } from "@mui/icons-material"
-import { Autocomplete, Box, InputAdornment, TextField } from "@mui/material"
-import useSuppliers from "../../utilities/suppliers"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { SearchRounded } from "@mui/icons-material";
+import { Autocomplete, Box, InputAdornment, TextField } from "@mui/material";
+import useSuppliers from "../../utilities/suppliers";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import useSuppliersNames from "../../utilities/SuppliersName";
 
 const boxStyle = {
   mt: 5,
@@ -11,14 +12,16 @@ const boxStyle = {
   width: 328,
   height: 56,
   color: "black.main",
-}
+};
 export const SearchBar = ({ querySearch }) => {
-  const suppliers = useSuppliers()
-  const suppliersList = suppliers.map((item) => item.name)
-  const navigate = useNavigate()
+  // const suppliersNames = useSuppliersNames();
 
-  const [value, setValue] = useState(querySearch || null)
-  const [inputValue, setInputValue] = useState("")
+  const suppliers = useSuppliers();
+  const suppliersList = suppliers.map((item) => item.name);
+  const navigate = useNavigate();
+
+  const [value, setValue] = useState(querySearch || null);
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <Box sx={boxStyle}>
@@ -33,31 +36,32 @@ export const SearchBar = ({ querySearch }) => {
         }}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
-            navigate(`/search/${inputValue}`)
+            navigate(`/search/${inputValue}`);
           }
         }}
-
         disablePortal
         options={suppliersList}
-        renderInput={(params) => <TextField
-          {...params}
-          placeholder="Buscar Proveedores"
-          InputProps={{
-            ...params.InputProps,
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchRounded />
-              </InputAdornment>
-            ),
-            style: {
-              borderRadius: "100px",
-              backgroundColor: "white"
-            },
-          }}
-          variant="outlined"
-          fullWidth
-        />}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Buscar Proveedores"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchRounded />
+                </InputAdornment>
+              ),
+              style: {
+                borderRadius: "100px",
+                backgroundColor: "white",
+              },
+            }}
+            variant="outlined"
+            fullWidth
+          />
+        )}
       />
     </Box>
-  )
-}
+  );
+};

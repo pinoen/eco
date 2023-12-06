@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { Box, Container } from "@mui/material";
 import CompanyImpact from "./CompanyImpact";
 import CTA from "./CTA";
@@ -8,6 +9,7 @@ import CategoryGrid from "../common/CategoryGrid";
 import CardsGrid from "../common/CardsGrid";
 import useSuppliers from "../../utilities/suppliers";
 import PublicationsSection from "./PublicationsSection";
+import Ubicacion from "../../utilities/Location";
 
 const boxStyle = {
   py: 5,
@@ -19,6 +21,25 @@ const boxStyle = {
 
 function LandingPage() {
   const suppliers = useSuppliers();
+  const [openLocation, setOpenLocation] = useState(false);
+
+  useEffect(() => {
+    const popupShown = localStorage.getItem("popupShown");
+    const locationExists = localStorage.getItem("location");
+    if (!popupShown && !locationExists) {
+      const handleScroll = () => {
+        const scrollTop = document.documentElement.scrollTop;
+        if (scrollTop > 300) {
+          setOpenLocation(true);
+          window.removeEventListener("scroll", handleScroll);
+        }
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
 
   return (
     <Container>
@@ -33,10 +54,16 @@ function LandingPage() {
         <CTAButton route="/ingresa">Registrate</CTAButton>
 
         {/* Tarjetas de Información */}
+        <Ubicacion
+          openLocation={openLocation}
+          setOpenLocation={setOpenLocation}
+        />
+
         <SectionTitle
           title="Recomendaciones locales para vos"
           subtitle="Proveedores cerca tuyo"
         />
+
         <CardsGrid suppliers={suppliers} page="landing" />
 
         <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
