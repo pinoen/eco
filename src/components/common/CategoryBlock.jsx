@@ -13,7 +13,7 @@ const CategoryBlock = ({ categoryName, icon, page }) => {
     alignItems: "center",
     borderRadius: "16px",
     backgroundColor: "grey.main",
-    padding: "8px",
+    padding: `${page === "landing" ? "8px" : "8px 50px"}`,
     '&:hover': {
       cursor: "pointer",
     }
