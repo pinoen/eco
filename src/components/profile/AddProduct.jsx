@@ -1,9 +1,10 @@
-import { Box, Button, MenuItem, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, MenuItem, Snackbar, TextField, Typography } from "@mui/material"
 import useSuppliers from "../../utilities/suppliers"
 import UploadIcon from '@mui/icons-material/Upload';
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from 'yup';
+import axios from "axios";
 
 const formStyle = {
   display: 'flex',
@@ -38,8 +39,9 @@ const subTitleStyle = {
 
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
+  const [isSent, setIsSent] = useState("")
   const suppliers = useSuppliers()
-  const categories = suppliers.map((item) => item.category)
+  const categories = [...new Set(suppliers.map((item) => item.category))]
   const countries = ["Argentina", "Chile", "Colombia", "Uruguay"]
   const provincies = ["Buenos Aires", "Mendoza", "Cordoba", "San Luis"]
 
@@ -67,20 +69,36 @@ const AddProduct = () => {
       category: Yup.string().required("Este campo es requerido"),
       email: Yup.string().lowercase().email("Ingresar un correo electrónico válido").required("Este campo es requerido"),
       phone: Yup.string().matches(/^\+\d{2}\s+\d{1}\s+\d{3}\s+\d{3}\s+\d{3}$/, "El formato debe ser +54 9 261 002 002").required("Este campo es requerido"),
-      instagram: Yup.string().required("Este campo es requerido"),
-      facebook: Yup.string().required("Este campo es requerido"),
+      instagram: Yup.string().matches(/^https:\/\/www\.instagram\.com\/.*$/, "El formato debe comenzar con https://www.instagram.com/"),
+      facebook: Yup.string().matches(/^https:\/\/www\.facebook\.com\/.*$/, "El formato debe comenzar con https://www.facebook.com/"),
       country: Yup.string().required("Este campo es requerido"),
       province: Yup.string().required("Este campo es requerido"),
       city: Yup.string().required("Este campo es requerido"),
       fullDescription: Yup.string().min(50, "La descripción debe tener al menos 10 caracteres").max(300, "La descripción no debe exceder los 300 caracteres").required("Este campo es requerido"),
     }),
     onSubmit: (values) => {
-      console.log(values)
+      axios.post("http://localhost:5000/suppliers", values).then((res) => {
+        setIsSent("sent")
+        console.log(res)
+      }).catch((err) => {
+        setIsSent("error")
+        console.log(err)
+      })
     },
   })
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
+      <Snackbar open={isSent === 'sent' || isSent === 'error'} autoHideDuration={6000} onClose={() => setIsSent("")}>
+        {isSent === 'sent' ?
+          <Alert variant="filled" severity="success" sx={{ width: '100%' }}>
+            Producto/Servicio cargado con éxito
+          </Alert> :
+          <Alert variant="filled" severity="error" sx={{ width: '100%' }}>
+            Lo sentimos, los cambios no se pudieron guardar.
+          </Alert>}
+      </Snackbar>
+
       <Typography sx={titleStyle}>Carga de Producto/Servicio</Typography>
       <Typography style={subTitleStyle}>Completá el formulario para subir tu Producto/Servicio </Typography>
 
