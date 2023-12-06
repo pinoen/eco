@@ -3,6 +3,7 @@ import useSuppliers from "../../utilities/suppliers"
 import UploadIcon from '@mui/icons-material/Upload';
 import { useFormik } from "formik";
 import { useState } from "react";
+import * as Yup from 'yup';
 
 const formStyle = {
   display: 'flex',
@@ -57,8 +58,22 @@ const AddProduct = () => {
     images: selectedImages,
   }
 
-  const { handleSubmit, handleChange, values } = useFormik({
+  const { handleSubmit, handleChange, values, errors } = useFormik({
     initialValues,
+    validateOnChange: false,
+    validationSchema: Yup.object({
+      name: Yup.string().required("Este campo es requerido"),
+      description: Yup.string().min(10, "La descripción debe tener al menos 10 caracteres").max(50, "La descripción no debe exceder los 50 caracteres").required("Este campo es requerido"),
+      category: Yup.string().required("Este campo es requerido"),
+      email: Yup.string().lowercase().email("Ingresar un correo electrónico válido").required("Este campo es requerido"),
+      phone: Yup.string().matches(/^\+\d{2}\s+\d{1}\s+\d{3}\s+\d{3}\s+\d{3}$/, "El formato debe ser +54 9 261 002 002").required("Este campo es requerido"),
+      instagram: Yup.string().required("Este campo es requerido"),
+      facebook: Yup.string().required("Este campo es requerido"),
+      country: Yup.string().required("Este campo es requerido"),
+      province: Yup.string().required("Este campo es requerido"),
+      city: Yup.string().required("Este campo es requerido"),
+      fullDescription: Yup.string().min(50, "La descripción debe tener al menos 10 caracteres").max(300, "La descripción no debe exceder los 300 caracteres").required("Este campo es requerido"),
+    }),
     onSubmit: (values) => {
       console.log(values)
     },
@@ -72,7 +87,8 @@ const AddProduct = () => {
       <TextField
         type="text"
         label="Nombre de la Organización*"
-        helperText="Se visualizará en el título de la publicación"
+        error={errors.name ? true : false}
+        helperText={errors.name ? errors.name : "Se visualizará en el título de la publicación"}
         name="name"
         onChange={handleChange}
         value={values.name}
@@ -81,7 +97,8 @@ const AddProduct = () => {
       <TextField
         type="text"
         label="Breve descripción del Producto/Servicio*"
-        helperText="Se visualizará en el subtítulo de la publicación 0/50"
+        error={errors.description ? true : false}
+        helperText={errors.description ? errors.description : "Se visualizará en el subtítulo de la publicación 0/50"}
         name="description"
         onChange={handleChange}
         value={values.description}
@@ -91,7 +108,8 @@ const AddProduct = () => {
         select
         label="Categoría*"
         placeholder="Categoría*"
-        helperText="Seleccioná la categoría de tu Producto/Servicio"
+        error={errors.category ? true : false}
+        helperText={errors.category ? errors.category : "Seleccioná la categoría de tu Producto/Servicio"}
         name="category"
         onChange={handleChange}
         value={values.category}
@@ -104,7 +122,8 @@ const AddProduct = () => {
       <TextField
         type="email"
         label="Correo electrónico*"
-        helperText="El mismo con el que te registraste o uno diferente"
+        error={errors.email ? true : false}
+        helperText={errors.email ? errors.email : "El mismo con el que te registraste o uno diferente"}
         name="email"
         onChange={handleChange}
         value={values.email}
@@ -113,7 +132,8 @@ const AddProduct = () => {
       <TextField
         type="tel"
         label="Teléfono o Whatsapp*"
-        helperText="Con el siguiente formato +54 9 261 002 002"
+        error={errors.phone ? true : false}
+        helperText={errors.phone ? errors.phone : "Con el siguiente formato +54 9 261 002 002"}
         name="phone"
         onChange={handleChange}
         value={values.phone}
@@ -122,7 +142,8 @@ const AddProduct = () => {
       <TextField
         type="text"
         label="Instagram"
-        helperText="Podés pegar el link de tu perfil"
+        error={errors.instagram ? true : false}
+        helperText={errors.instagram ? errors.instagram : "Podés pegar el link de tu perfil"}
         name="instagram"
         onChange={handleChange}
         value={values.instagram}
@@ -131,7 +152,8 @@ const AddProduct = () => {
       <TextField
         type="text"
         label="Facebook"
-        helperText="Podés pegar el link de tu perfil"
+        error={errors.facebook ? true : false}
+        helperText={errors.facebook ? errors.facebook : "Podés pegar el link de tu perfil"}
         name="facebook"
         onChange={handleChange}
         value={values.facebook}
@@ -141,7 +163,8 @@ const AddProduct = () => {
         select
         label="País*"
         placeholder="País**"
-        helperText="Seleccioná un país de la lista"
+        error={errors.country ? true : false}
+        helperText={errors.country ? errors.country : "Seleccioná un país de la lista"}
         name="country"
         onChange={handleChange}
         value={values.country}
@@ -155,7 +178,8 @@ const AddProduct = () => {
         select
         label="Provincia/Estado*"
         placeholder="Provincia/Estado*"
-        helperText="Seleccioná una provincia/estado de la lista"
+        error={errors.province ? true : false}
+        helperText={errors.province ? errors.province : "Seleccioná una provincia/estado de la lista"}
         name="province"
         onChange={handleChange}
         value={values.province}
@@ -168,7 +192,8 @@ const AddProduct = () => {
       <TextField
         type="text*"
         label="Ciudad*"
-        helperText="Sin abreviaturas, nombre completo"
+        error={errors.city ? true : false}
+        helperText={errors.city ? errors.city : "Sin abreviaturas, nombre completo"}
         name="city"
         onChange={handleChange}
         value={values.city}
@@ -177,7 +202,8 @@ const AddProduct = () => {
       <TextField
         type="text"
         label="Descripción del Producto/Servicio*"
-        helperText="Máximo 300 caracteres"
+        error={errors.fullDescription ? true : false}
+        helperText={errors.fullDescription ? errors.fullDescription : "Máximo 300 caracteres"}
         multiline
         rows={6}
         name="fullDescription"
