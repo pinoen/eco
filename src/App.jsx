@@ -14,6 +14,7 @@ import Profile from "./components/profile/Profile";
 import Proveedores from "./components/proveedores/Proveedores";
 import Proveedor from "./components/proveedores/Proveedor";
 import SearchResult from "./components/search/SearchResult";
+import DashboardAdmin from "./components/dashboard/DashboardAdmin";
 
 function App() {
   return (
@@ -25,11 +26,14 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
               <Route path="/publicaciones" element={<Publication />} />
               <Route path="/proveedores/" element={<Proveedores />} />
               <Route path="/proveedores/:nombre" element={<Proveedor />} />
               <Route path="/search/:nombre" element={<SearchResult />} />
               <Route path="/layout" element={<Layout_ex />} />
+
+
               {/* vista para inicia sesion */}
               <Route path="/ingresa" element={<Login user={true} />} />
               {/* vista para registrate */}
