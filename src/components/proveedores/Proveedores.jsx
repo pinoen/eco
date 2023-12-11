@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Hero } from "../landing/Hero";
 import CategoryGrid from "../common/CategoryGrid";
-import useSuppliers from "../../utilities/suppliers";
+import useSuppliers from "../../services/suppliers/suppliers";
 
 const boxStyle = {
   py: 5,

@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { SearchRounded } from "@mui/icons-material";
 import { Autocomplete, Box, InputAdornment, TextField } from "@mui/material";
-import useSuppliers from "../../utilities/suppliers";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import useSuppliersNames from "../../utilities/SuppliersName";
+import useSuppliersNames from "../../services/suppliers/SuppliersName";
 
 const boxStyle = {
   mt: 5,
@@ -14,10 +13,8 @@ const boxStyle = {
   color: "black.main",
 };
 export const SearchBar = ({ querySearch }) => {
-  // const suppliersNames = useSuppliersNames();
+  const suppliersNames = useSuppliersNames();
 
-  const suppliers = useSuppliers();
-  const suppliersList = suppliers.map((item) => item.name);
   const navigate = useNavigate();
 
   const [value, setValue] = useState(querySearch || null);
@@ -40,7 +37,7 @@ export const SearchBar = ({ querySearch }) => {
           }
         }}
         disablePortal
-        options={suppliersList}
+        options={suppliersNames.map((supplier) => supplier.name)}
         renderInput={(params) => (
           <TextField
             {...params}

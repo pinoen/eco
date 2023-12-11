@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { getToken, cleanToken } from "./securityService";
+import { getToken, cleanToken } from "../services/securityService";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 const useAuth = () => {
@@ -20,7 +20,7 @@ const useAuth = () => {
     navigate("/");
   };
 
-  return { token, user, handleLogout };
+  return { user, handleLogout };
 };
 
 export default useAuth;

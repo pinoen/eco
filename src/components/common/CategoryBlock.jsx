@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Box, CardMedia, Typography } from "@mui/material"
+import { Box, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const CategoryBlock = ({ categoryName, icon, page }) => {
+const CategoryBlock = ({ categoryName, page }) => {
   const navigate = useNavigate();
 
   const CategoryBlockStyle = {
@@ -14,10 +14,10 @@ const CategoryBlock = ({ categoryName, icon, page }) => {
     borderRadius: "16px",
     backgroundColor: "grey.main",
     padding: `${page === "landing" ? "8px" : "8px 50px"}`,
-    '&:hover': {
+    "&:hover": {
       cursor: "pointer",
-    }
-  }
+    },
+  };
 
   const TypographyStyle = {
     color: "black.main",
@@ -30,25 +30,28 @@ const CategoryBlock = ({ categoryName, icon, page }) => {
     textUnderlineOffset: "70%",
     textDecorationColor: "#4E169D",
     textDecorationThickness: "2px",
-  }
+  };
 
   return (
-    <Box sx={CategoryBlockStyle} onClick={() => navigate(`/proveedores/${categoryName}`)}>
+    <Box
+      sx={CategoryBlockStyle}
+      onClick={() => navigate(`/proveedores/${categoryName}`)}
+    >
       <CardMedia
         component="img"
         alt={categoryName}
         height="40"
-        image={icon}
+        // image={}
         sx={{
-          border: '1px solid black',
+          border: "1px solid black",
           borderRadius: "100%",
           padding: "3px",
-          width: '40px',
+          width: "40px",
         }}
       />
       <Typography sx={TypographyStyle}>{categoryName}</Typography>
-    </Box >
-  )
-}
+    </Box>
+  );
+};
 
-export default CategoryBlock
+export default CategoryBlock;

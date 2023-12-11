@@ -1,196 +1,227 @@
 /* eslint-disable react/prop-types */
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { CardContent, IconButton } from '@mui/material';
-import theme from '../../theme/theme';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CloseIcon from '@mui/icons-material/Close';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import EmailIcon from '@mui/icons-material/Email';
-import ReactImageGallery from 'react-image-gallery';
+import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { CardContent, IconButton } from "@mui/material";
+import theme from "../../theme/theme";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CloseIcon from "@mui/icons-material/Close";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import EmailIcon from "@mui/icons-material/Email";
+import ReactImageGallery from "react-image-gallery";
 
 const boxStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '8px',
-  borderRadius: '16px',
-  backgroundColor: 'grey.main',
-  width: '328px',
-  height: '584px',
-  padding: '8px',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "8px",
+  borderRadius: "16px",
+  backgroundColor: "grey.main",
+  width: "328px",
+  height: "584px",
+  padding: "8px",
 };
 
 const productNameStyle = {
-  color: 'black.main',
-  fontFamily: 'Nunito',
-  fontSize: '18px',
-  fontStyle: 'normal',
+  color: "black.main",
+  fontFamily: "Nunito",
+  fontSize: "18px",
+  fontStyle: "normal",
   fontWeight: 500,
-  lineHeight: '25px',
+  lineHeight: "25px",
 };
 
 const descriptionStyle = {
-  color: 'primary.main',
-  fontFamily: 'Nunito',
-  fontSize: '13px',
-  fontStyle: 'normal',
+  color: "primary.main",
+  fontFamily: "Nunito",
+  fontSize: "13px",
+  fontStyle: "normal",
   fontWeight: 600,
-  lineHeight: '18px',
-}
+  lineHeight: "18px",
+};
 
 const locationStyle = {
-  color: 'black.main',
-  fontFamily: 'Nunito',
-  fontSize: '13px',
-  fontStyle: 'normal',
+  color: "black.main",
+  fontFamily: "Nunito",
+  fontSize: "13px",
+  fontStyle: "normal",
   fontWeight: 400,
-  lineHeight: '20px',
-  paddingBottom: '32px',
-}
+  lineHeight: "20px",
+  paddingBottom: "32px",
+};
 
 const cardBoxStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'start',
-  gap: '2px',
-  width: '134px',
-  height: '48px',
-  padding: '4px 10px 16px 0px',
-}
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "start",
+  gap: "2px",
+  width: "134px",
+  height: "48px",
+  padding: "4px 10px 16px 0px",
+};
 
 const categoryStyle = {
-  borderRadius: '4px',
+  borderRadius: "4px",
   border: `1px solid ${theme.palette.secondary.main}`,
-  backgroundColor: 'white.main',
-  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-  width: '96px',
-  height: '24px',
-  padding: '4px 8px',
+  backgroundColor: "white.main",
+  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+  width: "96px",
+  height: "24px",
+  padding: "4px 8px",
   color: theme.palette.primary.main,
-  fontFamily: 'Nunito',
-  fontSize: '13px',
-  fontStyle: 'normal',
+  fontFamily: "Nunito",
+  fontSize: "13px",
+  fontStyle: "normal",
   fontWeight: 400,
-  lineHeight: '18px',
-  textAlign: 'center',
-  position: 'absolute',
+  lineHeight: "18px",
+  textAlign: "center",
+  position: "absolute",
   top: -10,
   right: 30,
-}
+};
 
 const closeIconStyle = {
-  position: 'absolute',
+  position: "absolute",
   top: -5,
   right: -5,
   zIndex: 1,
-}
+};
 
 const fullDescriptionStyle = {
-  color: 'black.main',
-  fontFamily: 'Nunito',
-  fontSize: '16px',
-  fontStyle: 'normal',
+  color: "black.main",
+  fontFamily: "Nunito",
+  fontSize: "16px",
+  fontStyle: "normal",
   fontWeight: 400,
-  lineHeight: '20px',
-  textAlign: 'center',
-  width: '304px',
-  paddingBottom: '24px',
-}
+  lineHeight: "20px",
+  textAlign: "center",
+  width: "304px",
+  paddingBottom: "24px",
+};
 
 const contactStyle = {
-  color: 'black.main',
-  fontFamily: 'Nunito',
-  fontSize: '16px',
-  fontStyle: 'normal',
+  color: "black.main",
+  fontFamily: "Nunito",
+  fontSize: "16px",
+  fontStyle: "normal",
   fontWeight: 500,
-  lineHeight: '25px',
-  textAlign: 'center',
-  width: '91px',
-  height: '24px',
-}
+  lineHeight: "25px",
+  textAlign: "center",
+  width: "91px",
+  height: "24px",
+};
 
 const socialMediaStyle = {
-  display: 'flex',
+  display: "flex",
   justifyContent: "space-around",
-}
+};
 
 const socialMediaIconStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-}
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
 
 const socialMediaNameStyle = {
-  color: 'black.main',
-  fontFamily: 'Nunito',
-  fontSize: '13px',
-  fontStyle: 'normal',
+  color: "black.main",
+  fontFamily: "Nunito",
+  fontSize: "13px",
+  fontStyle: "normal",
   fontWeight: 400,
-  lineHeight: '18px',
-}
+  lineHeight: "18px",
+};
 const SupplierDetailModal = ({ item, open, handleClose }) => {
+  const imagesForGallery = item.images.map((image) => ({
+    original: image,
+  }));
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-    >
+    <Modal open={open} onClose={handleClose}>
       <Box sx={boxStyle}>
-        <IconButton onClick={handleClose} sx={closeIconStyle}><CloseIcon /></IconButton>
-        <Typography sx={categoryStyle}>
-          {item.category}
-        </Typography>
+        <IconButton onClick={handleClose} sx={closeIconStyle}>
+          <CloseIcon />
+        </IconButton>
+        <Typography sx={categoryStyle}>{item?.category.name}</Typography>
 
         <div className="imagesContainerGallery">
-          <ReactImageGallery class items={item.images}
-            showIndex={true}
-            showFullscreenButton={true}
+          <ReactImageGallery
+            items={imagesForGallery}
+            showPlayButton={false}
+            showFullscreenButton={false}
+            showIndex={false}
+            showBullets={true}
           />
         </div>
 
         <CardContent>
           <Box sx={cardBoxStyle}>
             <Typography variant="h5" component="div" sx={productNameStyle}>
-              {item.name}
+              {item?.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={descriptionStyle}>
-              {item.description}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={descriptionStyle}
+            >
+              {item?.shortDescription}
             </Typography>
           </Box>
 
-          <Typography variant="body2" sx={locationStyle} style={{ display: 'flex', alignItems: 'center' }}>
-            <LocationOnIcon color='primary' />{item.city}, {item.state}, {item.country}
+          <Typography
+            variant="body2"
+            sx={locationStyle}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <LocationOnIcon color="primary" />
+            {item?.city}, {item?.province.name}, {item?.country.name}
           </Typography>
 
           <Typography variant="body2" sx={fullDescriptionStyle}>
-            {item.fullDescription}
+            {item?.description}
           </Typography>
 
           <Typography sx={contactStyle}>Contactanos</Typography>
           <Box sx={socialMediaStyle}>
             <Box sx={socialMediaIconStyle}>
-              <IconButton onClick={() => window.open(`https://wa.me/${item.phone}`)}><WhatsAppIcon color='primary' /></IconButton>
+              <IconButton
+                onClick={() => window.open(`https://wa.me/${item?.phone}`)}
+              >
+                <WhatsAppIcon color="primary" />
+              </IconButton>
               <Typography sx={socialMediaNameStyle}>WhatsApp</Typography>
             </Box>
             <Box sx={socialMediaIconStyle}>
-              <IconButton onClick={() => window.open(`https://www.instagram.com/${item.instagram}`)}><InstagramIcon color='primary' /></IconButton>
+              <IconButton
+                onClick={() =>
+                  window.open(`https://www.instagram.com/${item?.instagram}`)
+                }
+              >
+                <InstagramIcon color="primary" />
+              </IconButton>
               <Typography sx={socialMediaNameStyle}>Instagram</Typography>
             </Box>
             <Box sx={socialMediaIconStyle}>
-              <IconButton onClick={() => window.open(`https://www.facebook.com/${item.facebook}`)}><FacebookIcon color='primary' /></IconButton>
+              <IconButton
+                onClick={() =>
+                  window.open(`https://www.facebook.com/${item?.facebook}`)
+                }
+              >
+                <FacebookIcon color="primary" />
+              </IconButton>
               <Typography sx={socialMediaNameStyle}>Facebook</Typography>
             </Box>
             <Box sx={socialMediaIconStyle}>
-              <IconButton onClick={() => window.open(`mailto:${item.email}`)}><EmailIcon color='primary' /></IconButton>
+              <IconButton onClick={() => window.open(`mailto:${item.email}`)}>
+                <EmailIcon color="primary" />
+              </IconButton>
               <Typography sx={socialMediaNameStyle}>Email</Typography>
             </Box>
           </Box>
@@ -198,6 +229,6 @@ const SupplierDetailModal = ({ item, open, handleClose }) => {
       </Box>
     </Modal>
   );
-}
+};
 
-export default SupplierDetailModal
+export default SupplierDetailModal;

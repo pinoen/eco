@@ -2,15 +2,10 @@ import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-const ProductState = () => {
-  // const estado = "postulado";
-  const estado = "aprobado";
-  // const estado = "en_revision";
-  // const estado = "denegado";
-
+const ProductState = ({ name, status }) => {
   // Objeto con los textos correspondientes a cada estado
   const estadosText = {
-    postulado: {
+    REVISION_NICIAL: {
       title: "Postulado",
       content: "¡Gracias por querer forma parte de EcoSistema!",
       moreInfo:
@@ -18,21 +13,21 @@ const ProductState = () => {
       footer: "Pronto tendrás más novedades.",
       color: "#505050",
     },
-    aprobado: {
+    ACEPTADO: {
       title: "Aprobado",
       content: "¡Felicitaciones! Sos parte de EcoSistema",
       moreInfo:
         "Tu Producto/Servicios está incluído dentro de nuestra Red de Impacto.",
       color: "#1D9129",
     },
-    en_revision: {
+    REQUIERE_CAMBIOS: {
       title: "En revisión",
       content: "Devolución de la administración:",
       moreInfo:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
       color: "#B86B11",
     },
-    denegado: {
+    DENEGADO: {
       title: "Denegado",
       content: "Devolución de la administración:",
       moreInfo:
@@ -42,7 +37,7 @@ const ProductState = () => {
   };
 
   // Obtener los textos correspondientes al estado recibido
-  const { title, content, moreInfo, footer, color } = estadosText[estado] || {};
+  const { title, content, moreInfo, footer, color } = estadosText[status] || {};
 
   return (
     <Card // card estado de postulacion
@@ -74,7 +69,7 @@ const ProductState = () => {
             lineHeight: "24px",
           }}
         >
-          Lavanda
+          {name}
         </Typography>
         <Typography
           sx={{

@@ -7,9 +7,10 @@ import { Hero } from "./Hero";
 import SectionTitle from "./SectionTitle";
 import CategoryGrid from "../common/CategoryGrid";
 import CardsGrid from "../common/CardsGrid";
-import useSuppliers from "../../utilities/suppliers";
 import PublicationsSection from "./PublicationsSection";
 import Ubicacion from "../../utilities/Location";
+import getAceptedSuppliers from "../../services/suppliers/getAceptedSuppliers";
+import getAllCategories from "../../services/categories/getAllCategories";
 
 const boxStyle = {
   py: 5,
@@ -20,7 +21,8 @@ const boxStyle = {
 };
 
 function LandingPage() {
-  const suppliers = useSuppliers();
+  const suppliers = getAceptedSuppliers();
+
   const [openLocation, setOpenLocation] = useState(false);
 
   useEffect(() => {
@@ -68,7 +70,7 @@ function LandingPage() {
 
         <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
         {/* Categorías */}
-        <CategoryGrid suppliers={suppliers} page="landing" />
+        <CategoryGrid page="landing" />
         <CTAButton route="/proveedores">Ver mas Categorías</CTAButton>
         <PublicationsSection />
       </Box>
