@@ -46,8 +46,6 @@ export const DashboardAdmin = () => {
     background:"#BC1111"
   },}
   
-
-
   return (
     <Box sx={{ width:"328px",margin:"65px auto 0",fontFamily:"Nunito" }}>
       <Box
@@ -108,7 +106,6 @@ export const DashboardAdmin = () => {
 
       <Typography variant="h6" textAlign="center">Visualizaciones por publicacion</Typography>
       
-    
     </Box>
   );
 };
