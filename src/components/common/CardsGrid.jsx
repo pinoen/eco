@@ -12,6 +12,8 @@ const gridCardsStyle = {
   marginLeft: "0px",
   width: "100vw",
   display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   flexWrap: "wrap",
   gap: "24px",
 };
