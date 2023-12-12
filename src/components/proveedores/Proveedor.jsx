@@ -1,9 +1,10 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { apiUrl } from "../../constants";
 import { Box, Typography } from "@mui/material";
 import { Hero } from "../landing/Hero";
-import useSuppliers from "../../utilities/suppliers";
 import { useParams } from "react-router-dom";
 import CardsGrid from "../common/CardsGrid";
-
 
 const boxStyle = {
   py: 5,
@@ -29,10 +30,10 @@ const categoryStyle = {
 // font - size: 20px;
 // font - style: normal;
 // font - weight: 600;
-// line - height: 25px; 
+// line - height: 25px;
 
 const categoryNameStyle = {
-  color: 'primary.main',
+  color: "primary.main",
   fontFamily: "Nunito",
   fontSize: "20px",
   fontStyle: "normal",
@@ -40,10 +41,10 @@ const categoryNameStyle = {
   lineHeight: "25px",
   textAlign: "center",
   paddingBottom: "16px",
-}
+};
 
 const categoryDescriptionStyle = {
-  color: 'black.main',
+  color: "black.main",
   fontFamily: "Nunito",
   fontSize: "16px",
   fontStyle: "normal",
@@ -52,17 +53,21 @@ const categoryDescriptionStyle = {
   textAlign: "center",
   padding: "0px 16px 38px 16px",
   zIndex: 1,
-}
-
-
-
+};
 
 const Proveedor = () => {
-  const suppliers = useSuppliers();
-  const categoryName = useParams().nombre
-
-  const selectedCategory = suppliers.filter(item => item.category === categoryName)
-
+  const categoryName = useParams().nombre;
+  const [suppliersByCategory, setSuppliersByCategory] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${apiUrl}/suppliers/searchByCategory?category=${categoryName}`)
+      .then((response) => {
+        setSuppliersByCategory(response.data);
+      })
+      .catch((error) => {
+        console.error("Error proveedores por categoria", error);
+      });
+  }, []);
   return (
     <Box sx={boxStyle}>
       <Hero
@@ -73,12 +78,13 @@ const Proveedor = () => {
       />
       <Typography sx={categoryStyle}>Categorías</Typography>
       <Typography sx={categoryNameStyle}>{categoryName}</Typography>
-      <Typography sx={categoryDescriptionStyle}>{selectedCategory[0]?.categoryDescription}</Typography>
+      {/* <Typography sx={categoryDescriptionStyle}>
+        {selectedCategory[0]?.categoryDescription}
+      </Typography> */}
 
-      <CardsGrid suppliers={selectedCategory} page="proveedor" />
-
+      <CardsGrid suppliers={suppliersByCategory} page="proveedor" />
     </Box>
   );
-}
+};
 
-export default Proveedor
+export default Proveedor;

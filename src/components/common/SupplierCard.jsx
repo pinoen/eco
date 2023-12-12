@@ -8,7 +8,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import theme from "../../theme/theme";
 import SupplierDetailModal from "./SupplierDetailModal";
 import { useState } from "react";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const productNameStyle = {
   color: "black.main",
@@ -69,12 +69,12 @@ const SupplierCard = ({ item, page }) => {
     <>
       <Card sx={page === "landing" ? { width: "152px" } : { width: "328px" }}>
         <CardActionArea onClick={handleOpen}>
-          <Typography sx={categoryStyle}>{item.category}</Typography>
+          <Typography sx={categoryStyle}>{item.category.name}</Typography>
           <CardMedia
             component="img"
             alt={item.name}
             height="136"
-            image={item.images[0].original}
+            image={item.images[0]}
             sx={{
               borderRadius: "12px",
               padding: "8px 8px 4px 8px",
@@ -91,7 +91,7 @@ const SupplierCard = ({ item, page }) => {
                 color="text.secondary"
                 sx={descriptionAndLocationStyle}
               >
-                {item.description}
+                {item.shortDescription}
               </Typography>
             </Box>
 
@@ -103,7 +103,13 @@ const SupplierCard = ({ item, page }) => {
               <LocationOnIcon color="primary" />
               {item.city}
             </Typography>
-            {page !== "landing" && <ExpandMoreIcon color="primary" fontSize="large" sx={{ position: "block", marginLeft: "132px" }} />}
+            {page !== "landing" && (
+              <ExpandMoreIcon
+                color="primary"
+                fontSize="large"
+                sx={{ position: "block", marginLeft: "132px" }}
+              />
+            )}
           </CardContent>
         </CardActionArea>
       </Card>

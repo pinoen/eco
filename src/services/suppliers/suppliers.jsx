@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSuppliers } from "../services/api";
+import { getSuppliers } from "../api";
 
 const useSuppliers = () => {
   const [suppliers, setSuppliers] = useState([]);

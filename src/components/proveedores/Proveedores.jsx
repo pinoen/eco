@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Hero } from "../landing/Hero";
 import CategoryGrid from "../common/CategoryGrid";
-import useSuppliers from "../../utilities/suppliers";
+import useSuppliers from "../../services/suppliers/suppliers";
 
 const boxStyle = {
   py: 5,
@@ -34,7 +34,11 @@ const Proveedores = () => {
         text="Descubrí a quienes comparten tu pasión por el impacto positivo y la sostenibilidad"
       />
       <Typography sx={categoryStyle}>Categorías</Typography>
-      <CategoryGrid suppliers={suppliers} page="proveedores" />
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CategoryGrid suppliers={suppliers} page="proveedores" />
+      </Box>
     </Box>
   );
 };
