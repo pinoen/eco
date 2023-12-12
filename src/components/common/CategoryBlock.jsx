@@ -2,18 +2,19 @@
 import { Box, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const CategoryBlock = ({ categoryName, page }) => {
+const CategoryBlock = ({ categoryName, icon, page }) => {
   const navigate = useNavigate();
 
   const CategoryBlockStyle = {
     display: "flex",
     width: `${page === "landing" ? "152px" : "328px"}`,
     height: `${page === "landing" ? "64px" : "72px"}`,
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: "16px",
     backgroundColor: "grey.main",
-    padding: `${page === "landing" ? "8px" : "8px 50px"}`,
+    padding: `${page === "landing" ? "" : "8px 50px"}`,
+    gap: "10px",
     "&:hover": {
       cursor: "pointer",
     },
@@ -41,7 +42,7 @@ const CategoryBlock = ({ categoryName, page }) => {
         component="img"
         alt={categoryName}
         height="40"
-        // image={}
+        image={icon}
         sx={{
           border: "1px solid black",
           borderRadius: "100%",

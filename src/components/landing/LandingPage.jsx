@@ -60,7 +60,6 @@ function LandingPage() {
           openLocation={openLocation}
           setOpenLocation={setOpenLocation}
         />
-
         <SectionTitle
           title="Recomendaciones locales para vos"
           subtitle="Proveedores cerca tuyo"
@@ -70,6 +69,7 @@ function LandingPage() {
 
         <SectionTitle title="Red de Proveedores ECO" subtitle="Categorías" />
         {/* Categorías */}
+
         <CategoryGrid page="landing" />
         <CTAButton route="/proveedores">Ver mas Categorías</CTAButton>
         <PublicationsSection />

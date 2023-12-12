@@ -8,24 +8,28 @@ const getUserSuppliers = () => {
   const [userSuppliers, setUserSuppliers] = useState([]);
   const { user } = useAuth();
   const token = getToken();
+
   useEffect(() => {
-    axios
-      .get(`${apiUrl}/suppliers/me/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setUserSuppliers(response.data);
-      })
-      .catch((error) => {
-        console.error(
-          "Error al obtener provedores de usuario: ",
-          user.name,
-          error
-        );
-      });
-  }, [user]);
+    if (user && user.id) {
+      // Verificar que user tenga un valor y un id válido
+      axios
+        .get(`${apiUrl}/suppliers/me/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserSuppliers(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "Error al obtener proveedores de usuario: ",
+            user.name,
+            error
+          );
+        });
+    }
+  }, [user, token]);
 
   return userSuppliers;
 };

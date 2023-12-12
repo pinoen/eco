@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Typography } from '@mui/material'
+import { Box, Typography } from "@mui/material";
 
 const subTitleStyle = {
   color: "black.main",
@@ -8,7 +8,7 @@ const subTitleStyle = {
   fontStyle: "normal",
   fontWeight: "600",
   lineHeight: "25px",
-}
+};
 
 const titleStyle = {
   color: "black.main",
@@ -17,7 +17,7 @@ const titleStyle = {
   fontStyle: "normal",
   fontWeight: "700",
   lineHeight: "25px",
-}
+};
 
 const boxStyle = {
   display: "flex",
@@ -27,7 +27,7 @@ const boxStyle = {
   paddingLeft: "16px",
   width: "100%",
   marginBottom: "24px",
-}
+};
 const SectionTitle = ({ title, subtitle }) => {
   return (
     <Box sx={boxStyle}>
@@ -38,7 +38,7 @@ const SectionTitle = ({ title, subtitle }) => {
         {subtitle}
       </Typography>
     </Box>
-  )
-}
+  );
+};
 
-export default SectionTitle
+export default SectionTitle;
