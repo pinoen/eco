@@ -157,7 +157,11 @@ function Navbar(props) {
           </Box>
         </MenuItem>
         <MenuItem sx={{ paddingLeft: "40px" }}>
-          <Link to="/profile">
+          <Link
+            to={`${
+              user.role === "ADMINISTRADOR" ? "/dashboardAdmin" : "/profile"
+            } `}
+          >
             <Typography
               sx={{
                 color: "#4E169D",
@@ -280,7 +284,7 @@ function Navbar(props) {
           </ListItemButton>
         </ListItem>
 
-        <Link to="/" onClick={handleDrawerToggle}>
+        <Link to="/dashboardAdmin" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Dashboard Administrador</Typography>

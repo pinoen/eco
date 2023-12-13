@@ -26,6 +26,7 @@ function LandingPage() {
   const [openLocation, setOpenLocation] = useState(false);
 
   useEffect(() => {
+    //logica para popup de ubicacion
     const popupShown = localStorage.getItem("popupShown");
     const locationExists = localStorage.getItem("location");
     if (!popupShown && !locationExists) {

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
 import ReactImageGallery from "react-image-gallery";
+import axios from "axios";
+import { apiUrl } from "../../constants";
 
 const text = `El upcycling, también conocido como supra-reciclaje o reutilización creativa, es un enfoque innovador y sostenible para la gestión de residuos y la conservación de recursos. A diferencia del reciclaje convencional, que implica descomponer materiales para crear nuevos productos, el upcycling busca transformar objetos o materiales desechados en productos de mayor valor, sin degradar su calidad.
 
@@ -30,8 +32,23 @@ const images = [
   },
 ];
 
-const CardPublication = () => {
+const CardPublication = ({ id }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    if (isExpanded) {
+      axios.get(`${apiUrl}/publication/increment/${id}`).catch((error) => {
+        console.error(
+          "Error al incrementar la visualización de la publicación: ",
+          error
+        );
+      });
+    }
+  }, [isExpanded, id]);
+
+  const handleButton = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <Box
@@ -97,7 +114,7 @@ const CardPublication = () => {
           {isExpanded ? text : previewText}
         </Typography>
       </Box>
-      <Box onClick={() => setIsExpanded(!isExpanded)}>
+      <Box onClick={() => handleButton()}>
         <Typography
           sx={{
             color: "var(--Violeta, #4E169D)",
