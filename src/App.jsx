@@ -14,6 +14,7 @@ import Profile from "./components/profile/Profile";
 import Proveedores from "./components/proveedores/Proveedores";
 import Proveedor from "./components/proveedores/Proveedor";
 import SearchResult from "./components/search/SearchResult";
+import AddProduct from "./components/profile/AddProduct";
 import Location from "./utilities/Location"; import AddProduct from "./components/profile/AddProduct";
 import DashboardAdmin from "./components/dashboard/DashboardAdmin";
 

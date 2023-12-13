@@ -4,10 +4,12 @@ import useAuth from "../../utilities/user";
 import SupplierCard from "../common/SupplierCard";
 import ProductState from "./ProductState";
 import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import getUserSuppliers from "../../services/suppliers/getUserSuppliers";
 
 const Profile = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const navigate = useNavigate();
   const userSuppliers = getUserSuppliers();
   return (
@@ -41,8 +43,7 @@ const Profile = () => {
         >
           {user.name}
         </Typography>
-        <button
-          onClick={() => navigate("/profile/add-product")}
+        <button onClick={() => navigate("/profile/add-product")}
           style={{
             backgroundColor: "#4E169D",
             width: "328px",
