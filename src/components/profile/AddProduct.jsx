@@ -57,7 +57,6 @@ const AddProduct = () => {
     province: "",
     city: "",
     fullDescription: "",
-    // images: selectedImages
   }
 
   const { handleSubmit, handleChange, values, errors } = useFormik({
@@ -77,8 +76,15 @@ const AddProduct = () => {
       fullDescription: Yup.string().min(50, "La descripción debe tener al menos 10 caracteres").max(300, "La descripción no debe exceder los 300 caracteres").required("Este campo es requerido"),
     }),
     onSubmit: (values) => {
-      values.images = selectedImages;
-      axios.post("http://localhost:5000/suppliers", values).then((res) => {
+      values.images = selectedImages.map((image) => {
+        return { original: URL.createObjectURL(image) }
+      });
+      axios.post("http://localhost:5000/suppliers", values, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((res) => {
         setIsSent("sent")
         console.log(selectedImages)
         console.log(res)
