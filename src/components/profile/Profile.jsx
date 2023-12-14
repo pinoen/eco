@@ -41,8 +41,7 @@ const Profile = () => {
         >
           {user.name}
         </Typography>
-        <button
-          onClick={() => navigate("/profile/add-product")}
+        <button onClick={() => navigate("/profile/add-product")}
           style={{
             backgroundColor: "#4E169D",
             width: "328px",

@@ -74,7 +74,7 @@ const SupplierCard = ({ item, page }) => {
             component="img"
             alt={item.name}
             height="136"
-            image={item.images[0]}
+            image={item.images[0]?.original}
             sx={{
               borderRadius: "12px",
               padding: "8px 8px 4px 8px",
