@@ -7,12 +7,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import useSuppliers from "../../services/suppliers/suppliers";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
+import { apiUrl } from "../../constants";
+import getAllCategories from "../../services/categories/getAllCategories";
+import getAllCountries from "../../services/countries/getCountries";
+import getAllProvinces from "../../services/province/getAllProvince";
+import useAuth from "../../utilities/user";
+import { getToken } from "../../services/securityService";
+import useAlert from "../../utilities/alert";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import getSupplierById from "../../services/suppliers/getSupplierById";
 
 const formStyle = {
   display: "flex",
@@ -25,10 +33,11 @@ const formStyle = {
 };
 
 const titleStyle = {
+  width: "328px",
   color: "black.main",
   textAlign: "center",
   fontFamily: "Nunito",
-  fontSize: "25px",
+  fontSize: "24px",
   fontStyle: "normal",
   fontWeight: "600",
   lineHeight: "30px",
@@ -46,103 +55,173 @@ const subTitleStyle = {
 
 const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [isSent, setIsSent] = useState("");
-  const suppliers = useSuppliers();
-  const categories = [...new Set(suppliers.map((item) => item.category))];
-  const countries = ["Argentina", "Chile", "Colombia", "Uruguay"];
-  const provincies = ["Buenos Aires", "Mendoza", "Cordoba", "San Luis"];
+  const [isSent, setIsSent] = useState(false);
+  const navigate = useNavigate();
+  const categories = getAllCategories();
+  const countries = getAllCountries();
+  const provincies = getAllProvinces();
+  const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); // manejo de alertas
+  const { user } = useAuth();
+  const token = getToken();
+  // parte de edicion
+  const location = useLocation();
+  const { id } = useParams();
+  const isEditPath = location.pathname === `/profile/edit-product/${id}`;
+  const editSupplier = getSupplierById(id);
 
   const initialValues = {
     name: "",
     description: "",
-    category: "",
+    shortDescription: "",
+    categoryId: -1,
     email: "",
     phone: "",
     instagram: "",
     facebook: "",
-    country: "",
-    province: "",
+    countryId: -1,
+    provinceId: -1,
     city: "",
-    fullDescription: "",
-    images: selectedImages,
+    userId: -1,
   };
 
-  const { handleSubmit, handleChange, values, errors } = useFormik({
-    initialValues,
-    validateOnChange: false,
-    validationSchema: Yup.object({
-      name: Yup.string().required("Este campo es requerido"),
-      description: Yup.string()
-        .min(10, "La descripción debe tener al menos 10 caracteres")
-        .max(50, "La descripción no debe exceder los 50 caracteres")
-        .required("Este campo es requerido"),
-      category: Yup.string().required("Este campo es requerido"),
-      email: Yup.string()
-        .lowercase()
-        .email("Ingresar un correo electrónico válido")
-        .required("Este campo es requerido"),
-      phone: Yup.string()
-        .matches(
-          /^\+\d{2}\s+\d{1}\s+\d{3}\s+\d{3}\s+\d{3}$/,
-          "El formato debe ser +54 9 261 002 002"
-        )
-        .required("Este campo es requerido"),
-      instagram: Yup.string().matches(
-        /^https:\/\/www\.instagram\.com\/.*$/,
-        "El formato debe comenzar con https://www.instagram.com/"
-      ),
-      facebook: Yup.string().matches(
-        /^https:\/\/www\.facebook\.com\/.*$/,
-        "El formato debe comenzar con https://www.facebook.com/"
-      ),
-      country: Yup.string().required("Este campo es requerido"),
-      province: Yup.string().required("Este campo es requerido"),
-      city: Yup.string().required("Este campo es requerido"),
-      fullDescription: Yup.string()
-        .min(50, "La descripción debe tener al menos 10 caracteres")
-        .max(300, "La descripción no debe exceder los 300 caracteres")
-        .required("Este campo es requerido"),
-    }),
-    onSubmit: (values) => {
-      axios
-        .post("http://localhost:5000/suppliers", values)
-        .then((res) => {
-          setIsSent("sent");
-          console.log(res);
-        })
-        .catch((err) => {
-          setIsSent("error");
-          console.log(err);
+  const { handleSubmit, handleChange, values, errors, setSubmitting } =
+    useFormik({
+      initialValues,
+      validateOnChange: false,
+      validationSchema: Yup.object({
+        name: Yup.string().required("Este campo es requerido"),
+        shortDescription: Yup.string()
+          .min(10, "La descripción debe tener al menos 10 caracteres")
+          .max(50, "La descripción no debe exceder los 50 caracteres")
+          .required("Este campo es requerido"),
+        category: Yup.object()
+          .shape({
+            id: Yup.number().min(0),
+            name: Yup.string(),
+          })
+          .required("Este campo es requerido"),
+        email: Yup.string()
+          .lowercase()
+          .email("Ingresar un correo electrónico válido")
+          .required("Este campo es requerido"),
+        phone: Yup.string()
+          .matches(
+            /^\+\d{2}\s+\d{1}\s+\d{3}\s+\d{3}\s+\d{3}$/,
+            "El formato debe ser +54 9 261 002 002"
+          )
+          .required("Este campo es requerido"),
+        instagram: Yup.string().matches(
+          /^https:\/\/www\.instagram\.com\/.*$/,
+          "El formato debe comenzar con https://www.instagram.com/"
+        ),
+        facebook: Yup.string().matches(
+          /^https:\/\/www\.facebook\.com\/.*$/,
+          "El formato debe comenzar con https://www.facebook.com/"
+        ),
+        country: Yup.object()
+          .shape({
+            id: Yup.number().min(0),
+            name: Yup.string(),
+          })
+          .required("Este campo es requerido"),
+        province: Yup.object()
+          .shape({
+            id: Yup.number().min(0),
+            name: Yup.string(),
+          })
+          .required("Este campo es requerido"),
+        city: Yup.string().required("Este campo es requerido"),
+        description: Yup.string()
+          .min(10, "La descripción debe tener al menos 10 caracteres")
+          .max(300, "La descripción no debe exceder los 300 caracteres")
+          .required("Este campo es requerido"),
+      }),
+      onSubmit: (values, { setSubmitting }) => {
+        // axios
+        setIsSent(true);
+        const finalData = {
+          name: values.name,
+          description: values.description,
+          shortDescription: values.shortDescription,
+          phone: values.phone,
+          email: values.email,
+          facebook: values.facebook,
+          instagram: values.instagram,
+          countryId: values.country.id,
+          provinceId: values.province.id,
+          city: values.city,
+          categoryId: values.category.id,
+          userId: user.id,
+        };
+
+        const formData = new FormData();
+        formData.append(
+          "supplier",
+          new Blob([JSON.stringify(finalData)], {
+            type: "application/json",
+          })
+        );
+        selectedImages.forEach((image) => {
+          if (!formData.getAll("images").includes(image)) {
+            formData.append("images", image);
+          }
         });
-    },
-  });
+        if (isEditPath) {
+          axios
+            .post(`${apiUrl}/suppliers/${id}`, formData, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              setIsSent(false); // Habilita el botón después de un éxito
+              showAlert("Proveedor editado!", "success");
+              setTimeout(() => {
+                navigate("/");
+              }, 1000);
+            })
+            .catch((err) => {
+              showAlert("Error al editar Proveedor", "error");
+              setIsSent(false); // Habilita el botón en caso de error
+            });
+        } else {
+          axios
+            .post(`${apiUrl}/suppliers`, formData, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              setIsSent(false); // Habilita el botón después de un éxito
+              showAlert("Proveedor creado!", "success");
+              setTimeout(() => {
+                navigate("/");
+              }, 1000);
+            })
+            .catch((err) => {
+              showAlert("Error al cargar Proveedor", "error");
+              setIsSent(false); // Habilita el botón en caso de error
+            });
+        }
+      },
+    });
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
-      <Snackbar
-        open={isSent === "sent" || isSent === "error"}
-        autoHideDuration={6000}
-        onClose={() => setIsSent("")}
-      >
-        {isSent === "sent" ? (
-          <Alert variant="filled" severity="success" sx={{ width: "100%" }}>
-            Producto/Servicio cargado con éxito
-          </Alert>
-        ) : (
-          <Alert variant="filled" severity="error" sx={{ width: "100%" }}>
-            Lo sentimos, los cambios no se pudieron guardar.
-          </Alert>
-        )}
-      </Snackbar>
-
-      <Typography sx={titleStyle}>Carga de Producto/Servicio</Typography>
+      <Typography sx={titleStyle}>
+        {isEditPath
+          ? "Edición de Producto/Servicio"
+          : "Carga de Producto/Servicio"}
+      </Typography>
       <Typography style={subTitleStyle}>
-        Completá el formulario para subir tu Producto/Servicio{" "}
+        {isEditPath
+          ? "Editá el formulario de carga de tu Producto/Servicio "
+          : "Completá el formulario para subir tu Producto/Servicio"}
       </Typography>
 
       <TextField
         type="text"
-        label="Nombre de la Organización*"
+        label={isEditPath ? "" : "Nombre de la Organización*"}
         error={errors.name ? true : false}
         helperText={
           errors.name
@@ -151,28 +230,30 @@ const AddProduct = () => {
         }
         name="name"
         onChange={handleChange}
-        value={values.name}
+        value={isEditPath ? editSupplier.name : values.name}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Breve descripción del Producto/Servicio*"
-        error={errors.description ? true : false}
+        label={isEditPath ? "" : "Breve descripción del Producto/Servicio*"}
+        error={errors.shortDescription ? true : false}
         helperText={
-          errors.description
-            ? errors.description
+          errors.shortDescription
+            ? errors.shortDescription
             : "Se visualizará en el subtítulo de la publicación 0/50"
         }
-        name="description"
+        name="shortDescription"
         onChange={handleChange}
-        value={values.description}
+        value={
+          isEditPath ? editSupplier.shortDescription : values.shortDescription
+        }
         fullWidth
       />
 
       <TextField
         select
-        label="Categoría*"
+        label={isEditPath ? "" : "Categoría*"}
         placeholder="Categoría*"
         error={errors.category ? true : false}
         helperText={
@@ -182,19 +263,19 @@ const AddProduct = () => {
         }
         name="category"
         onChange={handleChange}
-        value={values.category}
+        value={isEditPath ? editSupplier?.category?.name : values.category}
         fullWidth
       >
         {categories.map((item) => (
-          <MenuItem key={item} value={item}>
-            {item}
+          <MenuItem key={item.id} value={item}>
+            {item.name}
           </MenuItem>
         ))}
       </TextField>
 
       <TextField
         type="email"
-        label="Correo electrónico*"
+        label={isEditPath ? "" : "Correo electrónico*"}
         error={errors.email ? true : false}
         helperText={
           errors.email
@@ -203,13 +284,13 @@ const AddProduct = () => {
         }
         name="email"
         onChange={handleChange}
-        value={values.email}
+        value={isEditPath ? editSupplier.email : values.email}
         fullWidth
       />
 
       <TextField
         type="tel"
-        label="Teléfono o Whatsapp*"
+        label={isEditPath ? "" : "Teléfono o Whatsapp*"}
         error={errors.phone ? true : false}
         helperText={
           errors.phone
@@ -218,13 +299,13 @@ const AddProduct = () => {
         }
         name="phone"
         onChange={handleChange}
-        value={values.phone}
+        value={isEditPath ? editSupplier.phone : values.phone}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Instagram"
+        label={isEditPath ? "" : "Instagram"}
         error={errors.instagram ? true : false}
         helperText={
           errors.instagram
@@ -233,26 +314,26 @@ const AddProduct = () => {
         }
         name="instagram"
         onChange={handleChange}
-        value={values.instagram}
+        value={isEditPath ? editSupplier.instagram : values.instagram}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Facebook"
+        label={isEditPath ? "" : "Facebook"}
         error={errors.facebook ? true : false}
         helperText={
           errors.facebook ? errors.facebook : "Podés pegar el link de tu perfil"
         }
         name="facebook"
         onChange={handleChange}
-        value={values.facebook}
+        value={isEditPath ? editSupplier.facebook : values.facebook}
         fullWidth
       />
 
       <TextField
         select
-        label="País*"
+        label={isEditPath ? "" : "País*"}
         placeholder="País**"
         error={errors.country ? true : false}
         helperText={
@@ -260,19 +341,19 @@ const AddProduct = () => {
         }
         name="country"
         onChange={handleChange}
-        value={values.country}
+        value={isEditPath ? editSupplier.country : values.country}
         fullWidth
       >
         {countries.map((item) => (
-          <MenuItem key={item} value={item}>
-            {item}
+          <MenuItem key={item.id} value={item}>
+            {item.name}
           </MenuItem>
         ))}
       </TextField>
 
       <TextField
         select
-        label="Provincia/Estado*"
+        label={isEditPath ? "" : "Provincia/Estado*"}
         placeholder="Provincia/Estado*"
         error={errors.province ? true : false}
         helperText={
@@ -282,43 +363,41 @@ const AddProduct = () => {
         }
         name="province"
         onChange={handleChange}
-        value={values.province}
+        value={isEditPath ? editSupplier.province : values.province}
         fullWidth
       >
         {provincies.map((item) => (
-          <MenuItem key={item} value={item}>
-            {item}
+          <MenuItem key={item.id} value={item}>
+            {item.name}
           </MenuItem>
         ))}
       </TextField>
 
       <TextField
         type="text*"
-        label="Ciudad*"
+        label={isEditPath ? "" : "Ciudad*"}
         error={errors.city ? true : false}
         helperText={
           errors.city ? errors.city : "Sin abreviaturas, nombre completo"
         }
         name="city"
         onChange={handleChange}
-        value={values.city}
+        value={isEditPath ? editSupplier.city : values.city}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Descripción del Producto/Servicio*"
-        error={errors.fullDescription ? true : false}
+        label={isEditPath ? "" : "Descripción del Producto/Servicio*"}
+        error={errors.description ? true : false}
         helperText={
-          errors.fullDescription
-            ? errors.fullDescription
-            : "Máximo 300 caracteres"
+          errors.description ? errors.description : "Máximo 300 caracteres"
         }
         multiline
         rows={6}
-        name="fullDescription"
+        name="description"
         onChange={handleChange}
-        value={values.fullDescription}
+        value={isEditPath ? editSupplier.description : values.description}
         fullWidth
       />
 
@@ -334,7 +413,7 @@ const AddProduct = () => {
               Subir imagén
               <input
                 type="file"
-                accept="image/*"
+                accept=".jpg, .jpeg, .png, .gif, .bmp"
                 multiple
                 onChange={(e) =>
                   e.target.files &&
@@ -358,24 +437,66 @@ const AddProduct = () => {
       </Box>
 
       <Box>
-        {selectedImages &&
-          selectedImages.map((image, index) => (
-            <img
-              key={index}
-              src={URL.createObjectURL(image)}
-              alt="preview"
-              style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                margin: "5px",
-              }}
-            />
-          ))}
+        {isEditPath
+          ? editSupplier.images?.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt="preview"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "cover",
+                  margin: "5px",
+                }}
+              />
+            ))
+          : // Si no es una ruta de edición, renderiza las imágenes seleccionadas
+            selectedImages &&
+            selectedImages.map((image, index) => (
+              <img
+                key={index}
+                src={URL.createObjectURL(image)}
+                alt="preview"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "cover",
+                  margin: "5px",
+                }}
+              />
+            ))}
       </Box>
-      <Button variant="contained" type="submit" sx={{ borderRadius: "100px" }}>
-        Cargar Producto/Servicio
-      </Button>
+      {isEditPath ? (
+        <Button
+          disabled={isSent} // Deshabilita el botón cuando se envía
+          variant="contained"
+          type="submit"
+          sx={{ borderRadius: "100px" }}
+        >
+          Guardar Cambios
+        </Button>
+      ) : (
+        <Button
+          disabled={isSent} // Deshabilita el botón cuando se envía
+          variant="contained"
+          type="submit"
+          sx={{ borderRadius: "100px" }}
+        >
+          {isEditPath ? "Guardar Cambios" : "Cargar Producto/Servicio"}
+        </Button>
+      )}
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>
+        <Alert
+          variant="filled"
+          onClose={hideAlert}
+          severity={alertColor}
+          sx={{ width: "100%" }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </form>
   );
 };

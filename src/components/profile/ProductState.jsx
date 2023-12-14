@@ -1,11 +1,12 @@
 import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Link } from "react-router-dom";
 
-const ProductState = ({ name, status }) => {
+const ProductState = ({ name, status, id }) => {
   // Objeto con los textos correspondientes a cada estado
   const estadosText = {
-    REVISION_NICIAL: {
+    REVISION_INICIAL: {
       title: "Postulado",
       content: "¡Gracias por querer forma parte de EcoSistema!",
       moreInfo:
@@ -71,23 +72,25 @@ const ProductState = ({ name, status }) => {
         >
           {name}
         </Typography>
-        <Typography
-          sx={{
-            color: "#FAFAFA",
-            fontFamily: "Nunito",
-            fontSize: "16px",
-            fontStyle: "normal",
-            fontWeight: "700",
-            lineHeight: "20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          Editar
-          <ArrowForwardIosIcon sx={{ width: "24px", padding: "5px" }} />
-        </Typography>
+        <Link to={`/profile/edit-product/${id}`}>
+          <Typography
+            sx={{
+              color: "#FAFAFA",
+              fontFamily: "Nunito",
+              fontSize: "16px",
+              fontStyle: "normal",
+              fontWeight: "700",
+              lineHeight: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+          >
+            Editar
+            <ArrowForwardIosIcon sx={{ width: "24px", padding: "5px" }} />
+          </Typography>
+        </Link>
       </Box>
       <Box
         sx={{

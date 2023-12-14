@@ -78,9 +78,14 @@ const Profile = () => {
           gap: "16px",
         }}
       >
-        {Array.isArray(userSuppliers) && userSuppliers.length > 0 ? (
+        {userSuppliers ? (
           userSuppliers.map((item, idx) => (
-            <ProductState key={idx} name={item.name} status={item.status} />
+            <ProductState
+              key={idx}
+              name={item.name}
+              status={item.status}
+              id={item.id}
+            />
           ))
         ) : (
           <Typography>No tenes productos/servicios todavía</Typography>
@@ -107,7 +112,7 @@ const Profile = () => {
             marginBottom: "16px",
           }}
         >
-          {Array.isArray(userSuppliers) && userSuppliers.length > 0
+          {userSuppliers
             ? "Asi se vería tu Producto/Servicio en el Directorio"
             : ""}
         </Typography>

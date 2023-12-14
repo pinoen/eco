@@ -2,8 +2,9 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import CardPublications from "../publicaciones/CardPublication";
 import { Link } from "react-router-dom";
-
+import getAllPublications from "../../services/publications/getAllPublications";
 const PublicationsSection = () => {
+  const publications = getAllPublications();
   return (
     <Box>
       <Typography
@@ -34,9 +35,16 @@ const PublicationsSection = () => {
       >
         Impulsando transformaciones
       </Typography>
-      <CardPublications />
-      <CardPublications />
-      <CardPublications />
+      {publications.map(({ id, description, images, title }) => (
+        <CardPublications
+          key={id}
+          id={id}
+          description={description}
+          images={images}
+          title={title}
+        />
+      ))}
+
       <Link to="/publicaciones">
         <Box
           sx={{

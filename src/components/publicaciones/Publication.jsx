@@ -3,6 +3,7 @@ import { SearchBar } from "../common/SearchBar";
 import plant from "../../assets/img/plant.png";
 import CardPublication from "./CardPublication";
 import verde from "../../assets/verde1.png";
+import getAllPublications from "../../services/publications/getAllPublications";
 const boxStyle = {
   py: 5,
   backgroundColor: "white.main",
@@ -12,6 +13,7 @@ const boxStyle = {
 };
 
 const Publicaciones = () => {
+  const publications = getAllPublications();
   return (
     <Box sx={boxStyle}>
       <Box
@@ -83,9 +85,15 @@ const Publicaciones = () => {
         <img width="100%" src={verde} />
       </Box>
       <Box sx={{ position: "relative", zIndex: 1 }}>
-        <CardPublication />
-        <CardPublication />
-        <CardPublication />
+        {publications.map(({ id, description, images, title }) => (
+          <CardPublication
+            key={id}
+            id={id}
+            description={description}
+            images={images}
+            title={title}
+          />
+        ))}
       </Box>
     </Box>
   );

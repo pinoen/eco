@@ -34,7 +34,7 @@ const boxStyle = {
   gap: "12px",
   backgroundColor: "white.main",
   marginTop: "102px",
-  height: "100vh",
+  minHeight: "100vh",
 };
 
 const innerBoxStyle = {

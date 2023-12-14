@@ -14,7 +14,8 @@ import Profile from "./components/profile/Profile";
 import Proveedores from "./components/proveedores/Proveedores";
 import Proveedor from "./components/proveedores/Proveedor";
 import SearchResult from "./components/search/SearchResult";
-import Location from "./utilities/Location"; import AddProduct from "./components/profile/AddProduct";
+import Location from "./utilities/Location";
+import AddProduct from "./components/profile/AddProduct";
 import DashboardAdmin from "./components/dashboard/DashboardAdmin";
 
 function App() {
@@ -35,13 +36,16 @@ function App() {
               <Route path="/location" element={<Location />} />
               <Route path="/layout" element={<Layout_ex />} />
 
-
               {/* vista para inicia sesion */}
               <Route path="/ingresa" element={<Login user={true} />} />
               {/* vista para registrate */}
               <Route path="/registrate" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/add-product" element={<AddProduct />} />
+              <Route
+                path="/profile/edit-product/:id"
+                element={<AddProduct />}
+              />
               {/* Agregar rutas necesarias */}
             </Routes>
             {/* <Footer /> */}
