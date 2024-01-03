@@ -17,6 +17,7 @@ import SearchResult from "./components/search/SearchResult";
 import Location from "./utilities/Location";
 import AddProduct from "./components/profile/AddProduct";
 import DashboardAdmin from "./components/dashboard/DashboardAdmin";
+import Suppliers from "./components/admin/Suppliers";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
                 element={<AddProduct />}
               />
               {/* Agregar rutas necesarias */}
+              <Route path="/suppliers" element={<Suppliers />} />
             </Routes>
             {/* <Footer /> */}
           </Router>
