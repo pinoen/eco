@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Alert,
   Box,
@@ -9,7 +10,7 @@ import {
 } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 import { apiUrl } from "../../constants";
@@ -53,7 +54,26 @@ const subTitleStyle = {
   lineHeight: "25px",
 };
 
-const AddProduct = () => {
+const titleTextStyle = {
+  color: "primary.main",
+  fontFamily: "Nunito",
+  fontSize: "22px",
+  fontStyle: "normal",
+  fontWeight: 700,
+  lineHeight: "24px",
+}
+
+
+const categoryStyle = {
+  fontFamily: "Nunito",
+  fontSize: "18px",
+  fontStyle: "normal",
+  fontWeight: 400,
+  lineHeight: "20px",
+  color: "black.main",
+}
+
+const AddProduct = ({ showSupplier }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [isSent, setIsSent] = useState(false);
   const navigate = useNavigate();
@@ -208,16 +228,25 @@ const AddProduct = () => {
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
-      <Typography sx={titleStyle}>
-        {isEditPath
-          ? "Edición de Producto/Servicio"
-          : "Carga de Producto/Servicio"}
-      </Typography>
-      <Typography style={subTitleStyle}>
-        {isEditPath
-          ? "Editá el formulario de carga de tu Producto/Servicio "
-          : "Completá el formulario para subir tu Producto/Servicio"}
-      </Typography>
+      {!showSupplier ? <>
+        <Typography sx={titleStyle}>
+          {isEditPath
+            ? "Edición de Producto/Servicio"
+            : "Carga de Producto/Servicio"}
+        </Typography>
+        <Typography style={subTitleStyle}>
+          {isEditPath
+            ? "Editá el formulario de carga de tu Producto/Servicio "
+            : "Completá el formulario para subir tu Producto/Servicio"}
+        </Typography>
+      </> :
+        <>
+
+          <Typography sx={titleTextStyle}>Lavanda</Typography>
+          <Typography sx={categoryStyle}>Cosmética natural</Typography>
+        </>
+
+      }
 
       <TextField
         type="text"
@@ -439,33 +468,33 @@ const AddProduct = () => {
       <Box>
         {isEditPath
           ? editSupplier.images?.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt="preview"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  objectFit: "cover",
-                  margin: "5px",
-                }}
-              />
-            ))
+            <img
+              key={index}
+              src={image}
+              alt="preview"
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                margin: "5px",
+              }}
+            />
+          ))
           : // Si no es una ruta de edición, renderiza las imágenes seleccionadas
-            selectedImages &&
-            selectedImages.map((image, index) => (
-              <img
-                key={index}
-                src={URL.createObjectURL(image)}
-                alt="preview"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  objectFit: "cover",
-                  margin: "5px",
-                }}
-              />
-            ))}
+          selectedImages &&
+          selectedImages.map((image, index) => (
+            <img
+              key={index}
+              src={URL.createObjectURL(image)}
+              alt="preview"
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                margin: "5px",
+              }}
+            />
+          ))}
       </Box>
       {isEditPath ? (
         <Button
