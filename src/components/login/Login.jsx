@@ -8,6 +8,7 @@ import useAlert from "../../utilities/alert";
 
 import { Card, Snackbar, Alert, Box, Typography } from "@mui/material";
 import logo from "../../assets/login/logoLogin.png";
+import bglogin from "../../assets/login/bglogin.png";
 
 function LoginCard({ user }) {
   const navigate = useNavigate(); // para redireccionar cuando se haga el login
@@ -53,8 +54,7 @@ function LoginCard({ user }) {
         sx={{
           width: "100%",
           height: "100%",
-          backgroundImage:
-            "linear-gradient(0deg, rgba(34, 34, 34, 0.50) 0%, rgba(34, 34, 34, 0.50) 100%), url(https://s3-alpha-sig.figma.com/img/4369/010e/e2ffa5e4c8bf751bceb287ec6e3df4fb?Expires=1702252800&Signature=e7nEuO1fji~Db2V1y~AhEJYtBbOjx8QztlPfZKswKvyssDahkxM1BnA3Ac~6XaIXYplOwtC-tOPf7B5eyExpNp8rs11-3OkFWiW4ridPkn5DQlrKAzAtJwBBY90OnzidIQA~T5pKrB4D5kSn7qAthZc5xuNu8Qn-2LQAnxtZCUbtlraOw1TvI38vuRp089Zil5Fr1Wksyjkuuaor6-nABrfgN0kZoAUYAcr3Jae1LOc~YD7fvkrQv-E-XNPVLSkpGdZUo6GgaJv1GHyYG8suVFXXRDc7aJZr7aksb1VE5joflRnzGNXBCanGmJP5nBkyLNppRaIqfLhA6EAEz4t-Fg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)",
+          backgroundImage: `linear-gradient(0deg, rgba(34, 34, 34, 0.50) 0%, rgba(34, 34, 34, 0.50) 100%), url(${bglogin})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -143,6 +143,7 @@ function LoginCard({ user }) {
             </Typography>
             <GoogleOAuthProvider clientId={googleClientID}>
               <GoogleLogin
+                width={"100%"}
                 onSuccess={handleGoogleSuccess}
                 theme="filled_black"
                 shape="circle"

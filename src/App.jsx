@@ -17,6 +17,8 @@ import SearchResult from "./components/search/SearchResult";
 import Location from "./utilities/Location";
 import AddProduct from "./components/profile/AddProduct";
 import DashboardAdmin from "./components/dashboard/DashboardAdmin";
+import PublicationAdmin from "./components/publicaciones/PublicationAdmin";
+import AddPublication from "./components/publicaciones/AddPublication";
 
 function App() {
   return (
@@ -35,6 +37,15 @@ function App() {
               <Route path="/search/:nombre" element={<SearchResult />} />
               <Route path="/location" element={<Location />} />
               <Route path="/layout" element={<Layout_ex />} />
+              <Route
+                path="/publicacionesAdmin"
+                element={<PublicationAdmin />}
+              />
+              <Route path="/cargarPublicacion" element={<AddPublication />} />
+              <Route
+                path="/editarPublicacion/:id"
+                element={<AddPublication edit />}
+              />
 
               {/* vista para inicia sesion */}
               <Route path="/ingresa" element={<Login user={true} />} />

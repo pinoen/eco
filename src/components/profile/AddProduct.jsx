@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 import { apiUrl } from "../../constants";

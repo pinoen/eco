@@ -215,7 +215,7 @@ function Navbar(props) {
     margin: "2% 0",
   };
 
-  // codigo del menu desplegable
+  // codigo del menu desplegable de usuario
   const drawerUser = (
     <Box>
       <List>
@@ -275,6 +275,7 @@ function Navbar(props) {
       </List>
     </Box>
   );
+  // codigo del menu desplegable de administrador
   const drawerAdmin = (
     <Box>
       <List>
@@ -299,7 +300,7 @@ function Navbar(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/publicaciones" onClick={handleDrawerToggle}>
+        <Link to="/publicacionesAdmin" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Publicaciones</Typography>

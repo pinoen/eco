@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Box } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
 
-const ProductState = ({ name, status, id }) => {
+const ProductState = ({ name, status, id, feedback }) => {
   // Objeto con los textos correspondientes a cada estado
   const estadosText = {
     REVISION_INICIAL: {
@@ -24,15 +24,13 @@ const ProductState = ({ name, status, id }) => {
     REQUIERE_CAMBIOS: {
       title: "En revisión",
       content: "Devolución de la administración:",
-      moreInfo:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
+      moreInfo: feedback,
       color: "#B86B11",
     },
     DENEGADO: {
       title: "Denegado",
       content: "Devolución de la administración:",
-      moreInfo:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
+      moreInfo: feedback,
       color: "#BC1111",
     },
   };
