@@ -1,5 +1,6 @@
-import { Button, TextField } from "@mui/material"
+import { Alert, Button, Snackbar, TextField } from "@mui/material"
 import { useFormik } from "formik"
+import { useState } from "react";
 import * as Yup from "yup";
 
 const buttonStyle = {
@@ -33,6 +34,8 @@ const formStyle = {
 }
 
 const Feedback = () => {
+  const [showNotification, setShowNotification] = useState(false);
+
   const initialFeedback = {
     feedback: "",
   }
@@ -48,6 +51,7 @@ const Feedback = () => {
     }),
     onSubmit: (values) => {
       console.log(values.feedback)
+      setShowNotification(true)
     }
   })
 
@@ -69,6 +73,17 @@ const Feedback = () => {
       />
 
       <Button sx={buttonStyle} type="submit">Enviar</Button>
+
+      {
+        showNotification && <Snackbar
+          open={showNotification}
+          autoHideDuration={6000}
+          onClose={() => setShowNotification(false)}>
+          <Alert variant="filled" severity="success" sx={{ width: '100%' }}>
+            Devolución enviada con éxito
+          </Alert>
+        </Snackbar>
+      }
     </form>
   )
 }
