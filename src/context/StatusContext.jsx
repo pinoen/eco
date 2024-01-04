@@ -7,10 +7,10 @@ const StatusContext = createContext();
 
 const StatusProvider = ({ children }) => {
   const [status, setStatus] = useState('');
-
+  const [statusPage, setStatusPage] = useState('Nuevos Perfiles');
 
   return (
-    <StatusContext.Provider value={{ status, setStatus }}>
+    <StatusContext.Provider value={{ status, setStatus, statusPage, setStatusPage }}>
       {children}
     </StatusContext.Provider>
   )
