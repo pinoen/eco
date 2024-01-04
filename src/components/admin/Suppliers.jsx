@@ -31,7 +31,7 @@ const statusStyle = {
 
 
 const Suppliers = () => {
-  const { status } = useStatusContext()
+  const { status, statusPage } = useStatusContext()
 
   const [showSupplier, setShowSupplier] = useState(false)
   const boxStyle = {
@@ -51,7 +51,7 @@ const Suppliers = () => {
 
       <hr style={{ width: "100%", color: "primary.main", paddingBottom: "40px" }} />
 
-      {showSupplier ? null : <SupplierBlock setShowSupplier={setShowSupplier} />}
+      {showSupplier ? null : <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
 
       {showSupplier ?
 
