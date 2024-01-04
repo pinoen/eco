@@ -18,7 +18,7 @@ const DropDownStatus = () => {
     setShowNotification(true);
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", paddingLeft: "170px", }}>
       <FormControl fullWidth sx={{ width: 152 }}>
         <InputLabel>Estado</InputLabel>
         <Select
