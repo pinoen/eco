@@ -1,4 +1,5 @@
 import { List, ListItemButton, ListItemText } from '@mui/material'
+import { useStatusContext } from '../../context/StatusContext';
 
 
 const listStyle = {
@@ -25,19 +26,21 @@ const itemStyle = {
 }
 
 const StatusBar = () => {
+  const { statusPage, setStatusPage } = useStatusContext()
+
   return (
     <List sx={listStyle} >
-      <ListItemButton sx={itemStyle}>
-        <ListItemText primary="Nuevos Perfiles" />
+      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("Nuevos Perfiles")}>
+        <ListItemText primary="Nuevos Perfiles" sx={{ borderBottom: statusPage === "Nuevos Perfiles" ? "3px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle}>
-        <ListItemText primary="Aprobados" />
+      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("Aprobados")}>
+        <ListItemText primary="Aprobados" sx={{ borderBottom: statusPage === "Aprobados" ? "3px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle}>
-        <ListItemText primary="En revisión" />
+      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("En revisión")}>
+        <ListItemText primary="En revisión" sx={{ borderBottom: statusPage === "En revisión" ? "3px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle}>
-        <ListItemText primary="Denegados" />
+      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("Denegados")}>
+        <ListItemText primary="Denegados" sx={{ borderBottom: statusPage === "Denegados" ? "3px solid #4E169D" : "none" }} />
       </ListItemButton>
     </List>
   )
