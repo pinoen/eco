@@ -1,12 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import StatusBar from './StatusBar';
-import SupplierBlock from './SupplierBlock';
-import AddProduct from '../profile/AddProduct'
-import { useState } from 'react';
-import DropDownStatus from './DropDownStatus';
-import FeedBack from './Feedback'
 import { useStatusContext } from '../../context/StatusContext';
-import Brightness1Icon from '@mui/icons-material/Brightness1';
+import NewProfiles from './NewProfiles';
+import SupplierBlock from './SupplierBlock';
+import { useState } from 'react';
 
 const titleStyle = {
   fontFamily: "Nunito",
@@ -19,21 +16,11 @@ const titleStyle = {
   paddingTop: "40px",
 }
 
-const statusStyle = {
-  fontFamily: "Nunito",
-  fontSize: "18px",
-  fontStyle: "normal",
-  fontWeight: 700,
-  lineHeight: "24px",
-  textAlign: "center",
-  color: "black.main",
-}
-
 
 const Suppliers = () => {
-  const { status, statusPage } = useStatusContext()
-
   const [showSupplier, setShowSupplier] = useState(false)
+  const { statusPage } = useStatusContext()
+
   const boxStyle = {
     py: 5,
     backgroundColor: "white.main",
@@ -41,7 +28,7 @@ const Suppliers = () => {
     flexDirection: "column",
     alignItems: "center",
     width: "360px",
-    height: showSupplier ? "100%" : "100vh",
+    height: "270vh",
   };
   return (
     <Box sx={boxStyle}>
@@ -51,27 +38,10 @@ const Suppliers = () => {
 
       <hr style={{ width: "100%", color: "primary.main", paddingBottom: "40px" }} />
 
-      {showSupplier ? null : <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
-
-      {showSupplier ?
-
-        <>
-          {status ?
-            <Box sx={{ display: "flex", alignItems: "center", paddingBottom: "24px" }}>
-              <Brightness1Icon
-                fontSize='large'
-                sx={{ color: status === "Aprobado" ? "#1D9129" : status === "En revisión" ? "#B86B11" : "#B91C1C", paddingRight: "10px" }}
-              />
-              <Typography sx={statusStyle}>{status}</Typography>
-            </Box>
-            :
-            null}
-          <DropDownStatus />
-          {status === "Denegado" || status === "En revisión" ? <FeedBack /> : null}
-          <AddProduct showSupplier={showSupplier} />
-        </> :
-
-        null}
+      {statusPage === "Nuevos Perfiles" && <NewProfiles showSupplier={showSupplier} setShowSupplier={setShowSupplier} />}
+      {statusPage === "Aprobados" && <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
+      {statusPage === "En revisión" && <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
+      {statusPage === "Denegados" && <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
 
     </Box>
   )
