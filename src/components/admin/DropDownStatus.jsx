@@ -38,7 +38,7 @@ const DropDownStatus = () => {
           open={showNotification}
           autoHideDuration={6000}
           onClose={() => setShowNotification(false)}>
-          <Alert severity="success" sx={{ width: '100%' }}>
+          <Alert variant='filled' severity="success" sx={{ width: '100%' }}>
             Estado modificado con éxito
           </Alert>
         </Snackbar>
