@@ -1,9 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import StatusBar from './StatusBar';
 import { useStatusContext } from '../../context/StatusContext';
 import NewProfiles from './NewProfiles';
 import SupplierBlock from './SupplierBlock';
-import { useState } from 'react';
 
 const titleStyle = {
   fontFamily: "Nunito",
@@ -18,8 +17,7 @@ const titleStyle = {
 
 
 const Suppliers = () => {
-  const [showSupplier, setShowSupplier] = useState(false)
-  const { statusPage } = useStatusContext()
+  const { statusPage, showSupplier } = useStatusContext()
 
   const boxStyle = {
     py: 5,
@@ -30,18 +28,20 @@ const Suppliers = () => {
     width: "360px",
     height: "270vh",
   };
+
   return (
     <Box sx={boxStyle}>
       <Typography sx={titleStyle}>Proveedores</Typography>
 
       <StatusBar />
 
-      <hr style={{ width: "100%", color: "primary.main", paddingBottom: "40px" }} />
+      <Divider sx={{ width: "100%", borderColor: "#4E169D", borderTopWidth: "1px" }} />
 
-      {statusPage === "Nuevos Perfiles" && <NewProfiles showSupplier={showSupplier} setShowSupplier={setShowSupplier} />}
-      {statusPage === "Aprobados" && <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
-      {statusPage === "En revisión" && <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
-      {statusPage === "Denegados" && <SupplierBlock setShowSupplier={setShowSupplier} statusPage={statusPage} />}
+      {statusPage === "Nuevos Perfiles" && showSupplier === false && <SupplierBlock />}
+      {showSupplier && <NewProfiles showSupplier={showSupplier} />}
+      {statusPage === "Aprobados" && <SupplierBlock />}
+      {statusPage === "En revisión" && <SupplierBlock />}
+      {statusPage === "Denegados" && <SupplierBlock />}
 
     </Box>
   )
