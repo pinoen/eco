@@ -2,6 +2,7 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
 import { Box, Divider, Typography } from "@mui/material"
+import { useStatusContext } from '../../context/StatusContext';
 
 const boxStyle = {
   display: "flex",
@@ -12,6 +13,7 @@ const boxStyle = {
   justifyContent: "space-between",
   borderRadius: "8px",
   backgroundColor: "grey.main",
+  marginTop: "40px",
 }
 
 const textContainerStyle = {
@@ -45,7 +47,9 @@ const categoryStyle = {
   marginTop: "4px",
 }
 
-const SupplierBlock = ({ setShowSupplier, statusPage }) => {
+const SupplierBlock = () => {
+  const { statusPage, setShowSupplier } = useStatusContext();
+
   return (
     <Box sx={boxStyle}>
       <Box sx={textContainerStyle} onClick={() => setShowSupplier(pre => !pre)}>
