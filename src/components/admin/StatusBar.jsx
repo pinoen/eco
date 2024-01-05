@@ -4,16 +4,14 @@ import { useStatusContext } from '../../context/StatusContext';
 
 const listStyle = {
   display: 'flex',
-  flexWrap: 'nowrap',
-  width: '100%',
-  overflow: 'auto',
-  paddingTop: "24px",
+  width: '360px',
+  height: '60px',
 };
 
 const itemStyle = {
   width: "128px",
   height: "48px",
-  padding: "8px 10px 0px 10px",
+  padding: "8px 0px 0px 0px",
   alignItems: "center",
   fontFamily: "Nunito",
   fontSize: "16px",
@@ -26,21 +24,37 @@ const itemStyle = {
 }
 
 const StatusBar = () => {
-  const { statusPage, setStatusPage } = useStatusContext()
+  const { statusPage, setStatusPage, setShowSupplier } = useStatusContext()
 
   return (
-    <List sx={listStyle} >
-      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("Nuevos Perfiles")}>
-        <ListItemText primary="Nuevos Perfiles" sx={{ borderBottom: statusPage === "Nuevos Perfiles" ? "3px solid #4E169D" : "none" }} />
+    <List sx={listStyle} component="nav" >
+      <ListItemButton sx={itemStyle} onClick={() => {
+        setStatusPage("Nuevos Perfiles")
+        setShowSupplier(false)
+      }
+      }>
+        <ListItemText primary="Nuevos Perfiles" sx={{ borderBottom: statusPage === "Nuevos Perfiles" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("Aprobados")}>
-        <ListItemText primary="Aprobados" sx={{ borderBottom: statusPage === "Aprobados" ? "3px solid #4E169D" : "none" }} />
+      <ListItemButton sx={itemStyle} onClick={() => {
+        setStatusPage("Aprobados")
+        setShowSupplier(false)
+      }
+      }>
+        <ListItemText primary="Aprobados" sx={{ borderBottom: statusPage === "Aprobados" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("En revisión")}>
-        <ListItemText primary="En revisión" sx={{ borderBottom: statusPage === "En revisión" ? "3px solid #4E169D" : "none" }} />
+      <ListItemButton sx={itemStyle} onClick={() => {
+        setStatusPage("En revisión")
+        setShowSupplier(false)
+      }
+      }>
+        <ListItemText primary="En revisión" sx={{ borderBottom: statusPage === "En revisión" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle} onClick={() => setStatusPage("Denegados")}>
-        <ListItemText primary="Denegados" sx={{ borderBottom: statusPage === "Denegados" ? "3px solid #4E169D" : "none" }} />
+      <ListItemButton sx={itemStyle} onClick={() => {
+        setStatusPage("Denegados")
+        setShowSupplier(false)
+      }
+      }>
+        <ListItemText primary="Denegados" sx={{ borderBottom: statusPage === "Denegados" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
     </List>
   )
