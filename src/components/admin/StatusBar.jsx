@@ -26,33 +26,26 @@ const itemStyle = {
 const StatusBar = () => {
   const { statusPage, setStatusPage, setShowSupplier } = useStatusContext()
 
+  const setPage = (page) => {
+    setStatusPage(page)
+    setShowSupplier(false)
+  }
+
   return (
     <List sx={listStyle} component="nav" >
-      <ListItemButton sx={itemStyle} onClick={() => {
-        setStatusPage("Nuevos Perfiles")
-        setShowSupplier(false)
-      }
+      <ListItemButton sx={itemStyle} onClick={() => setPage("Nuevos Perfiles")
       }>
         <ListItemText primary="Nuevos Perfiles" sx={{ borderBottom: statusPage === "Nuevos Perfiles" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle} onClick={() => {
-        setStatusPage("Aprobados")
-        setShowSupplier(false)
-      }
+      <ListItemButton sx={itemStyle} onClick={() => setPage("Aprobados")
       }>
         <ListItemText primary="Aprobados" sx={{ borderBottom: statusPage === "Aprobados" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle} onClick={() => {
-        setStatusPage("En revisión")
-        setShowSupplier(false)
-      }
+      <ListItemButton sx={itemStyle} onClick={() => setPage("En revisión")
       }>
         <ListItemText primary="En revisión" sx={{ borderBottom: statusPage === "En revisión" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
-      <ListItemButton sx={itemStyle} onClick={() => {
-        setStatusPage("Denegados")
-        setShowSupplier(false)
-      }
+      <ListItemButton sx={itemStyle} onClick={() => setPage("Denegados")
       }>
         <ListItemText primary="Denegados" sx={{ borderBottom: statusPage === "Denegados" ? "4px solid #4E169D" : "none" }} />
       </ListItemButton>
