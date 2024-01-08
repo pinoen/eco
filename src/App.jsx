@@ -19,6 +19,7 @@ import AddProduct from "./components/profile/AddProduct";
 import DashboardAdmin from "./components/dashboard/DashboardAdmin";
 import PublicationAdmin from "./components/publicaciones/PublicationAdmin";
 import AddPublication from "./components/publicaciones/AddPublication";
+import Suppliers from "./components/admin/Suppliers";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
                 element={<AddProduct />}
               />
               {/* Agregar rutas necesarias */}
+              <Route path="/suppliers" element={<Suppliers />} />
             </Routes>
             {/* <Footer /> */}
           </Router>
