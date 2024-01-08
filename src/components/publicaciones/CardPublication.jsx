@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-import { Box, Typography, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Menu,
+  MenuItem,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import ReactImageGallery from "react-image-gallery";
 import axios from "axios";
 import { apiUrl } from "../../constants";
 import { MoreVert } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import useAlert from "../../utilities/alert";
+import { getToken } from "../../services/securityService";
 
 const CardPublication = ({ id, description, images, title, admin }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [disguise, setDisguise] = useState(false);
+  const token = getToken();
+  const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); //manejo de alertas
 
   const imagesForGallery = images.map((image) => ({
     original: image,
@@ -17,6 +29,7 @@ const CardPublication = ({ id, description, images, title, admin }) => {
   const previewText = `${description.substring(0, 173)}...`;
 
   useEffect(() => {
+    //logica para incrementar la visualizacion al hacer click en ver mas
     if (isExpanded) {
       axios.get(`${apiUrl}/publication/increment/${id}`).catch((error) => {
         console.error(
@@ -25,7 +38,21 @@ const CardPublication = ({ id, description, images, title, admin }) => {
         );
       });
     }
-  }, [isExpanded, id]);
+    //logica para ocultar publicacion
+    if (disguise) {
+      axios
+        .put(`${apiUrl}/publication/setDeleted/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(showAlert("Publicacion ocultada", "success"))
+        .catch((error) => {
+          showAlert("Error al ocultar publicacion", "error");
+          console.error("Error al ocultar la publicacion: ", error);
+        });
+    }
+  }, [isExpanded, id, disguise]);
 
   const handleButton = () => {
     setIsExpanded(!isExpanded);
@@ -48,6 +75,10 @@ const CardPublication = ({ id, description, images, title, admin }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleOcultar = () => {
+    setDisguise(true);
+    handleClose();
   };
   return (
     <Box
@@ -117,7 +148,7 @@ const CardPublication = ({ id, description, images, title, admin }) => {
                   </Typography>
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleOcultar}>
                 {" "}
                 <Typography
                   sx={{
@@ -207,6 +238,16 @@ const CardPublication = ({ id, description, images, title, admin }) => {
           {isExpanded ? "Ver Menos" : "Ver más"}
         </Typography>
       </Box>
+      <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>
+        <Alert
+          variant="filled"
+          onClose={hideAlert}
+          severity={alertColor}
+          sx={{ width: "100%" }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

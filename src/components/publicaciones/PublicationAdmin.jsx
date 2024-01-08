@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
-import getAllPublications from "../../services/publications/getAllPublications";
+import getAllPublicationsAdmin from "../../services/publications/getAllPublicationsAdmin";
 import CardPublication from "./CardPublication";
 import { Link } from "react-router-dom";
 const PublicationAdmin = () => {
-  const publications = getAllPublications();
+  const publications = getAllPublicationsAdmin();
   return (
-    <Box sx={{ marginTop: "106px" }}>
+    <Box sx={{ paddingTop: "106px", minHeight: "100vh" }}>
       <Typography
         sx={{
           color: "var(--Negro, #222)",
