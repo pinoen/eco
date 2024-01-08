@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useStatusContext } from "../../context/StatusContext"
-import Brightness1Icon from '@mui/icons-material/Brightness1';
+import { useStatusContext } from "../../context/StatusContext";
+import Brightness1Icon from "@mui/icons-material/Brightness1";
 import { Box, Typography } from "@mui/material";
 import DropDownStatus from "./DropDownStatus";
 import AddProduct from "../profile/AddProduct";
@@ -14,26 +14,47 @@ const statusStyle = {
   lineHeight: "24px",
   textAlign: "center",
   color: "black.main",
-}
+};
 
 const NewProfiles = ({ showSupplier }) => {
-  const { status } = useStatusContext()
+  const { status } = useStatusContext();
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", paddingBottom: "24px", paddingTop: "24px" }}>
-        {status !== "" && <><Brightness1Icon
-          fontSize='large'
-          sx={{ color: status === "Aprobado" ? "#1D9129" : status === "En revisión" ? "#B86B11" : "#B91C1C", paddingRight: "10px" }}
-        />
-          <Typography sx={statusStyle}>{status}</Typography></>}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          paddingBottom: "24px",
+          paddingTop: "24px",
+        }}
+      >
+        {status.value !== "" && (
+          <>
+            <Brightness1Icon
+              fontSize="large"
+              sx={{
+                color:
+                  status.value === "ACEPTADO"
+                    ? "#1D9129"
+                    : status.value === "REQUIERE_CAMBIOS"
+                    ? "#B86B11"
+                    : "#B91C1C",
+                paddingRight: "10px",
+              }}
+            />
+            <Typography sx={statusStyle}>{status.label}</Typography>
+          </>
+        )}
       </Box>
 
       <DropDownStatus />
-      {status === "Denegado" || status === "En revisión" ? <Feedback /> : null}
+      {status.value === "DENEGADO" || status.value === "REQUIERE_CAMBIOS" ? (
+        <Feedback />
+      ) : null}
       <AddProduct showSupplier={showSupplier} />
     </>
-  )
-}
+  );
+};
 
-export default NewProfiles
+export default NewProfiles;

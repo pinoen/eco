@@ -21,6 +21,7 @@ import useAlert from "../../utilities/alert";
 import useAuth from "../../utilities/user";
 import { getToken } from "../../services/securityService";
 import { apiUrl } from "../../constants";
+import { urlToFile } from "../../services/urlImage";
 
 const AddPublication = ({ edit }) => {
   const navigate = useNavigate(); //para redireccionar al editar o crear publicacion
@@ -30,7 +31,6 @@ const AddPublication = ({ edit }) => {
   const currentPublication = getOnePublication(id); //data de la publicacion a editar
   const [selectedImages, setSelectedImages] = useState([]); //array de imagenes
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); //manejo de alertas
-
   //estado para desabilitar el boton de submit
   const [isSent, setIsSent] = useState(false);
 
@@ -50,18 +50,11 @@ const AddPublication = ({ edit }) => {
       onSubmit: (values) => {
         // axios
         setIsSent(true); //inabilita el boton para no crear publicaciones dobles
-        const finalData = edit
-          ? {
-              id: id,
-              title: values.title,
-              description: values.description,
-              userId: user.id,
-            }
-          : {
-              title: values.title,
-              description: values.description,
-              userId: user.id,
-            };
+        const finalData = {
+          title: values.title,
+          description: values.description,
+          userId: user.id,
+        };
 
         const formData = new FormData();
         formData.append(
@@ -117,17 +110,32 @@ const AddPublication = ({ edit }) => {
 
   //funcion para que actualize los valores de la publicacion al editar, sino es undefined
   useEffect(() => {
-    if (edit && !currentPublication.loading && currentPublication.data) {
-      setSelectedImages(currentPublication.data.images);
-      resetForm({
-        values: {
-          id: id,
-          title: currentPublication.data.title,
-          description: currentPublication.data.description,
-          userId: user.id,
-        },
-      });
-    }
+    const fetchImages = async () => {
+      if (edit && !currentPublication.loading && currentPublication.data) {
+        const filesPromises = currentPublication.data.images.map(
+          async (image) => {
+            return await urlToFile(image);
+          }
+        );
+
+        try {
+          const files = await Promise.all(filesPromises);
+          setSelectedImages(files);
+          resetForm({
+            values: {
+              title: currentPublication.data.title,
+              description: currentPublication.data.description,
+              userId: user.id,
+            },
+          });
+        } catch (error) {
+          console.error("Error al obtener los archivos:", error);
+          // Manejar el error si es necesario
+        }
+      }
+    };
+
+    fetchImages();
   }, [currentPublication]);
 
   //logica para renderizar imagenes

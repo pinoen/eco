@@ -242,8 +242,9 @@ export const DashboardAdmin = () => {
         Visualizaciones por publicacion
       </Typography>
       <Box sx={{ width: "100%", paddingBottom: "32px" }}>
-        {publicationsStatistics.map((item) => (
+        {publicationsStatistics.map((item, idx) => (
           <Box
+            key={idx}
             sx={{
               border: "solid 1px #4E169D",
               marginTop: "16px",

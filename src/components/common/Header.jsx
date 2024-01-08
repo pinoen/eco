@@ -293,7 +293,7 @@ function Navbar(props) {
           </ListItem>
         </Link>
 
-        <Link to="/proveedores" onClick={handleDrawerToggle}>
+        <Link to="/suppliers" onClick={handleDrawerToggle}>
           <ListItem disablePadding>
             <ListItemButton>
               <Typography sx={menuLink}>Proveedores</Typography>
