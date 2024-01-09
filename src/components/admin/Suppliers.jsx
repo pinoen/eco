@@ -4,7 +4,6 @@ import { useStatusContext } from "../../context/StatusContext";
 import NewProfiles from "./NewProfiles";
 import SupplierBlock from "./SupplierBlock";
 import getAllSuppliers from "../../services/suppliers/getAllSuppliers";
-import { useState } from "react";
 
 const titleStyle = {
   fontFamily: "Nunito",
