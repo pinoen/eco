@@ -88,20 +88,21 @@ const AddProduct = ({ showSupplier }) => {
   const { id } = useParams();
   const isEditPath = location.pathname === `/profile/edit-product/${id}`;
   const editSupplier = getSupplierById(id);
+  console.log(editSupplier.name)
 
   const initialValues = {
-    name: "",
-    description: "",
-    shortDescription: "",
-    categoryId: -1,
-    email: "",
-    phone: "",
-    instagram: "",
-    facebook: "",
-    countryId: -1,
-    provinceId: -1,
-    city: "",
-    userId: -1,
+    name: editSupplier?.name ? editSupplier?.name : "",
+    description: editSupplier?.description ? editSupplier?.description : "",
+    shortDescription: editSupplier?.shortDescription ? editSupplier?.shortDescription : "",
+    categoryId: editSupplier?.category ? editSupplier?.category.id : -1,
+    email: editSupplier?.email ? editSupplier?.email : "",
+    phone: editSupplier?.phone ? editSupplier?.phone : "",
+    instagram: editSupplier?.instagram ? editSupplier?.instagram : "",
+    facebook: editSupplier?.facebook ? editSupplier?.facebook : "",
+    countryId: editSupplier?.country ? editSupplier?.country.id : -1,
+    provinceId: editSupplier?.province ? editSupplier?.province.id : -1,
+    city: editSupplier?.city ? editSupplier?.city : "",
+    userId: editSupplier?.userId ? editSupplier?.userId : -1,
   };
 
   const { handleSubmit, handleChange, values, errors, setSubmitting } =
@@ -167,10 +168,10 @@ const AddProduct = ({ showSupplier }) => {
           email: values.email,
           facebook: values.facebook,
           instagram: values.instagram,
-          countryId: values.country.id,
-          provinceId: values.province.id,
+          countryId: values.countryId.id,
+          provinceId: values.provinceId.id,
           city: values.city,
-          categoryId: values.category.id,
+          categoryId: values.categoryId.id,
           userId: user.id,
         };
 
@@ -250,7 +251,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Nombre de la Organización*"}
+        label={editSupplier.name ? "" : "Nombre de la Organización*"}
         error={errors.name ? true : false}
         helperText={
           errors.name
@@ -259,13 +260,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="name"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.name : values.name}
+        value={initialValues.name}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Breve descripción del Producto/Servicio*"}
+        label="Breve descripción del Producto/Servicio*"
         error={errors.shortDescription ? true : false}
         helperText={
           errors.shortDescription
@@ -275,28 +276,28 @@ const AddProduct = ({ showSupplier }) => {
         name="shortDescription"
         onChange={handleChange}
         value={
-          isEditPath ? editSupplier.shortDescription : values.shortDescription
+          initialValues.shortDescription
         }
         fullWidth
       />
 
       <TextField
         select
-        label={isEditPath ? "" : "Categoría*"}
+        label="Categoría*"
         placeholder="Categoría*"
-        error={errors.category ? true : false}
+        error={errors.categoryId ? true : false}
         helperText={
-          errors.category
-            ? errors.category
+          errors.categoryId
+            ? errors.categoryId
             : "Seleccioná la categoría de tu Producto/Servicio"
         }
-        name="category"
+        name="categoryId"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.category?.name : values.category}
+        value={initialValues.categoryId}
         fullWidth
       >
         {categories.map((item) => (
-          <MenuItem key={item.id} value={item}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
@@ -304,7 +305,8 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="email"
-        label={isEditPath ? "" : "Correo electrónico*"}
+        label={editSupplier.email ? "" : "Correo electrónico*"}
+        placeholder="Correo electrónico*"
         error={errors.email ? true : false}
         helperText={
           errors.email
@@ -313,7 +315,7 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="email"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.email : values.email}
+        value={initialValues.email}
         fullWidth
       />
 
@@ -328,13 +330,14 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="phone"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.phone : values.phone}
+        value={initialValues.phone}
         fullWidth
       />
 
       <TextField
         type="text"
         label={isEditPath ? "" : "Instagram"}
+        placeholder="Instagram"
         error={errors.instagram ? true : false}
         helperText={
           errors.instagram
@@ -343,38 +346,39 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="instagram"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.instagram : values.instagram}
+        value={initialValues.instagram}
         fullWidth
       />
 
       <TextField
         type="text"
         label={isEditPath ? "" : "Facebook"}
+        placeholder="Facebook"
         error={errors.facebook ? true : false}
         helperText={
           errors.facebook ? errors.facebook : "Podés pegar el link de tu perfil"
         }
         name="facebook"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.facebook : values.facebook}
+        value={initialValues.facebook}
         fullWidth
       />
 
       <TextField
         select
-        label={isEditPath ? "" : "País*"}
+        label="País*"
         placeholder="País**"
-        error={errors.country ? true : false}
+        error={errors.countryId ? true : false}
         helperText={
-          errors.country ? errors.country : "Seleccioná un país de la lista"
+          errors.countryId ? errors.countryId : "Seleccioná un país de la lista"
         }
-        name="country"
+        name="countryId"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.country : values.country}
+        value={initialValues.countryId}
         fullWidth
       >
         {countries.map((item) => (
-          <MenuItem key={item.id} value={item}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
@@ -382,21 +386,21 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         select
-        label={isEditPath ? "" : "Provincia/Estado*"}
+        label="Provincia/Estado*"
         placeholder="Provincia/Estado*"
-        error={errors.province ? true : false}
+        error={errors.provinceId ? true : false}
         helperText={
-          errors.province
-            ? errors.province
+          errors.provinceId
+            ? errors.provinceId
             : "Seleccioná una provincia/estado de la lista"
         }
         name="province"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.province : values.province}
+        value={initialValues.provinceId}
         fullWidth
       >
         {provincies.map((item) => (
-          <MenuItem key={item.id} value={item}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
@@ -404,20 +408,22 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text*"
-        label={isEditPath ? "" : "Ciudad*"}
+        label="Ciudad*"
+        placeholder="Ciudad*"
         error={errors.city ? true : false}
         helperText={
           errors.city ? errors.city : "Sin abreviaturas, nombre completo"
         }
         name="city"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.city : values.city}
+        value={initialValues.city}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Descripción del Producto/Servicio*"}
+        label={editSupplier.description ? "" : "Descripción del Producto/Servicio*"}
+        placeholder="Descripción del Producto/Servicio*"
         error={errors.description ? true : false}
         helperText={
           errors.description ? errors.description : "Máximo 300 caracteres"
@@ -426,7 +432,7 @@ const AddProduct = ({ showSupplier }) => {
         rows={6}
         name="description"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.description : values.description}
+        defaultValue={initialValues.description}
         fullWidth
       />
 
