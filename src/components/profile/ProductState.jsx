@@ -41,7 +41,7 @@ const ProductState = ({ name, status, id, feedback }) => {
   return (
     <Card // card estado de postulacion
       sx={{
-        maxWidth: 328,
+        width: 328,
         border: "1px solid #4E169D",
         borderRadius: "16px 16px 4px 4px",
       }}

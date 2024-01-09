@@ -7,8 +7,7 @@ import getPublicationsStatistics from "../../services/publications/getPublicatio
 export const DashboardAdmin = () => {
   const providersStatistics = getSuppliersStatistics();
   const publicationsStatistics = getPublicationsStatistics();
-  // const userStatistics = getUsersStatistics();
-  // console.log(userStatistics);
+  const userStatistics = getUsersStatistics();
 
   const approved = {
     position: "relative",
@@ -50,7 +49,16 @@ export const DashboardAdmin = () => {
   };
 
   return (
-    <Box sx={{ width: "328px", margin: "65px auto 0", fontFamily: "Nunito" }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        width: "328px",
+
+        margin: "0 auto 0",
+        fontFamily: "Nunito",
+        paddingTop: "56px",
+      }}
+    >
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="outlined"
@@ -80,9 +88,12 @@ export const DashboardAdmin = () => {
           color: "#fff",
           borderRadius: "5px",
           padding: "8px 0px 8px 16px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        Nuevos perfiles creados
+        <Typography>Nuevos perfiles creados</Typography>
+        <Typography sx={{ paddingRight: "6px" }}>{userStatistics}</Typography>
       </Box>
       <Box sx={{ display: "flex", gap: "8px", mt: 2 }}>
         <Box

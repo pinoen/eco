@@ -18,7 +18,6 @@ import { getToken } from "../../services/securityService";
 
 const CardPublication = ({ id, description, images, title, admin }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [disguise, setDisguise] = useState(false);
   const token = getToken();
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); //manejo de alertas
 
@@ -39,20 +38,7 @@ const CardPublication = ({ id, description, images, title, admin }) => {
       });
     }
     //logica para ocultar publicacion
-    if (disguise) {
-      axios
-        .put(`${apiUrl}/publication/setDeleted/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then(showAlert("Publicacion ocultada", "success"))
-        .catch((error) => {
-          showAlert("Error al ocultar publicacion", "error");
-          console.error("Error al ocultar la publicacion: ", error);
-        });
-    }
-  }, [isExpanded, id, disguise]);
+  }, [isExpanded, id]);
 
   const handleButton = () => {
     setIsExpanded(!isExpanded);
@@ -77,7 +63,18 @@ const CardPublication = ({ id, description, images, title, admin }) => {
     setAnchorEl(null);
   };
   const handleOcultar = () => {
-    setDisguise(true);
+    axios
+      .put(`${apiUrl}/publication/setDeleted/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(showAlert("Publicacion ocultada", "success"))
+      .catch((error) => {
+        showAlert("Error al ocultar publicacion", "error");
+        console.error("Error al ocultar la publicacion: ", error);
+      });
+
     handleClose();
   };
   return (

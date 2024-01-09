@@ -27,12 +27,13 @@ function LandingPage() {
 
   useEffect(() => {
     //logica para popup de ubicacion
+    // localStorage.removeItem("location"); //para ver denuevo el popup desp de darle a no ver mas
     const popupShown = localStorage.getItem("popupShown");
     const locationExists = localStorage.getItem("location");
     if (!popupShown && !locationExists) {
       const handleScroll = () => {
         const scrollTop = document.documentElement.scrollTop;
-        if (scrollTop > 300) {
+        if (scrollTop > 200) {
           setOpenLocation(true);
           window.removeEventListener("scroll", handleScroll);
         }
@@ -60,10 +61,6 @@ function LandingPage() {
         <Ubicacion
           openLocation={openLocation}
           setOpenLocation={setOpenLocation}
-        />
-        <SectionTitle
-          title="Recomendaciones locales para vos"
-          subtitle="Proveedores cerca tuyo"
         />
 
         <CardsGrid suppliers={suppliers} page="landing" />

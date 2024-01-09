@@ -143,7 +143,6 @@ function LoginCard({ user }) {
             </Typography>
             <GoogleOAuthProvider clientId={googleClientID}>
               <GoogleLogin
-                width={"100%"}
                 onSuccess={handleGoogleSuccess}
                 theme="filled_black"
                 shape="circle"
