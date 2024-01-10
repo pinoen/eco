@@ -1,15 +1,29 @@
-import { Typography, Box, Container } from "@mui/material";
+import { Typography, Box, Container, Snackbar, Alert } from "@mui/material";
 
 import useAuth from "../../utilities/user";
 import SupplierCard from "../common/SupplierCard";
 import ProductState from "./ProductState";
 import { useNavigate } from "react-router-dom";
 import getUserSuppliers from "../../services/suppliers/getUserSuppliers";
+import { useState } from "react";
+import useAlert from "../../utilities/alert";
 
 const Profile = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const userSuppliers = getUserSuppliers();
+  const [showNotification, setShowNotification] = useState(false);
+  const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert();
+
+  const handleAddProduct = () => {
+    if (userSuppliers.length < 3) {
+      navigate("/profile/add-product")
+    }
+
+    setShowNotification(true);
+    showAlert("No puede cargar mas de 3 proveedor", "error")
+  }
+
   return (
     <Container
       sx={{
@@ -42,7 +56,7 @@ const Profile = () => {
           {user.name}
         </Typography>
         <button
-          onClick={() => navigate("/profile/add-product")}
+          onClick={handleAddProduct}
           style={{
             backgroundColor: "#4E169D",
             width: "328px",
@@ -121,6 +135,19 @@ const Profile = () => {
           <SupplierCard item={item} key={idx} />
         ))}
       </Box>
+
+      {showNotification && (
+        <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>
+          <Alert
+            variant="filled"
+            onClose={hideAlert}
+            severity={alertColor}
+            sx={{ width: "100%" }}
+          >
+            {alertMessage}
+          </Alert>
+        </Snackbar>
+      )}
     </Container>
   );
 };
