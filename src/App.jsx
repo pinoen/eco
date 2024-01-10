@@ -56,7 +56,7 @@ function App() {
               <Route path="/profile/add-product" element={<AddProduct />} />
               <Route
                 path="/profile/edit-product/:id"
-                element={<AddProduct />}
+                element={<AddProduct edit />}
               />
               {/* Agregar rutas necesarias */}
               <Route path="/suppliers" element={<Suppliers />} />

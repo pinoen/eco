@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useEffect } from "react";
 import {
   Alert,
   Box,
@@ -8,8 +9,10 @@ import {
   Snackbar,
   TextField,
   Typography,
+  Container,
 } from "@mui/material";
-import UploadIcon from "@mui/icons-material/Upload";
+import { DeleteOutline, Upload } from "@mui/icons-material";
+
 import { useFormik } from "formik";
 import { useState } from "react";
 import axios from "axios";
@@ -20,9 +23,10 @@ import getAllProvinces from "../../services/province/getAllProvince";
 import useAuth from "../../utilities/user";
 import { getToken } from "../../services/securityService";
 import useAlert from "../../utilities/alert";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import getSupplierById from "../../services/suppliers/getSupplierById";
 import { productValidationSchema } from "./productValidationSchema";
+import { urlToFile } from "../../services/urlImage";
 
 const formStyle = {
   display: "flex",
@@ -55,7 +59,7 @@ const subTitleStyle = {
   lineHeight: "25px",
 };
 
-const AddProduct = () => {
+const AddProduct = ({ edit }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [isSent, setIsSent] = useState(false);
   const navigate = useNavigate();
@@ -66,10 +70,10 @@ const AddProduct = () => {
   const { user } = useAuth();
   const token = getToken();
   // parte de edicion
-  const location = useLocation();
   const { id } = useParams();
-  const isEditPath = location.pathname === `/profile/edit-product/${id}`;
+
   const editSupplier = getSupplierById(id);
+  console.log(editSupplier);
 
   const initialValues = {
     name: "",
@@ -86,7 +90,7 @@ const AddProduct = () => {
     userId: -1,
   };
 
-  const { handleSubmit, handleChange, values, errors } =
+  const { handleSubmit, handleChange, values, errors, handleBlur, resetForm } =
     useFormik({
       initialValues,
       validateOnChange: false,
@@ -121,9 +125,9 @@ const AddProduct = () => {
             formData.append("images", image);
           }
         });
-        if (isEditPath) {
+        if (edit) {
           axios
-            .post(`${apiUrl}/suppliers/${id}`, formData, {
+            .put(`${apiUrl}/suppliers/${id}`, formData, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -161,65 +165,96 @@ const AddProduct = () => {
       },
     });
 
+  //funcion para que actualize los valores de la publicacion al editar, sino es undefined
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (edit && !editSupplier.loading && editSupplier.data) {
+        const filesPromises = editSupplier.data.images.map(async (image) => {
+          return await urlToFile(image);
+        });
+
+        try {
+          const files = await Promise.all(filesPromises);
+          setSelectedImages(files);
+          resetForm({
+            values: {
+              name: editSupplier.data.name,
+              description: editSupplier.data.description,
+              shortDescription: editSupplier.data.shortDescription,
+              phone: editSupplier.data.phone,
+              email: editSupplier.data.email,
+              facebook: editSupplier.data.facebook,
+              instagram: editSupplier.data.instagram,
+              countryId: editSupplier.data.country.id,
+              provinceId: editSupplier.data.province.id,
+              city: editSupplier.data.city,
+              categoryId: editSupplier.data.category.id,
+              userId: user.id,
+            },
+          });
+        } catch (error) {
+          console.error("Error al obtener los archivos:", error);
+          // Manejar el error si es necesario
+        }
+      }
+    };
+
+    fetchImages();
+  }, [editSupplier]);
+
+  const renderImage = (image) => {
+    if (typeof image === "string" && image.startsWith("http")) {
+      return image; // Si la imagen es una URL remota, se devuelve directamente
+    } else if (image instanceof File) {
+      return URL.createObjectURL(image); // Si es un objeto File, se crea una URL local
+    }
+    return ""; // Si no es una imagen válida, se devuelve una cadena vacía
+  };
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
       <Typography sx={titleStyle}>
-        {isEditPath
-          ? "Edición de Producto/Servicio"
-          : "Carga de Producto/Servicio"}
+        {edit ? "Edición de Producto/Servicio" : "Carga de Producto/Servicio"}
       </Typography>
       <Typography style={subTitleStyle}>
-        {isEditPath
+        {edit
           ? "Editá el formulario de carga de tu Producto/Servicio "
           : "Completá el formulario para subir tu Producto/Servicio"}
       </Typography>
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Nombre de la Organización*"}
-        error={errors.name ? true : false}
-        helperText={
-          errors.name
-            ? errors.name
-            : "Se visualizará en el título de la publicación"
-        }
+        label="Nombre de la Organización*"
+        error={errors.name}
+        helperText="Se visualizará en el título de la publicación"
+        onBlur={handleBlur}
         name="name"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.name : values.name}
+        value={values.name}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Breve descripción del Producto/Servicio*"}
-        error={errors.shortDescription ? true : false}
-        helperText={
-          errors.shortDescription
-            ? errors.shortDescription
-            : "Se visualizará en el subtítulo de la publicación 0/50"
-        }
+        label="Breve descripción del Producto/Servicio*"
+        error={errors.shortDescription}
+        helperText="Se visualizará en el subtítulo de la publicación 0/50"
+        onBlur={handleBlur}
         name="shortDescription"
         onChange={handleChange}
-        value={
-          isEditPath ? editSupplier.shortDescription : values.shortDescription
-        }
+        value={values.shortDescription}
         fullWidth
       />
 
       <TextField
         select
-        label={isEditPath ? "" : "Categoría*"}
+        label="Categoría*"
         placeholder="Categoría*"
-        error={errors.categoryId ? true : false}
-        helperText={
-          errors.categoryId
-            ? errors.categoryId
-            : "Seleccioná la categoría de tu Producto/Servicio"
-        }
+        error={errors.categoryId}
+        helperText="Seleccioná la categoría de tu Producto/Servicio"
+        onBlur={handleBlur}
         name="categoryId"
         onChange={handleChange}
-        // value={isEditPath ? editSupplier.categoryId : values.categoryId}
-        value={editSupplier?.category ? editSupplier?.category.id : isEditPath ? -1 : values.categoryId}
+        value={values.categoryId}
         fullWidth
       >
         {categories.map((item) => (
@@ -231,74 +266,62 @@ const AddProduct = () => {
 
       <TextField
         type="email"
-        label={isEditPath ? "" : "Correo electrónico*"}
-        error={errors.email ? true : false}
-        helperText={
-          errors.email
-            ? errors.email
-            : "El mismo con el que te registraste o uno diferente"
-        }
+        label="Correo electrónico*"
+        error={errors.email}
+        helperText={"El mismo con el que te registraste o uno diferente"}
         name="email"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.email : values.email}
+        value={values.email}
+        onBlur={handleBlur}
         fullWidth
       />
 
       <TextField
         type="tel"
-        label={isEditPath ? "" : "Teléfono o Whatsapp*"}
-        error={errors.phone ? true : false}
-        helperText={
-          errors.phone
-            ? errors.phone
-            : "Con el siguiente formato +54 9 261 002 002"
-        }
+        label={"Teléfono o Whatsapp*"}
+        error={errors.phone}
+        helperText={"Con el siguiente formato +54 9 261 002 002"}
         name="phone"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.phone : values.phone}
+        value={values.phone}
+        onBlur={handleBlur}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Instagram"}
-        error={errors.instagram ? true : false}
-        helperText={
-          errors.instagram
-            ? errors.instagram
-            : "Podés pegar el link de tu perfil"
-        }
+        label="Instagram"
+        error={errors.instagram}
+        helperText="Podés pegar el link de tu perfil"
+        onBlur={handleBlur}
         name="instagram"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.instagram : values.instagram}
+        value={values.instagram}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Facebook"}
-        error={errors.facebook ? true : false}
-        helperText={
-          errors.facebook ? errors.facebook : "Podés pegar el link de tu perfil"
-        }
+        label="Facebook"
+        error={errors.facebook}
+        helperText="Podés pegar el link de tu perfil"
+        onBlur={handleBlur}
         name="facebook"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.facebook : values.facebook}
+        value={values.facebook}
         fullWidth
       />
 
       <TextField
         select
-        label={isEditPath ? "" : "País*"}
-        placeholder="País**"
-        error={errors.countryId ? true : false}
-        helperText={
-          errors.countryId ? errors.countryId : "Seleccioná un país de la lista"
-        }
+        label="País*"
+        placeholder="País*"
+        error={errors.countryId}
+        helperText="Seleccioná un país de la lista"
+        onBlur={handleBlur}
         name="countryId"
         onChange={handleChange}
-        // value={isEditPath ? editSupplier.countryId : values.countryId}
-        value={editSupplier?.country ? editSupplier?.country.id : isEditPath ? -1 : values.countryId}
+        value={values.countryId}
         fullWidth
       >
         {countries.map((item) => (
@@ -310,18 +333,14 @@ const AddProduct = () => {
 
       <TextField
         select
-        label={isEditPath ? "" : "Provincia/Estado*"}
+        label="Provincia/Estado*"
         placeholder="Provincia/Estado*"
-        error={errors.provinceId ? true : false}
-        helperText={
-          errors.provinceId
-            ? errors.provinceId
-            : "Seleccioná una provincia/estado de la lista"
-        }
+        error={errors.provinceId}
+        helperText="Seleccioná una provincia/estado de la lista"
+        onBlur={handleBlur}
         name="provinceId"
         onChange={handleChange}
-        // value={isEditPath ? editSupplier.provinceId : values.provinceId}
-        value={editSupplier?.province ? editSupplier?.province.id : isEditPath ? -1 : values.provinceId}
+        value={values.provinceId}
         fullWidth
       >
         {provincies.map((item) => (
@@ -333,99 +352,152 @@ const AddProduct = () => {
 
       <TextField
         type="text*"
-        label={isEditPath ? "" : "Ciudad*"}
-        error={errors.city ? true : false}
-        helperText={
-          errors.city ? errors.city : "Sin abreviaturas, nombre completo"
-        }
+        label="Ciudad*"
+        error={errors.city}
+        helperText="Sin abreviaturas, nombre completo"
+        onBlur={handleBlur}
         name="city"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.city : values.city}
+        value={values.city}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Descripción del Producto/Servicio*"}
-        error={errors.description ? true : false}
-        helperText={
-          errors.description ? errors.description : "Máximo 300 caracteres"
-        }
+        label="Descripción del Producto/Servicio*"
+        error={errors.description}
+        helperText="Máximo 300 caracteres"
+        onBlur={handleBlur}
         multiline
         rows={6}
         name="description"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.description : values.description}
+        value={values.description}
         fullWidth
       />
 
-      <Box sx={{ alignSelf: "flex-end" }}>
-        {selectedImages && selectedImages.length <= 0 && (
-          <>
-            <Button
-              startIcon={<UploadIcon />}
-              variant="contained"
-              component="label"
-              sx={{ borderRadius: "100px" }}
-            >
-              Subir imagén
-              <input
-                type="file"
-                accept=".jpg, .jpeg, .png, .gif, .bmp"
-                multiple
-                onChange={(e) =>
-                  e.target.files &&
-                  setSelectedImages(Array.from(e.target.files))
-                }
-                name="images"
-                value={values.images}
-                hidden
+      {selectedImages?.length <= 3 && (
+        <Box
+          sx={{
+            display: "flex",
+            marginTop: "16px",
+            marginLeft: "auto", // Agregar esta línea para alinear a la derecha
+            marginRight: "0", // Asegura que no haya margen derecho adicional
+          }}
+        >
+          <Box sx={{}}>
+            <Box>
+              <Button
+                startIcon={<Upload />}
+                variant="contained"
+                component="label"
+                sx={{ borderRadius: "100px", width: "152px" }}
+              >
+                <Typography
+                  sx={{
+                    color: "var(--Blanco, #FAFAFA)",
+                    textAlign: "center",
+                    fontFamily: "Nunito",
+                    fontSize: "14px",
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    lineHeight: "20px", // 142.857%
+                    textTransform: "none",
+                  }}
+                >
+                  Subir imagén
+                </Typography>
+                <input
+                  type="file"
+                  accept=".jpg, .jpeg, .png, .gif, .bmp"
+                  multiple
+                  onChange={(e) => {
+                    const newImages = e.target.files;
+
+                    if (
+                      newImages &&
+                      newImages.length > 0 &&
+                      selectedImages.length < 3
+                    ) {
+                      setSelectedImages((prevImages) =>
+                        prevImages.concat(Array.from(newImages))
+                      );
+                    }
+                  }}
+                  name="images"
+                  value={""}
+                  hidden
+                />
+              </Button>
+              <Box
+                sx={{
+                  placeSelf: "start",
+                  width: "152px",
+                  marginTop: "4px",
+                }}
+              >
+                <Typography sx={{ fontSize: "12px" }}>
+                  *Requerida al menos una imagen
+                </Typography>
+                <Typography sx={{ fontSize: "12px" }}>
+                  Hasta 3 imágenes.
+                </Typography>
+                <Typography sx={{ fontSize: "12px" }}>
+                  Máximo 3Mb cada una
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      )}
+      <Box
+        sx={{
+          marginTop: "16px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        {selectedImages?.map((image, index) => (
+          <Box
+            key={index}
+            sx={{ position: "relative", display: "inline-block" }}
+          >
+            <Container>
+              <img
+                src={renderImage(image)}
+                alt="preview"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                  margin: "5px",
+                }}
               />
-            </Button>
-
-            <Typography sx={{ fontSize: "12px" }}>
-              *Requerida al menos una imagen
-            </Typography>
-            <Typography sx={{ fontSize: "12px" }}>Hasta 3 imágenes.</Typography>
-            <Typography sx={{ fontSize: "12px" }}>
-              Máximo 3Mb cada una
-            </Typography>
-          </>
-        )}
-      </Box>
-
-      <Box>
-        {isEditPath
-          ? editSupplier.images?.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt="preview"
-              style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                margin: "5px",
+            </Container>
+            <Box
+              onClick={() =>
+                setSelectedImages(selectedImages.filter((e, i) => i !== index))
+              }
+              sx={{
+                position: "absolute",
+                top: 10,
+                right: 15,
+                cursor: "pointer",
+                padding: "1px",
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                borderRadius: "50%",
+                display: "grid",
+                placeItems: "center",
               }}
-            />
-          ))
-          : // Si no es una ruta de edición, renderiza las imágenes seleccionadas
-          selectedImages &&
-          selectedImages.map((image, index) => (
-            <img
-              key={index}
-              src={URL.createObjectURL(image)}
-              alt="preview"
-              style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                margin: "5px",
-              }}
-            />
-          ))}
+            >
+              <DeleteOutline color="white" />
+            </Box>
+          </Box>
+        ))}
       </Box>
-      {isEditPath ? (
+      {edit ? (
         <Button
           disabled={isSent} // Deshabilita el botón cuando se envía
           variant="contained"
@@ -441,7 +513,7 @@ const AddProduct = () => {
           type="submit"
           sx={{ borderRadius: "100px" }}
         >
-          {isEditPath ? "Guardar Cambios" : "Cargar Producto/Servicio"}
+          {edit ? "Guardar Cambios" : "Cargar Producto/Servicio"}
         </Button>
       )}
 
