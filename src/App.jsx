@@ -60,6 +60,7 @@ function App() {
               />
               {/* Agregar rutas necesarias */}
               <Route path="/suppliers" element={<Suppliers />} />
+              <Route path="/suppliers/:id" element={<Suppliers />} />
             </Routes>
             {/* <Footer /> */}
           </Router>
