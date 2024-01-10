@@ -86,9 +86,8 @@ const AddProduct = ({ showSupplier }) => {
   // parte de edicion
   const location = useLocation();
   const { id } = useParams();
-  const isEditPath = location.pathname === `/profile/edit-product/${id}`;
+  const isEditPath = location.pathname === `/profile/edit-product/${id}` || location.pathname === `/suppliers/${id}`;
   const editSupplier = getSupplierById(id);
-  console.log(editSupplier.name)
 
   const initialValues = {
     name: editSupplier?.name ? editSupplier?.name : "",
@@ -243,15 +242,15 @@ const AddProduct = ({ showSupplier }) => {
       </> :
         <>
 
-          <Typography sx={titleTextStyle}>Lavanda</Typography>
-          <Typography sx={categoryStyle}>Cosmética natural</Typography>
+          <Typography sx={titleTextStyle}>{editSupplier?.name}</Typography>
+          <Typography sx={categoryStyle}>{editSupplier?.shortDescription}</Typography>
         </>
 
       }
 
       <TextField
         type="text"
-        label={editSupplier.name ? "" : "Nombre de la Organización*"}
+        label="Nombre de la Organización*"
         error={errors.name ? true : false}
         helperText={
           errors.name
@@ -305,7 +304,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="email"
-        label={editSupplier.email ? "" : "Correo electrónico*"}
+        label="Correo electrónico*"
         placeholder="Correo electrónico*"
         error={errors.email ? true : false}
         helperText={
@@ -321,7 +320,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="tel"
-        label={isEditPath ? "" : "Teléfono o Whatsapp*"}
+        label="Teléfono o Whatsapp*"
         error={errors.phone ? true : false}
         helperText={
           errors.phone
@@ -336,7 +335,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Instagram"}
+        label="Instagram"
         placeholder="Instagram"
         error={errors.instagram ? true : false}
         helperText={
@@ -352,7 +351,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text"
-        label={isEditPath ? "" : "Facebook"}
+        label="Facebook"
         placeholder="Facebook"
         error={errors.facebook ? true : false}
         helperText={
@@ -422,7 +421,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text"
-        label={editSupplier.description ? "" : "Descripción del Producto/Servicio*"}
+        label={initialValues.description ? "" : "Descripción del Producto/Servicio*"}
         placeholder="Descripción del Producto/Servicio*"
         error={errors.description ? true : false}
         helperText={
@@ -436,7 +435,7 @@ const AddProduct = ({ showSupplier }) => {
         fullWidth
       />
 
-      <Box sx={{ alignSelf: "flex-end" }}>
+      {!showSupplier && <Box sx={{ alignSelf: "flex-end" }}>
         {selectedImages && selectedImages.length <= 0 && (
           <>
             <Button
@@ -469,7 +468,7 @@ const AddProduct = ({ showSupplier }) => {
             </Typography>
           </>
         )}
-      </Box>
+      </Box>}
 
       <Box>
         {isEditPath
@@ -502,6 +501,7 @@ const AddProduct = ({ showSupplier }) => {
             />
           ))}
       </Box>
+
       {isEditPath ? (
         <Button
           disabled={isSent} // Deshabilita el botón cuando se envía
