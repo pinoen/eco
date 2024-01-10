@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
   Alert,
@@ -54,26 +55,7 @@ const subTitleStyle = {
   lineHeight: "25px",
 };
 
-const titleTextStyle = {
-  color: "primary.main",
-  fontFamily: "Nunito",
-  fontSize: "22px",
-  fontStyle: "normal",
-  fontWeight: 700,
-  lineHeight: "24px",
-}
-
-
-const categoryStyle = {
-  fontFamily: "Nunito",
-  fontSize: "18px",
-  fontStyle: "normal",
-  fontWeight: 400,
-  lineHeight: "20px",
-  color: "black.main",
-}
-
-const AddProduct = ({ showSupplier }) => {
+const AddProduct = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [isSent, setIsSent] = useState(false);
   const navigate = useNavigate();
@@ -86,23 +68,8 @@ const AddProduct = ({ showSupplier }) => {
   // parte de edicion
   const location = useLocation();
   const { id } = useParams();
-  const isEditPath = location.pathname === `/profile/edit-product/${id}` || location.pathname === `/suppliers/${id}`;
+  const isEditPath = location.pathname === `/profile/edit-product/${id}`;
   const editSupplier = getSupplierById(id);
-
-  // const initialValues = {
-  //   name: editSupplier?.name ? editSupplier?.name : "",
-  //   description: editSupplier?.description ? editSupplier?.description : "",
-  //   shortDescription: editSupplier?.shortDescription ? editSupplier?.shortDescription : "",
-  //   categoryId: editSupplier?.category ? editSupplier?.category.id : -1,
-  //   email: editSupplier?.email ? editSupplier?.email : "",
-  //   phone: editSupplier?.phone ? editSupplier?.phone : "",
-  //   instagram: editSupplier?.instagram ? editSupplier?.instagram : "",
-  //   facebook: editSupplier?.facebook ? editSupplier?.facebook : "",
-  //   countryId: editSupplier?.country ? editSupplier?.country.id : -1,
-  //   provinceId: editSupplier?.province ? editSupplier?.province.id : -1,
-  //   city: editSupplier?.city ? editSupplier?.city : "",
-  //   userId: editSupplier?.userId ? editSupplier?.userId : -1,
-  // };
 
   const initialValues = {
     name: "",
@@ -119,7 +86,7 @@ const AddProduct = ({ showSupplier }) => {
     userId: -1,
   };
 
-  const { handleSubmit, handleChange, values, errors, setSubmitting } =
+  const { handleSubmit, handleChange, values, errors } =
     useFormik({
       initialValues,
       validateOnChange: false,
@@ -171,7 +138,7 @@ const AddProduct = ({ showSupplier }) => {
           .max(300, "La descripción no debe exceder los 300 caracteres")
           .required("Este campo es requerido"),
       }),
-      onSubmit: (values, { setSubmitting }) => {
+      onSubmit: (values) => {
         // axios
         setIsSent(true);
         const finalData = {
@@ -182,10 +149,10 @@ const AddProduct = ({ showSupplier }) => {
           email: values.email,
           facebook: values.facebook,
           instagram: values.instagram,
-          countryId: values.countryId.id,
-          provinceId: values.provinceId.id,
+          countryId: values.country.id,
+          provinceId: values.province.id,
           city: values.city,
-          categoryId: values.categoryId.id,
+          categoryId: values.category.id,
           userId: user.id,
         };
 
@@ -243,29 +210,20 @@ const AddProduct = ({ showSupplier }) => {
 
   return (
     <form style={formStyle} onSubmit={handleSubmit}>
-      {!showSupplier ? <>
-        <Typography sx={titleStyle}>
-          {isEditPath
-            ? "Edición de Producto/Servicio"
-            : "Carga de Producto/Servicio"}
-        </Typography>
-        <Typography style={subTitleStyle}>
-          {isEditPath
-            ? "Editá el formulario de carga de tu Producto/Servicio "
-            : "Completá el formulario para subir tu Producto/Servicio"}
-        </Typography>
-      </> :
-        <>
-
-          <Typography sx={titleTextStyle}>{editSupplier?.name}</Typography>
-          <Typography sx={categoryStyle}>{editSupplier?.shortDescription}</Typography>
-        </>
-
-      }
+      <Typography sx={titleStyle}>
+        {isEditPath
+          ? "Edición de Producto/Servicio"
+          : "Carga de Producto/Servicio"}
+      </Typography>
+      <Typography style={subTitleStyle}>
+        {isEditPath
+          ? "Editá el formulario de carga de tu Producto/Servicio "
+          : "Completá el formulario para subir tu Producto/Servicio"}
+      </Typography>
 
       <TextField
         type="text"
-        label={editSupplier?.name ? "" : "Nombre de la Organización*"}
+        label={isEditPath ? "" : "Nombre de la Organización*"}
         error={errors.name ? true : false}
         helperText={
           errors.name
@@ -274,13 +232,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="name"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.name : values.name}
+        value={isEditPath ? editSupplier.name : values.name}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={editSupplier?.shortDescription ? "" : "Breve descripción del Producto/Servicio*"}
+        label={isEditPath ? "" : "Breve descripción del Producto/Servicio*"}
         error={errors.shortDescription ? true : false}
         helperText={
           errors.shortDescription
@@ -290,28 +248,28 @@ const AddProduct = ({ showSupplier }) => {
         name="shortDescription"
         onChange={handleChange}
         value={
-          isEditPath ? editSupplier?.shortDescription : values.shortDescription
+          isEditPath ? editSupplier.shortDescription : values.shortDescription
         }
         fullWidth
       />
 
       <TextField
         select
-        label="Categoría*"
+        label={isEditPath ? "" : "Categoría*"}
         placeholder="Categoría*"
-        error={errors.categoryId ? true : false}
+        error={errors.category ? true : false}
         helperText={
-          errors.categoryId
-            ? errors.categoryId
+          errors.category
+            ? errors.category
             : "Seleccioná la categoría de tu Producto/Servicio"
         }
-        name="categoryId"
+        name="category"
         onChange={handleChange}
-        value={editSupplier?.category ? editSupplier?.category.id : isEditPath ? -1 : values.categoryId}
+        value={isEditPath ? editSupplier?.category?.name : values.category}
         fullWidth
       >
         {categories.map((item) => (
-          <MenuItem key={item.id} value={item.id}>
+          <MenuItem key={item.id} value={item}>
             {item.name}
           </MenuItem>
         ))}
@@ -319,8 +277,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="email"
-        label={editSupplier?.email ? "" : "Correo electrónico*"}
-        placeholder="Correo electrónico*"
+        label={isEditPath ? "" : "Correo electrónico*"}
         error={errors.email ? true : false}
         helperText={
           errors.email
@@ -329,13 +286,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="email"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.email : values.email}
+        value={isEditPath ? editSupplier.email : values.email}
         fullWidth
       />
 
       <TextField
         type="tel"
-        label={editSupplier?.phone ? "" : "Teléfono o Whatsapp*"}
+        label={isEditPath ? "" : "Teléfono o Whatsapp*"}
         error={errors.phone ? true : false}
         helperText={
           errors.phone
@@ -344,14 +301,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="phone"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.phone : values.phone}
+        value={isEditPath ? editSupplier.phone : values.phone}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={editSupplier?.instagram ? "" : "Instagram"}
-        placeholder="Instagram"
+        label={isEditPath ? "" : "Instagram"}
         error={errors.instagram ? true : false}
         helperText={
           errors.instagram
@@ -360,39 +316,38 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="instagram"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.instagram : values.instagram}
+        value={isEditPath ? editSupplier.instagram : values.instagram}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={editSupplier?.facebook ? "" : "Facebook"}
-        placeholder="Facebook"
+        label={isEditPath ? "" : "Facebook"}
         error={errors.facebook ? true : false}
         helperText={
           errors.facebook ? errors.facebook : "Podés pegar el link de tu perfil"
         }
         name="facebook"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.facebook : values.facebook}
+        value={isEditPath ? editSupplier.facebook : values.facebook}
         fullWidth
       />
 
       <TextField
         select
-        label="País*"
+        label={isEditPath ? "" : "País*"}
         placeholder="País**"
-        error={errors.countryId ? true : false}
+        error={errors.country ? true : false}
         helperText={
-          errors.countryId ? errors.countryId : "Seleccioná un país de la lista"
+          errors.country ? errors.country : "Seleccioná un país de la lista"
         }
-        name="countryId"
+        name="country"
         onChange={handleChange}
-        value={editSupplier?.country ? editSupplier?.country.id : isEditPath ? -1 : values.countryId}
+        value={isEditPath ? editSupplier.country : values.country}
         fullWidth
       >
         {countries.map((item) => (
-          <MenuItem key={item.id} value={item.id}>
+          <MenuItem key={item.id} value={item}>
             {item.name}
           </MenuItem>
         ))}
@@ -400,21 +355,21 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         select
-        label="Provincia/Estado*"
+        label={isEditPath ? "" : "Provincia/Estado*"}
         placeholder="Provincia/Estado*"
-        error={errors.provinceId ? true : false}
+        error={errors.province ? true : false}
         helperText={
-          errors.provinceId
-            ? errors.provinceId
+          errors.province
+            ? errors.province
             : "Seleccioná una provincia/estado de la lista"
         }
-        name="provinceId"
+        name="province"
         onChange={handleChange}
-        value={editSupplier?.province ? editSupplier?.province.id : isEditPath ? -1 : values.provinceId}
+        value={isEditPath ? editSupplier.province : values.province}
         fullWidth
       >
         {provincies.map((item) => (
-          <MenuItem key={item.id} value={item.id}>
+          <MenuItem key={item.id} value={item}>
             {item.name}
           </MenuItem>
         ))}
@@ -422,22 +377,20 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text*"
-        label={editSupplier?.city ? "" : "Ciudad*"}
-        placeholder="Ciudad*"
+        label={isEditPath ? "" : "Ciudad*"}
         error={errors.city ? true : false}
         helperText={
           errors.city ? errors.city : "Sin abreviaturas, nombre completo"
         }
         name="city"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.city : values.city}
+        value={isEditPath ? editSupplier.city : values.city}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={editSupplier?.description ? "" : "Descripción del Producto/Servicio*"}
-        placeholder="Descripción del Producto/Servicio*"
+        label={isEditPath ? "" : "Descripción del Producto/Servicio*"}
         error={errors.description ? true : false}
         helperText={
           errors.description ? errors.description : "Máximo 300 caracteres"
@@ -446,11 +399,11 @@ const AddProduct = ({ showSupplier }) => {
         rows={6}
         name="description"
         onChange={handleChange}
-        defaultValue={isEditPath ? editSupplier?.description : values.description}
+        value={isEditPath ? editSupplier.description : values.description}
         fullWidth
       />
 
-      {!showSupplier && <Box sx={{ alignSelf: "flex-end" }}>
+      <Box sx={{ alignSelf: "flex-end" }}>
         {selectedImages && selectedImages.length <= 0 && (
           <>
             <Button
@@ -483,7 +436,7 @@ const AddProduct = ({ showSupplier }) => {
             </Typography>
           </>
         )}
-      </Box>}
+      </Box>
 
       <Box>
         {isEditPath
@@ -516,7 +469,6 @@ const AddProduct = ({ showSupplier }) => {
             />
           ))}
       </Box>
-
       {isEditPath ? (
         <Button
           disabled={isSent} // Deshabilita el botón cuando se envía
