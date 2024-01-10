@@ -8,10 +8,16 @@ import { useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import { useStatusContext } from "../../context/StatusContext";
 import { keys } from "lodash";
+import axios from "axios";
+import { apiUrl } from "../../constants";
+import { getToken } from "../../services/securityService";
+import useAlert from "../../utilities/alert";
 
 const DropDownStatus = () => {
-  const { setStatus, status } = useStatusContext();
+  const { setStatus, status, id, setReload } = useStatusContext();
   const [showNotification, setShowNotification] = useState(false);
+  const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert();
+  const token = getToken();
 
   const handleChange = (event) => {
     let label = "";
@@ -26,8 +32,38 @@ const DropDownStatus = () => {
         label = "Denegado";
     }
     setStatus({ value: event.target.value, label: label });
-    setShowNotification(true);
+
+    if (event.target.value === "ACEPTADO") {
+      // Make PUT request if status is "ACEPTADO"
+      const finalData = {
+        status: event.target.value,
+        feedback: "",
+      };
+
+      axios
+        .put(`${apiUrl}/suppliers/feedback/${id}`, finalData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          // Handle success response
+          showAlert("Status actualizado!", "success");
+          setReload((prev) => !prev);
+
+        })
+        .catch((error) => {
+          // Handle error response
+          console.error(error);
+          showAlert("Error al actualizar el estado", "error");
+        });
+      setShowNotification(true);
+      // setStatus({ value: "", label: "" });
+
+    }
   };
+
+
   return (
     <Box sx={{ display: "flex", paddingLeft: "170px" }}>
       <FormControl fullWidth sx={{ width: 152 }}>
@@ -54,13 +90,14 @@ const DropDownStatus = () => {
       </FormControl>
 
       {showNotification && (
-        <Snackbar
-          open={showNotification}
-          autoHideDuration={6000}
-          onClose={() => setShowNotification(false)}
-        >
-          <Alert variant="filled" severity="success" sx={{ width: "100%" }}>
-            Estado modificado con éxito
+        <Snackbar open={open} autoHideDuration={6000} onClose={hideAlert}>
+          <Alert
+            variant="filled"
+            onClose={hideAlert}
+            severity={alertColor}
+            sx={{ width: "100%" }}
+          >
+            {alertMessage}
           </Alert>
         </Snackbar>
       )}
