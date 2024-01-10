@@ -102,10 +102,10 @@ const AddProduct = () => {
           email: values.email,
           facebook: values.facebook,
           instagram: values.instagram,
-          countryId: values.country.id,
-          provinceId: values.province.id,
+          countryId: values.countryId,
+          provinceId: values.provinceId,
           city: values.city,
-          categoryId: values.category.id,
+          categoryId: values.categoryId,
           userId: user.id,
         };
 
@@ -210,19 +210,20 @@ const AddProduct = () => {
         select
         label={isEditPath ? "" : "Categoría*"}
         placeholder="Categoría*"
-        error={errors.category ? true : false}
+        error={errors.categoryId ? true : false}
         helperText={
-          errors.category
-            ? errors.category
+          errors.categoryId
+            ? errors.categoryId
             : "Seleccioná la categoría de tu Producto/Servicio"
         }
-        name="category"
+        name="categoryId"
         onChange={handleChange}
-        value={isEditPath ? editSupplier?.category?.name : values.category}
+        // value={isEditPath ? editSupplier.categoryId : values.categoryId}
+        value={editSupplier?.category ? editSupplier?.category.id : isEditPath ? -1 : values.categoryId}
         fullWidth
       >
         {categories.map((item) => (
-          <MenuItem key={item.id} value={item}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
@@ -290,17 +291,18 @@ const AddProduct = () => {
         select
         label={isEditPath ? "" : "País*"}
         placeholder="País**"
-        error={errors.country ? true : false}
+        error={errors.countryId ? true : false}
         helperText={
-          errors.country ? errors.country : "Seleccioná un país de la lista"
+          errors.countryId ? errors.countryId : "Seleccioná un país de la lista"
         }
-        name="country"
+        name="countryId"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.country : values.country}
+        // value={isEditPath ? editSupplier.countryId : values.countryId}
+        value={editSupplier?.country ? editSupplier?.country.id : isEditPath ? -1 : values.countryId}
         fullWidth
       >
         {countries.map((item) => (
-          <MenuItem key={item.id} value={item}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
@@ -310,19 +312,20 @@ const AddProduct = () => {
         select
         label={isEditPath ? "" : "Provincia/Estado*"}
         placeholder="Provincia/Estado*"
-        error={errors.province ? true : false}
+        error={errors.provinceId ? true : false}
         helperText={
-          errors.province
-            ? errors.province
+          errors.provinceId
+            ? errors.provinceId
             : "Seleccioná una provincia/estado de la lista"
         }
-        name="province"
+        name="provinceId"
         onChange={handleChange}
-        value={isEditPath ? editSupplier.province : values.province}
+        // value={isEditPath ? editSupplier.provinceId : values.provinceId}
+        value={editSupplier?.province ? editSupplier?.province.id : isEditPath ? -1 : values.provinceId}
         fullWidth
       >
         {provincies.map((item) => (
-          <MenuItem key={item.id} value={item}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
