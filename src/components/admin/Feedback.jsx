@@ -41,7 +41,7 @@ const formStyle = {
 
 const Feedback = () => {
   const [showNotification, setShowNotification] = useState(false);
-  const { status, id, setReload } = useStatusContext();
+  const { status, setStatus, id, setReload } = useStatusContext();
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); //manejo de alertas
   const navigate = useNavigate();
   const token = getToken();
@@ -83,6 +83,7 @@ const Feedback = () => {
           // setIsSent(false); // Habilita el botón en caso de error
         });
       setShowNotification(true);
+      setStatus({ value: "", label: "" });
     },
   });
 
