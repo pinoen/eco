@@ -3,9 +3,9 @@ import { useStatusContext } from "../../context/StatusContext";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import { Box, Typography } from "@mui/material";
 import DropDownStatus from "./DropDownStatus";
-import AddProduct from "../profile/AddProduct";
 import Feedback from "./Feedback";
 import getSupplierById from "../../services/suppliers/getSupplierById";
+import SupplierApplication from "./SupplierApplication";
 
 const statusStyle = {
   fontFamily: "Nunito",
@@ -17,10 +17,9 @@ const statusStyle = {
   color: "black.main",
 };
 
-const NewProfiles = ({ showSupplier }) => {
+const NewProfiles = () => {
   const { status, id } = useStatusContext();
   const supplierData = getSupplierById(id)
-  console.log(supplierData.status)
 
   return (
     <>
@@ -55,7 +54,7 @@ const NewProfiles = ({ showSupplier }) => {
       {status.value === "DENEGADO" || status.value === "REQUIERE_CAMBIOS" ? (
         <Feedback />
       ) : null}
-      <AddProduct showSupplier={showSupplier} />
+      <SupplierApplication supplierData={supplierData} />
     </>
   );
 };
