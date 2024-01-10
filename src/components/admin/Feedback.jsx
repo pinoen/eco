@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Alert, Button, Snackbar, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -41,7 +42,7 @@ const formStyle = {
 
 const Feedback = () => {
   const [showNotification, setShowNotification] = useState(false);
-  const { status, setStatus, id, setReload } = useStatusContext();
+  const { status, setStatus, id, setReload, setStatusPage, setShowSupplier } = useStatusContext();
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert(); //manejo de alertas
   const navigate = useNavigate();
   const token = getToken();
@@ -50,7 +51,7 @@ const Feedback = () => {
     feedback: "",
   };
 
-  const { handleSubmit, handleChange, values, errors } = useFormik({
+  const { handleSubmit, handleChange, values, errors, resetForm } = useFormik({
     initialValues: initialFeedback,
     validateOnChange: false,
     validationSchema: Yup.object({
@@ -71,19 +72,20 @@ const Feedback = () => {
           },
         })
         .then((res) => {
-          // setIsSent(false); // Habilita el botón después de un éxito
           showAlert("Feedback enviado!", "success");
           setReload((prev) => !prev);
-          // setTimeout(() => {
-          //   navigate("/");
-          // }, 1000);
+          resetForm();
         })
         .catch((err) => {
           showAlert("Error al enviar Feedback", "error");
-          // setIsSent(false); // Habilita el botón en caso de error
         });
+
       setShowNotification(true);
-      setStatus({ value: "", label: "" });
+      setTimeout(() => {
+        setStatusPage("Nuevos Perfiles");
+        setShowSupplier(false);
+        setStatus({ value: "", label: "" });
+      }, 2000);
     },
   });
 
