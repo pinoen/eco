@@ -3,7 +3,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import { Box, Divider, Typography } from "@mui/material";
 import { useStatusContext } from "../../context/StatusContext";
-import { getToken } from "../../services/securityService";
+import { useNavigate } from "react-router-dom";
 
 const boxStyle = {
   display: "flex",
@@ -49,10 +49,12 @@ const categoryStyle = {
 
 const SupplierBlock = ({ id, name, category }) => {
   const { statusPage, setShowSupplier, setId } = useStatusContext();
+  const navigate = useNavigate();
 
   const handleSupplier = () => {
     setShowSupplier((pre) => !pre);
     setId(id);
+    navigate(`/suppliers/${id}`);
   };
 
   return (
@@ -67,10 +69,10 @@ const SupplierBlock = ({ id, name, category }) => {
                   statusPage === "Aprobados"
                     ? "#1D9129"
                     : statusPage === "En revisión"
-                    ? "#B86B11"
-                    : statusPage === "Denegados"
-                    ? "#B91C1C"
-                    : "none",
+                      ? "#B86B11"
+                      : statusPage === "Denegados"
+                        ? "#B91C1C"
+                        : "none",
                 paddingRight: "10px",
               }}
             />
