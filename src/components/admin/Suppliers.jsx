@@ -4,7 +4,6 @@ import { useStatusContext } from "../../context/StatusContext";
 import NewProfiles from "./NewProfiles";
 import SupplierBlock from "./SupplierBlock";
 import getAllSuppliers from "../../services/suppliers/getAllSuppliers";
-import { useState } from "react";
 
 const titleStyle = {
   fontFamily: "Nunito",
@@ -52,6 +51,7 @@ const Suppliers = () => {
         ))}
       {showSupplier && <NewProfiles showSupplier={showSupplier} />}
       {statusPage === "Aprobados" &&
+        showSupplier === false &&
         suppliers?.approvedSuppliers?.map((supplier) => (
           <SupplierBlock
             key={supplier.id}
@@ -61,6 +61,7 @@ const Suppliers = () => {
           />
         ))}
       {statusPage === "En revisión" &&
+        showSupplier === false &&
         suppliers?.reviewSuppliers?.map((supplier) => (
           <SupplierBlock
             key={supplier.id}
@@ -70,6 +71,7 @@ const Suppliers = () => {
           />
         ))}
       {statusPage === "Denegados" &&
+        showSupplier === false &&
         suppliers?.deniedSuppliers?.map((supplier) => (
           <SupplierBlock
             key={supplier.id}

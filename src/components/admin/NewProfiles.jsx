@@ -3,8 +3,9 @@ import { useStatusContext } from "../../context/StatusContext";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import { Box, Typography } from "@mui/material";
 import DropDownStatus from "./DropDownStatus";
-import AddProduct from "../profile/AddProduct";
 import Feedback from "./Feedback";
+import getSupplierById from "../../services/suppliers/getSupplierById";
+import SupplierApplication from "./SupplierApplication";
 
 const statusStyle = {
   fontFamily: "Nunito",
@@ -16,8 +17,9 @@ const statusStyle = {
   color: "black.main",
 };
 
-const NewProfiles = ({ showSupplier }) => {
-  const { status } = useStatusContext();
+const NewProfiles = () => {
+  const { status, id } = useStatusContext();
+  const supplierData = getSupplierById(id)
 
   return (
     <>
@@ -29,21 +31,21 @@ const NewProfiles = ({ showSupplier }) => {
           paddingTop: "24px",
         }}
       >
-        {status.value !== "" && (
+        {supplierData.status !== "REVISION_INICIAL" && (
           <>
             <Brightness1Icon
               fontSize="large"
               sx={{
                 color:
-                  status.value === "ACEPTADO"
+                  supplierData.status === "ACEPTADO"
                     ? "#1D9129"
-                    : status.value === "REQUIERE_CAMBIOS"
-                    ? "#B86B11"
-                    : "#B91C1C",
+                    : supplierData.status === "REQUIERE_CAMBIOS"
+                      ? "#B86B11"
+                      : "#B91C1C",
                 paddingRight: "10px",
               }}
             />
-            <Typography sx={statusStyle}>{status.label}</Typography>
+            <Typography sx={statusStyle}>{supplierData.status === "ACEPTADO" ? "Aprobado" : supplierData.status === "REQUIERE_CAMBIOS" ? "En revisión" : "Denegado"}</Typography>
           </>
         )}
       </Box>
@@ -52,7 +54,7 @@ const NewProfiles = ({ showSupplier }) => {
       {status.value === "DENEGADO" || status.value === "REQUIERE_CAMBIOS" ? (
         <Feedback />
       ) : null}
-      <AddProduct showSupplier={showSupplier} />
+      <SupplierApplication supplierData={supplierData} />
     </>
   );
 };
