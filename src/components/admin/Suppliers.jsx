@@ -51,6 +51,7 @@ const Suppliers = () => {
         ))}
       {showSupplier && <NewProfiles showSupplier={showSupplier} />}
       {statusPage === "Aprobados" &&
+        showSupplier === false &&
         suppliers?.approvedSuppliers?.map((supplier) => (
           <SupplierBlock
             key={supplier.id}
@@ -60,6 +61,7 @@ const Suppliers = () => {
           />
         ))}
       {statusPage === "En revisión" &&
+        showSupplier === false &&
         suppliers?.reviewSuppliers?.map((supplier) => (
           <SupplierBlock
             key={supplier.id}
@@ -69,6 +71,7 @@ const Suppliers = () => {
           />
         ))}
       {statusPage === "Denegados" &&
+        showSupplier === false &&
         suppliers?.deniedSuppliers?.map((supplier) => (
           <SupplierBlock
             key={supplier.id}
