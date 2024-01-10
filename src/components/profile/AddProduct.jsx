@@ -89,19 +89,34 @@ const AddProduct = ({ showSupplier }) => {
   const isEditPath = location.pathname === `/profile/edit-product/${id}` || location.pathname === `/suppliers/${id}`;
   const editSupplier = getSupplierById(id);
 
+  // const initialValues = {
+  //   name: editSupplier?.name ? editSupplier?.name : "",
+  //   description: editSupplier?.description ? editSupplier?.description : "",
+  //   shortDescription: editSupplier?.shortDescription ? editSupplier?.shortDescription : "",
+  //   categoryId: editSupplier?.category ? editSupplier?.category.id : -1,
+  //   email: editSupplier?.email ? editSupplier?.email : "",
+  //   phone: editSupplier?.phone ? editSupplier?.phone : "",
+  //   instagram: editSupplier?.instagram ? editSupplier?.instagram : "",
+  //   facebook: editSupplier?.facebook ? editSupplier?.facebook : "",
+  //   countryId: editSupplier?.country ? editSupplier?.country.id : -1,
+  //   provinceId: editSupplier?.province ? editSupplier?.province.id : -1,
+  //   city: editSupplier?.city ? editSupplier?.city : "",
+  //   userId: editSupplier?.userId ? editSupplier?.userId : -1,
+  // };
+
   const initialValues = {
-    name: editSupplier?.name ? editSupplier?.name : "",
-    description: editSupplier?.description ? editSupplier?.description : "",
-    shortDescription: editSupplier?.shortDescription ? editSupplier?.shortDescription : "",
-    categoryId: editSupplier?.category ? editSupplier?.category.id : -1,
-    email: editSupplier?.email ? editSupplier?.email : "",
-    phone: editSupplier?.phone ? editSupplier?.phone : "",
-    instagram: editSupplier?.instagram ? editSupplier?.instagram : "",
-    facebook: editSupplier?.facebook ? editSupplier?.facebook : "",
-    countryId: editSupplier?.country ? editSupplier?.country.id : -1,
-    provinceId: editSupplier?.province ? editSupplier?.province.id : -1,
-    city: editSupplier?.city ? editSupplier?.city : "",
-    userId: editSupplier?.userId ? editSupplier?.userId : -1,
+    name: "",
+    description: "",
+    shortDescription: "",
+    categoryId: -1,
+    email: "",
+    phone: "",
+    instagram: "",
+    facebook: "",
+    countryId: -1,
+    provinceId: -1,
+    city: "",
+    userId: -1,
   };
 
   const { handleSubmit, handleChange, values, errors, setSubmitting } =
@@ -250,7 +265,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text"
-        label="Nombre de la Organización*"
+        label={editSupplier?.name ? "" : "Nombre de la Organización*"}
         error={errors.name ? true : false}
         helperText={
           errors.name
@@ -259,13 +274,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="name"
         onChange={handleChange}
-        value={initialValues.name}
+        value={isEditPath ? editSupplier?.name : values.name}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Breve descripción del Producto/Servicio*"
+        label={editSupplier?.shortDescription ? "" : "Breve descripción del Producto/Servicio*"}
         error={errors.shortDescription ? true : false}
         helperText={
           errors.shortDescription
@@ -275,7 +290,7 @@ const AddProduct = ({ showSupplier }) => {
         name="shortDescription"
         onChange={handleChange}
         value={
-          initialValues.shortDescription
+          isEditPath ? editSupplier?.shortDescription : values.shortDescription
         }
         fullWidth
       />
@@ -292,7 +307,7 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="categoryId"
         onChange={handleChange}
-        value={initialValues.categoryId}
+        value={editSupplier?.category ? editSupplier?.category.id : isEditPath ? -1 : values.categoryId}
         fullWidth
       >
         {categories.map((item) => (
@@ -304,7 +319,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="email"
-        label="Correo electrónico*"
+        label={editSupplier?.email ? "" : "Correo electrónico*"}
         placeholder="Correo electrónico*"
         error={errors.email ? true : false}
         helperText={
@@ -314,13 +329,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="email"
         onChange={handleChange}
-        value={initialValues.email}
+        value={isEditPath ? editSupplier?.email : values.email}
         fullWidth
       />
 
       <TextField
         type="tel"
-        label="Teléfono o Whatsapp*"
+        label={editSupplier?.phone ? "" : "Teléfono o Whatsapp*"}
         error={errors.phone ? true : false}
         helperText={
           errors.phone
@@ -329,13 +344,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="phone"
         onChange={handleChange}
-        value={initialValues.phone}
+        value={isEditPath ? editSupplier?.phone : values.phone}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Instagram"
+        label={editSupplier?.instagram ? "" : "Instagram"}
         placeholder="Instagram"
         error={errors.instagram ? true : false}
         helperText={
@@ -345,13 +360,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="instagram"
         onChange={handleChange}
-        value={initialValues.instagram}
+        value={isEditPath ? editSupplier?.instagram : values.instagram}
         fullWidth
       />
 
       <TextField
         type="text"
-        label="Facebook"
+        label={editSupplier?.facebook ? "" : "Facebook"}
         placeholder="Facebook"
         error={errors.facebook ? true : false}
         helperText={
@@ -359,7 +374,7 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="facebook"
         onChange={handleChange}
-        value={initialValues.facebook}
+        value={isEditPath ? editSupplier?.facebook : values.facebook}
         fullWidth
       />
 
@@ -373,7 +388,7 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="countryId"
         onChange={handleChange}
-        value={initialValues.countryId}
+        value={editSupplier?.country ? editSupplier?.country.id : isEditPath ? -1 : values.countryId}
         fullWidth
       >
         {countries.map((item) => (
@@ -393,9 +408,9 @@ const AddProduct = ({ showSupplier }) => {
             ? errors.provinceId
             : "Seleccioná una provincia/estado de la lista"
         }
-        name="province"
+        name="provinceId"
         onChange={handleChange}
-        value={initialValues.provinceId}
+        value={editSupplier?.province ? editSupplier?.province.id : isEditPath ? -1 : values.provinceId}
         fullWidth
       >
         {provincies.map((item) => (
@@ -407,7 +422,7 @@ const AddProduct = ({ showSupplier }) => {
 
       <TextField
         type="text*"
-        label="Ciudad*"
+        label={editSupplier?.city ? "" : "Ciudad*"}
         placeholder="Ciudad*"
         error={errors.city ? true : false}
         helperText={
@@ -415,13 +430,13 @@ const AddProduct = ({ showSupplier }) => {
         }
         name="city"
         onChange={handleChange}
-        value={initialValues.city}
+        value={isEditPath ? editSupplier?.city : values.city}
         fullWidth
       />
 
       <TextField
         type="text"
-        label={initialValues.description ? "" : "Descripción del Producto/Servicio*"}
+        label={editSupplier?.description ? "" : "Descripción del Producto/Servicio*"}
         placeholder="Descripción del Producto/Servicio*"
         error={errors.description ? true : false}
         helperText={
@@ -431,7 +446,7 @@ const AddProduct = ({ showSupplier }) => {
         rows={6}
         name="description"
         onChange={handleChange}
-        defaultValue={initialValues.description}
+        defaultValue={isEditPath ? editSupplier?.description : values.description}
         fullWidth
       />
 
