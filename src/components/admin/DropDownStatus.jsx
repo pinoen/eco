@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,14 +8,13 @@ import Brightness1Icon from "@mui/icons-material/Brightness1";
 import { useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import { useStatusContext } from "../../context/StatusContext";
-import { keys } from "lodash";
 import axios from "axios";
 import { apiUrl } from "../../constants";
 import { getToken } from "../../services/securityService";
 import useAlert from "../../utilities/alert";
 
 const DropDownStatus = () => {
-  const { setStatus, status, id, setReload } = useStatusContext();
+  const { setStatus, status, id, setReload, setStatusPage, setShowSupplier } = useStatusContext();
   const [showNotification, setShowNotification] = useState(false);
   const { open, alertColor, alertMessage, showAlert, hideAlert } = useAlert();
   const token = getToken();
@@ -47,22 +47,21 @@ const DropDownStatus = () => {
           },
         })
         .then((res) => {
-          // Handle success response
           showAlert("Status actualizado!", "success");
           setReload((prev) => !prev);
-
         })
         .catch((error) => {
-          // Handle error response
-          console.error(error);
           showAlert("Error al actualizar el estado", "error");
         });
-      setShowNotification(true);
-      // setStatus({ value: "", label: "" });
 
+      setShowNotification(true);
+      setTimeout(() => {
+        setStatusPage("Nuevos Perfiles");
+        setShowSupplier(false);
+        setStatus({ value: "", label: "" });
+      }, 2000)
     }
   };
-
 
   return (
     <Box sx={{ display: "flex", paddingLeft: "170px" }}>
