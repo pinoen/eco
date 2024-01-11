@@ -19,7 +19,7 @@ const statusStyle = {
 
 const NewProfiles = () => {
   const { status, id } = useStatusContext();
-  const supplierData = getSupplierById(id)
+  const supplierData = getSupplierById(id).data
 
   return (
     <>
@@ -31,21 +31,21 @@ const NewProfiles = () => {
           paddingTop: "24px",
         }}
       >
-        {supplierData.status !== "REVISION_INICIAL" && (
+        {supplierData?.status !== "REVISION_INICIAL" && (
           <>
             <Brightness1Icon
               fontSize="large"
               sx={{
                 color:
-                  supplierData.status === "ACEPTADO"
+                  supplierData?.status === "ACEPTADO"
                     ? "#1D9129"
-                    : supplierData.status === "REQUIERE_CAMBIOS"
+                    : supplierData?.status === "REQUIERE_CAMBIOS"
                       ? "#B86B11"
                       : "#B91C1C",
                 paddingRight: "10px",
               }}
             />
-            <Typography sx={statusStyle}>{supplierData.status === "ACEPTADO" ? "Aprobado" : supplierData.status === "REQUIERE_CAMBIOS" ? "En revisión" : "Denegado"}</Typography>
+            <Typography sx={statusStyle}>{supplierData?.status === "ACEPTADO" ? "Aprobado" : supplierData?.status === "REQUIERE_CAMBIOS" ? "En revisión" : "Denegado"}</Typography>
           </>
         )}
       </Box>

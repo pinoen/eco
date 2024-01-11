@@ -26,7 +26,7 @@ const Suppliers = () => {
     flexDirection: "column",
     alignItems: "center",
     width: "360px",
-    height: showSupplier ? "100%" : "100vh",
+    height: showSupplier ? "100%" : "200vh",
   };
 
   return (

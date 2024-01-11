@@ -18,8 +18,8 @@ export const productValidationSchema = Yup.object({
     .required("Este campo es requerido"),
   phone: Yup.string()
     .matches(
-      /^\+\d{2}\s+\d{1}\s+\d{3}\s+\d{3}\s+\d{3}$/,
-      "El formato debe ser +54 9 261 002 002"
+      /^\+\s*\d+(?:\s*\d+){4}$/,
+      "El formato debe ser +54 9 2994 002 452"
     )
     .required("Este campo es requerido"),
   instagram: Yup.string().matches(

@@ -73,7 +73,6 @@ const AddProduct = ({ edit }) => {
   const { id } = useParams();
 
   const editSupplier = getSupplierById(id);
-  console.log(editSupplier);
 
   const initialValues = {
     name: "",
@@ -280,7 +279,7 @@ const AddProduct = ({ edit }) => {
         type="tel"
         label={"Teléfono o Whatsapp*"}
         error={errors.phone}
-        helperText={"Con el siguiente formato +54 9 261 002 002"}
+        helperText={"Con el siguiente formato +54 9 2994 352 852"}
         name="phone"
         onChange={handleChange}
         value={values.phone}
