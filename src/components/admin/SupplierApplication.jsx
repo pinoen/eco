@@ -35,7 +35,6 @@ const categoryStyle = {
 }
 
 const SupplierApplication = ({ supplierData }) => {
-  console.log(supplierData)
 
   return (
     <form style={formStyle}>
