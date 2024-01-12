@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const boxStyle = {
   display: "flex",
-  width: "328px",
-  height: "92px",
+  width: { xs: "328px", md: "560px" },
+  height: { xs: "92px", md: "112px" },
   padding: "8px 8px 8px 16px",
   alignItems: "center",
   justifyContent: "space-between",
@@ -28,7 +28,7 @@ const textContainerStyle = {
 const titleStyle = {
   color: "primary.main",
   fontFamily: "Nunito",
-  fontSize: "18px",
+  fontSize: { xs: "18px", md: "22px" },
   fontStyle: "normal",
   fontWeight: 700,
   lineHeight: "24px",
@@ -39,7 +39,7 @@ const titleStyle = {
 
 const categoryStyle = {
   fontFamily: "Nunito",
-  fontSize: "14px",
+  fontSize: { xs: "14px", md: "18px" },
   fontStyle: "normal",
   fontWeight: 400,
   lineHeight: "20px",

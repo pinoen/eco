@@ -9,7 +9,7 @@ import SupplierApplication from "./SupplierApplication";
 
 const statusStyle = {
   fontFamily: "Nunito",
-  fontSize: "18px",
+  fontSize: { xs: "18px", md: "24px" },
   fontStyle: "normal",
   fontWeight: 700,
   lineHeight: "24px",

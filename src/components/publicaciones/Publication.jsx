@@ -7,9 +7,7 @@ import getAllPublications from "../../services/publications/getAllPublications";
 const boxStyle = {
   py: 5,
   backgroundColor: "white.main",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
+  width: "100vw",
 };
 
 const Publicaciones = () => {
@@ -19,6 +17,10 @@ const Publicaciones = () => {
       <Box
         sx={{
           width: "100vw",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           height: 488,
           backgroundImage: `linear-gradient(0deg, rgba(34, 34, 34, 0.70) 0%, rgba(34, 34, 34, 0.70) 100%), url(${plant})`,
           backgroundSize: "cover",
@@ -35,7 +37,7 @@ const Publicaciones = () => {
           sx={{
             color: "#FAFAFA",
             fontFamily: "Nunito",
-            fontSize: "18px",
+            fontSize: { xs: "18px", md: "28px" },
             fontStyle: "normal",
             fontWeight: "700",
             lineHeight: "24px",
@@ -52,7 +54,7 @@ const Publicaciones = () => {
             fontStyle: "normal",
             fontWeight: "500",
             lineHeight: "30px",
-            width: "240px",
+            width: { xs: "240px", md: "440px" },
             marginTop: "8px",
           }}
         >
@@ -62,11 +64,11 @@ const Publicaciones = () => {
           sx={{
             color: "var(--Blanco, #FAFAFA)",
             fontFamily: "Nunito",
-            fontSize: "24px",
+            fontSize: { xs: "24px", md: "28px" },
             fontStyle: "normal",
             fontWeight: "400",
             lineHeight: "30px",
-            width: "240px",
+            width: { xs: "240px", md: "440px" },
             marginTop: "16px",
           }}
         >

@@ -7,7 +7,7 @@ import getAllSuppliers from "../../services/suppliers/getAllSuppliers";
 
 const titleStyle = {
   fontFamily: "Nunito",
-  fontSize: "28px",
+  fontSize: { xs: "28px", md: "32px" },
   fontStyle: "normal",
   fontWeight: 600,
   lineHeight: "35px",
@@ -25,7 +25,7 @@ const Suppliers = () => {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "360px",
+    width: { xs: "360px", md: "100vw" },
     height: showSupplier ? "100%" : "200vh",
   };
 

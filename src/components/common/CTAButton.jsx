@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const CTAButton = ({ route, children, icon }) => {
   const buttonStyle = {
-    width: 'auto',
+    width: { xs: 'auto', md: '328px' },
     height: '40px',
     padding: '10px 24px',
     justifyContent: 'center',
@@ -15,7 +15,7 @@ const CTAButton = ({ route, children, icon }) => {
     backgroundColor: 'primary.main',
     color: 'white.main',
     fontFamily: 'Nunito',
-    fontSize: '16px',
+    fontSize: { xs: '16px', md: '20px' },
     fontStyle: 'normal',
     fontWeight: '700',
     lineHeight: '20px',
@@ -33,7 +33,7 @@ const CTAButton = ({ route, children, icon }) => {
     padding: '16px',
     paddingBottom: icon ? '4px' : '48px',
     gap: '8px',
-    width: 'auto',
+    width: { xs: '400px', md: "100vw" },
   }
   return (
     <Box sx={boxStyle}>

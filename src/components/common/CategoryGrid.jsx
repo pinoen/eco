@@ -9,7 +9,7 @@ const CategoryGrid = ({ page }) => {
   const gridCategoriesStyle = {
     gap: "24px 16px",
     marginBottom: "32px",
-    padding: "24px 16px 0px 16px",
+    padding: "24px 16px 20px 16px",
     justifyContent: "center",
     background: `${page === "proveedores" ? `url(${vector})` : ""}`,
     backgroundSize: "cover",

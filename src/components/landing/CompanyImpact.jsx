@@ -3,7 +3,7 @@ import theme from "../../theme/theme";
 
 const h3Style = {
   color: "primary.main",
-  fontSize: "22px",
+  fontSize: { xs: "22px", md: "28px" },
   fontFamily: "Nunito",
   textAlign: "center",
   fontStyle: "normal",
@@ -14,16 +14,17 @@ const h3Style = {
 
 const pStyle = {
   color: "black.main",
-  fontSize: "16px",
+  fontSize: { xs: "16px", md: "20px" },
   fontFamily: "Nunito",
   textAlign: "center",
   fontStyle: "normal",
   fontWeight: 600,
   lineHeight: "20px",
+  width: { xs: "327px", md: "40vw" },
 };
 
 const boxStyle = {
-  backgroundColor: "white.main",
+  // backgroundColor: "white.main",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -32,7 +33,7 @@ const boxStyle = {
   gap: "8px",
   borderTop: `1px solid ${theme.palette.primary.main}`,
   borderBottom: `1px solid ${theme.palette.primary.main}`,
-  width: "327px",
+  width: { xs: "327px", md: "100vw" },
   height: "192px",
 };
 const CompanyImpact = () => {

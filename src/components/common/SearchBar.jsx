@@ -8,7 +8,8 @@ import useSuppliersNames from "../../services/suppliers/SuppliersName";
 const boxStyle = {
   mt: 5,
   mb: 5,
-  width: 328,
+  // width of 328px for mobile and 560px for desktop
+  width: { xs: 328, md: 560 },
   height: 56,
   color: "black.main",
 };

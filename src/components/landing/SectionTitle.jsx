@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 const subTitleStyle = {
   color: "black.main",
   fontFamily: "Nunito",
-  fontSize: "16px",
+  fontSize: { xs: "16px", md: "24px" },
   fontStyle: "normal",
   fontWeight: "600",
   lineHeight: "25px",
@@ -13,7 +13,7 @@ const subTitleStyle = {
 const titleStyle = {
   color: "black.main",
   fontFamily: "Nunito",
-  fontSize: "22px",
+  fontSize: { xs: "22px", md: "28px" },
   fontStyle: "normal",
   fontWeight: "700",
   lineHeight: "25px",

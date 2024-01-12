@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import SupplierCard from "./SupplierCard";
 import vector from "../../assets/img/Vector1.png";
 import getSuppliersByLocation from "../../services/suppliers/getSuppliersByLocation";
@@ -43,17 +42,28 @@ const CardsGrid = ({ suppliers, page }) => {
             ? "Recomendaciones locales para vos"
             : "Recomendaciones para vos"
         }
-        subtitle={locationExists ? "Proveedores cerca tuyo" : "Proveedores ECO"}
+        subtitle={
+          <Typography variant="title"
+            sx={{
+              textAlign: "center",
+              marginTop: "16px",
+              fontSize: { xs: "18px", md: "28px" },
+            }}>
+
+            {locationExists ? "Proveedores cerca de vos" : "Proveedores ECO"}
+
+          </Typography>
+        }
       />
       <Box spacing={3} sx={gridCardsStyle}>
         {locationExists &&
-          locationSuppliers.slice(0, 4).map((item) => (
+          locationSuppliers.slice(0, 6).map((item) => (
             <Grid item xs={page === "landing" ? 6 : 12} sm={3} key={item.id}>
               <SupplierCard item={item} page={page} />
             </Grid>
           ))}
         {!locationExists &&
-          suppliers.slice(0, 4).map((item) => (
+          suppliers.slice(0, 8).map((item) => (
             <Grid item xs={page === "landing" ? 6 : 12} sm={3} key={item.id}>
               <SupplierCard item={item} page={page} />
             </Grid>
