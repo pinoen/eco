@@ -13,13 +13,13 @@ const boxStyle = {
 
 const categoryStyle = {
   fontFamily: "Nunito",
-  fontSize: "24px",
+  fontSize: { xs: "24px", md: "32px" },
   fontStyle: "normal",
   fontWeight: 700,
   lineHeight: "25px",
   textAlign: "center",
   color: "black.main",
-  paddingBottom: "24px",
+  paddingBottom: "44px",
 };
 
 const Proveedores = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Box, Container } from "@mui/material";
 import CompanyImpact from "./CompanyImpact";
 import CTA from "./CTA";
@@ -10,11 +10,10 @@ import CardsGrid from "../common/CardsGrid";
 import PublicationsSection from "./PublicationsSection";
 import Ubicacion from "../../utilities/Location";
 import getAceptedSuppliers from "../../services/suppliers/getAceptedSuppliers";
-import getAllCategories from "../../services/categories/getAllCategories";
 
 const boxStyle = {
   py: 5,
-  backgroundColor: "white.main",
+  backgroundColor: { xs: "white.main", md: '#ffffff' },
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

@@ -25,7 +25,7 @@ const tipografiaH1 = {
 };
 
 const tipografiaP = {
-  width: "240px",
+  width: { xs: "240px", md: "440px" },
   fontSize: "28px",
   color: "#fff",
   fontFamily: "Nunito",
@@ -52,6 +52,12 @@ export const Hero = ({ bg, section, title, text }) => {
         paddingTop: "10px",
         paddingLeft: "16px",
         flexShrink: 0,
+        // for desktop screen
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+
       }}
     >
       <SearchBar />

@@ -4,19 +4,18 @@ import { useStatusContext } from '../../context/StatusContext';
 
 const listStyle = {
   display: 'flex',
-  width: '360px',
+  width: { xs: '360px', md: '760px' },
   height: '60px',
 };
 
 const itemStyle = {
-  width: "128px",
-  height: "48px",
-  padding: "8px 0px 0px 0px",
+  width: { xs: "128px", md: "280px" },
+  height: { xs: "48px", md: "60px" },
   alignItems: "center",
   fontFamily: "Nunito",
-  fontSize: "16px",
+  fontSize: { xs: "16px", md: "22px" },
   fontStyle: "normal",
-  fontWeight: 400,
+  fontWeight: { xs: 400, md: 600 },
   lineHeight: "20px",
   textAlign: "center",
   color: "#505050",

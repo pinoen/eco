@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import CardPublications from "../publicaciones/CardPublication";
 import { Link } from "react-router-dom";
@@ -16,7 +15,6 @@ const PublicationsSection = () => {
           fontStyle: "normal",
           fontWeight: 600,
           lineHeight: "25px", // 156.25%
-          textAlign: "left",
         }}
       >
         Publicaciones
@@ -30,7 +28,6 @@ const PublicationsSection = () => {
           fontStyle: "normal",
           fontWeight: 700,
           lineHeight: "25px", // 113.636%
-          textAlign: "left",
         }}
       >
         Impulsando transformaciones
@@ -48,7 +45,7 @@ const PublicationsSection = () => {
       <Link to="/publicaciones">
         <Box
           sx={{
-            width: 184,
+            width: { xs: 184, md: 328 },
             height: 40,
             padding: "10px 24px",
             bgcolor: "#4E169D",
@@ -60,9 +57,10 @@ const PublicationsSection = () => {
             sx={{
               color: "#FAFAFA",
               fontFamily: "Nunito",
-              fontSize: 16,
+              fontSize: { xs: 16, md: 20 },
               fontStyle: "normal",
               fontWeight: 700,
+              textAlign: "center",
               lineHeight: "20px", // 125%
             }}
           >
