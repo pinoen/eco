@@ -10,7 +10,7 @@
 
   ![logo](https://tf-ecos3.quinto.site/assets/logoEco-10156bc6.png)
 
-<h3 align="center">Rastrea Patitas</h3>
+<h3 align="center">ECOSistema - Red de Impacto</h3>
 
   <p align=center">
    EcoSistema es una una plataforma para conectar proveedores cuyo producto o servicio es de tipo sustentable con consumidores (empresas, organismos, usuarios) que busquen cambiar sus hábitos de consumo o mejorar su cadena de valor.
