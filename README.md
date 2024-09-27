@@ -7,9 +7,6 @@
   
 <br />
 <div align="center">
-
-  ![logo](https://tf-ecos3.quinto.site/assets/logoEco-10156bc6.png)
-
 <h3 align="center">ECOSistema - Red de Impacto</h3>
 
   <p align=center">
